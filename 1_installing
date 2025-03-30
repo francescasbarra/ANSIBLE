@@ -13,11 +13,38 @@ software
 
 
 # PLAYBOOK FILE
-un file yaml con tutte le istruzioni di configurazione e automazione
+In Ansible, i playbook sono dei file in formato YAML che contengono una serie di istruzioni (chiamate play) per automatizzare compiti su server o macchine remote. Ogni play descrive cosa deve essere fatto su un gruppo di host, ad esempio installare un software, configurare un servizio o copiare dei file.
 
-play 1
-play 2
-play 3
+
+un file yaml con tutte le istruzioni di configurazione e automazione
+"PLAYBOOK" costituito da "play" nei quali ci sono i "task"
+
+#PLAY 
+Un play è una sezione del playbook che descrive un insieme di azioni da eseguire su uno o più host. 
+
+Ogni play in un playbook specifica quale gruppo di host (macchine) deve essere gestito e quale serie di attività ("task") deve essere eseguita su di essi.
+
+
+
+"play" 1
+   "task"
+      per esecuzione moduli
+"play" 2
+"play" 3
+
+
+task esecuzione di un modulo
+
+modulo ai può lanciare sia da riga di comando che nel manifest
+
+Un "play" è una struttura che definisce su quali host eseguire delle attività e cosa fare su di essi.
+
+Un "modulo" è un'azione specifica che esegue un compito concreto, come installare software, copiare file, avviare servizi, ecc.
+
+# Un play può contenere più attività (task), e ogni attività usa uno o più moduli per eseguire azioni sui server.
+
+
+--------------------------
 
 # MODULI  
 sono dei piccoli programmi che svolgono compiti specifici su una macchina, come ad esempio installare un pacchetto, copiare un file, riavviare un servizio, ecc / installare software, creare files, gestire servizi
@@ -43,8 +70,16 @@ sono già inclusi in ansible, basta chiamarli nei playbook o da riga di comando
 facilitano la connessione
 connessione tra ansible controller e altri sistemi da automatizzare
 
+-------------------
+
 #INVENTORY
 dinamic inventory 
+è un file che elenca tutti gli host (server o macchine) su cui Ansible deve eseguire le operazioni. 
+Può essere un semplice file di testo (solitamente in formato INI o YAML) o può essere "dinamico" (ad esempio, una sorgente che genera l'elenco degli host in tempo reale).
+
+L'inventory definisce anche i gruppi di host (per esempio, tutti i server web, tutti i database) e può includere variabili specifiche per ogni host o gruppo di host.
+
+------------------
 
 
 #SATELLITE
@@ -54,7 +89,22 @@ macchina gestita da Ansible che esegue i compiti assegnati dal server principale
 
 In pratica, Ansible usa un sistema di "nodi" (che possono essere server, macchine virtuali o dispositivi) su cui eseguire i compiti. I nodi vengono definiti nel file inventario di Ansible, e possono essere considerati "satelliti" che ricevono istruzioni dal "server centrale" che esegue il controllo dell'automazione.
 
+# Satellite è una piattaforma di gestione e automazione che utilizza Ansible per rendere l'amministrazione dei sistemi più semplice ed efficiente, soprattutto in ambienti Red Hat.
+
+In ambito Ansible, Satellite si riferisce a Red Hat Satellite, che è una soluzione di gestione della configurazione, distribuzione e manutenzione di sistemi basata su Ansible. È una piattaforma che fornisce funzionalità avanzate per l'automazione della gestione di sistemi, in particolare in ambienti Red Hat (come RHEL - Red Hat Enterprise Linux).
+
+Red Hat Satellite offre:
+
+Gestione centralizzata: Permette di gestire centinaia o migliaia di server in modo centralizzato, utilizzando playbook e moduli Ansible per automatizzare la configurazione e la manutenzione.
+
+Automazione con Ansible: Satellite integra Ansible per l'automazione delle operazioni di gestione dei sistemi, come l'installazione di pacchetti, la configurazione di servizi, e l'applicazione di patch.
+
+Gestione dei contenuti e delle configurazioni: Satellite aiuta a distribuire i pacchetti software e gli aggiornamenti sui sistemi gestiti, e consente di mantenere coerenza nelle configurazioni tra i server.
+
+Gestione dell'inventory: In Satellite, gli host vengono automaticamente organizzati e gestiti, e possono essere configurati tramite playbook Ansible basati su gruppi di macchine.
+
 
 --------------------
 
+# LOOKUP plug in 
 
