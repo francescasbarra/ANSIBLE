@@ -1,0 +1,28 @@
+INTRODUCTION TO ANSIBLE
+
+Ansible è un tool di automazione per la gestione delle macchine virtuali
+potente software di automazione
+
+#HYPERVISOR è un virtualizzatore
+è un software che consente di creare e gestire macchine virtuali su un singolo hardware fisico.
+Permette di eseguire + sistemi operativi su un'unica macchina, isolandoli l'uno dall'altro.
+
+---------
+
+automatizzare consente di risparmiare tempo, evitare errori di scrittura o dimenticanze,migliora la produttività
+
+# ANSIBLE deve essere installato su un solo computer ("Ansible Controller")
+
+# Ansible è "AGENTLESS", non deve essere installato su tutti i nodi controllati, è necessario installarlo solo nel computer controller.
+
+---------
+#software agentless  
+è un tipo di software che non richiede l'installazione di un agente (programma supplementare) sui dispositivi o sistemi che deve monitorare, gestire o controllare.
+---------
+
+manager host chiamato anche "inventory" host 
+#inventory
+#configuration files che determinano come si deve comportare ansible
+
+
+    

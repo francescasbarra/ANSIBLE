@@ -1,0 +1,60 @@
+INSTALLING ANSIBLE
+
+Ansible va installato su un solo computer, l'ansible controller
+
+# ANSIBLE-CORE
+software
+
+
+# COMMUNITY ANSIBLE
+
+
+# INSTALLAZIONE DA REPOSITORY RED HAT
+
+
+# PLAYBOOK FILE
+un file yaml con tutte le istruzioni di configurazione e automazione
+
+play 1
+play 2
+play 3
+
+# MODULI  
+sono dei piccoli programmi che svolgono compiti specifici su una macchina, come ad esempio installare un pacchetto, copiare un file, riavviare un servizio, ecc / installare software, creare files, gestire servizi
+
+Ogni modulo è progettato per eseguire una singola azione e può essere utilizzato all'interno di un playbook Ansible per automatizzare diverse attività. Ad esempio:
+
+- Il modulo `apt` serve per gestire i pacchetti su sistemi basati su Debian (come Ubuntu).
+- Il modulo `copy` copia un file da una macchina locale a una macchina remota.
+- Il modulo `service` avvia, ferma o riavvia un servizio.
+
+Quando esegui un playbook, Ansible utilizza questi moduli per fare in modo che le macchine target eseguano le operazioni richieste. Ogni modulo ha una propria sintassi e opzioni che definiscono come deve essere eseguita l'azione.
+
+# come funzionano
+ansible invia un modulo alla macchina target, lo esegue (via ssh o altro) e restituisce il risultato
+sono già inclusi in ansible, basta chiamarli nei playbook o da riga di comando 
+# ansible -m <nome_modulo>
+
+
+-------------------
+
+
+#CONNECTION plug in
+facilitano la connessione
+connessione tra ansible controller e altri sistemi da automatizzare
+
+#INVENTORY
+dinamic inventory 
+
+
+#SATELLITE
+ha la lista aggiornata dei server 
+nodo "satellite" rispetto al server centrale che gestisce l'automazione 
+macchina gestita da Ansible che esegue i compiti assegnati dal server principale (master).
+
+In pratica, Ansible usa un sistema di "nodi" (che possono essere server, macchine virtuali o dispositivi) su cui eseguire i compiti. I nodi vengono definiti nel file inventario di Ansible, e possono essere considerati "satelliti" che ricevono istruzioni dal "server centrale" che esegue il controllo dell'automazione.
+
+
+--------------------
+
+
