@@ -1,0 +1,21 @@
+ANSIBLE 
+legge "declared state" dal playbook e "current state" degli inventory hosts
+- se gli stati equivalgono non compie alcuna azione
+- se legge stati differenti va a sincronizzare a aggiornare lo stato degli hosts
+# sincronizza lo stato corrente dei sistemi con quelli dichiarati nei playbook
+
+# ansible--version
+mostra versione e info su ansible
+
+# config file = /etc/ansible/ansible.cfg
+
+#ansible è un programma python
+
+ANSIBLE deve essere installato su una macchina "ansible controller", sul tuo sistema linux,
+
+è necessario un "INVENTORY" che specifica i sistemi che devono essere gestiti con ansible
+
+"configuration file" descrive/dice ad ansible come si deve comportare
+  config file = /etc/ansible/ansible.cfg
+
+ 
