@@ -34,6 +34,15 @@ visto che i moduli vengono chiamati 'file' si può incorrere in ambiguità quind
 (es. ansible.builtin.file e foo.bar.file)
 
 
+# ANSIBLE-NAVIGATOR 
+interfaccia tra comando config, comando inventory, comando playbook, comando doc, ecc
+# dnf info ansible-navigator
+
+---
+ansible usa container
+
+# execution environment image, all'interno ci sono il software ansible, le collezioni ecc
+
 
 
 
