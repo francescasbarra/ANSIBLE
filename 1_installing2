@@ -38,13 +38,25 @@ visto che i moduli vengono chiamati 'file' si può incorrere in ambiguità quind
 interfaccia tra comando config, comando inventory, comando playbook, comando doc, ecc
 # dnf info ansible-navigator
 
+
+Ansible Navigator è un'interfaccia utente per Ansible che semplifica l'esecuzione e la gestione di playbook, ruoli e moduli tramite un'interfaccia a riga di comando interattiva. Si integra con Ansible e consente di interagire facilmente con le risorse di Ansible in modo più visivo e user-friendly.
+
+
 ---
 ansible usa container
 
 # execution environment image, all'interno ci sono il software ansible, le collezioni ecc
 
+-------------
 
 
+immagine di container che rappresenta "execution environment image" che vogliamo usare
+
+podman login "registro" in cui si trova l'immagine
+
+
+
+  
 
   
   
