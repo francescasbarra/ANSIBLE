@@ -1,0 +1,16 @@
+IMPLEMENTING ANSIBLE PLAYBOOK
+
+# necessari ANSIBLE INVENTORY e FILE DI CONFIGURAZIONE
+
+Ansible ha un ecosistema ricco di plug in tra cui:
+
+# INVENTORY PLUG IN 
+specifica come dobbiamo lavorare con gli inventory hosts (sistemi che saranno gestiti da ansible)
+# DYNAMIC INVENTORY file
+
+# STATIC INVENTORY file
+
+
+
+
+
