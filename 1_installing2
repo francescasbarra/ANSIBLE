@@ -9,7 +9,6 @@ mostra versione e info su ansible
 
 # config file = /etc/ansible/ansible.cfg
 
-#ansible è un programma python
 
 ANSIBLE deve essere installato su una macchina "ansible controller", sul tuo sistema linux,
 
@@ -17,5 +16,30 @@ ANSIBLE deve essere installato su una macchina "ansible controller", sul tuo sis
 
 "configuration file" descrive/dice ad ansible come si deve comportare
   config file = /etc/ansible/ansible.cfg
+
+#ansible è un programma python quindi sul controller ci sono dipendenze python (necessaria versione 3.8 o successive)
+
+ANSIBLE 2.1
+
+# ansible-core 
+  plug in e moduli, estende le funzionalità di ansible
+  si possono aggiungere altre funzionalità in "collezioni", una delle più importanti cambiamenti in ansible
+# COLLECTIONS collezioni si possono installare in base alle esigenze
+# fqcn = Fully Qualified Collection Name 
+# ansible.builtin.file 
+  (distributore collezione.nome della collezione.nome del modulo)
+
+- ora ci si riferisce ai moduli come "file"
+visto che i moduli vengono chiamati 'file' si può incorrere in ambiguità quindi è importante usare il 'FQCN' 
+(es. ansible.builtin.file e foo.bar.file)
+
+
+
+
+
+  
+  
+
+
 
  
