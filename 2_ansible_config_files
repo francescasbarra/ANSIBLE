@@ -1,1 +1,39 @@
-MANAGING ANSIBLE CONFIGURATION FILES 
+MANAGING ANSIBLE CONFIGURATION FILES
+
+file di configurazione: definisce come si deve comportare ansible
+
+
+
+prima c'era questo file di config usato dai seguenti comandi
+# ansible.cfg
+  ansible
+  ansible-playbook
+  ansible-inventory
+  ansible-config 
+
+
+ora abbiamo il comando 
+#ansible-navigator
+che usiamo con 
+# run
+# inventory
+# config
+
+# EXECUTION ENVIRONMENT è un container in cui ci sono tutte le operazioni di automazione, dove vengono usati i comandi ansible playbook, inventory, ecc
+
+# il comando ansible-navigator ha un file di configurazione = ansible-navigator.yml
+
+
+# /etc/ansible/ansible.cfg
+
+PER USARE ANSIBLE NON è NECESSARIO AVERE PRIVILEGI, SI PUò USARE COME UTENTE REGOLARE
+
+
+
+
+
+
+
+
+
+
