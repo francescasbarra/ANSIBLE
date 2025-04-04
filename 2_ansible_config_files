@@ -29,7 +29,15 @@ che usiamo con
 PER USARE ANSIBLE NON è NECESSARIO AVERE PRIVILEGI, SI PUò USARE COME UTENTE REGOLARE
 
 
+---------------------
 
+# RUN
+# ansible-navigator run -m stdout ping-intranetweb.yaml
+
+per eseguire il playbook
+stiamo mandando in running un container 'execution environment' in cui eseguiamo il playbook contenuto nel file yaml
+
+--------------------
 
 
 

@@ -52,6 +52,16 @@ non avendo ancora il file di config, specifichiamo dove si trova l'inventory
 
  --hosts mostra le variabili associate agli hosts all'interno dell inventory hosts
 
+---------------
 
+# PLAYBOOK
+  "opzionale" all'inizio del playbook si può scrivere " --- "
+              oppure alla fine "..." per indicare la fine dello yaml
+
+
+---------------
+
+# RUN
+# ansible-navigator run
 
 
