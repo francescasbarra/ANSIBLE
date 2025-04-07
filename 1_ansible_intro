@@ -6,6 +6,10 @@ potente software di automazione
 #HYPERVISOR è un virtualizzatore
 è un software che consente di creare e gestire macchine virtuali su un singolo hardware fisico.
 Permette di eseguire + sistemi operativi su un'unica macchina, isolandoli l'uno dall'altro.
+---------
+Per installare Ansible necessario da RHEL 8.2 e Python 3 da versione 3.5 o Python 2 da 2.7 
+
+
 
 ---------
 
@@ -30,10 +34,15 @@ manager host chiamato anche "inventory" host
 # CONTROL NODES
 su cui è installato ansible e che gestisce le altre macchine (ansible controller)
 # MANAGED HOSTS
-sono i nodi controllati e gestiti dal nodo principale. Sono elencati nelle INVENTORY
+sono i nodi controllati e gestiti dal nodo principale. 
 
+#Sono elencati nelle INVENTORY che organizzano gli host in gruppi per gestirli più facilmente
+sono definiti in file di testo statici o determinati dinamicamente da script che prendono info da risorse esterne.
 
 --------
+Invece di scrivere script complessi, con Ansible vengono creati #PLAY che eseguono una serie di tasks sugli hosts.
+# PLAYBOOK file di testo che contiene uno o + PLAYS.
+
 
 
 
