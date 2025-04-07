@@ -9,9 +9,9 @@ Permette di eseguire + sistemi operativi su un'unica macchina, isolandoli l'uno 
 
 ---------
 
-automatizzare consente di risparmiare tempo, evitare errori di scrittura o dimenticanze,migliora la produttività
+automatizzare consente di risparmiare tempo, evitare errori di scrittura o dimenticanze, migliorare la produttività
 
-# ANSIBLE deve essere installato su un solo computer ("Ansible Controller")
+# ANSIBLE deve essere installato su un solo computer ("Ansible Controller") 
 
 # Ansible è "AGENTLESS", non deve essere installato su tutti i nodi controllati, è necessario installarlo solo nel computer controller.
 
