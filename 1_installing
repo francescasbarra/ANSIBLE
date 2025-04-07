@@ -87,16 +87,51 @@ specificano come ci connettiamo all'INVENTORY, facilitano la connessione
 connessione tra ansible controller e altri sistemi da automatizzare
 SSH default connection plugin
 
--------------------
+------------------
+
 
 #INVENTORY
-dynamic inventory 
-è un file che elenca tutti gli host (server o macchine) su cui Ansible deve eseguire le operazioni. 
+dynamic inventory
+è un file che elenca tutti gli host (server o macchine) su cui Ansible deve eseguire le operazioni.
 Può essere un semplice file di testo (solitamente in formato INI o YAML) o può essere "dinamico" (ad esempio, una sorgente che genera l'elenco degli host in tempo reale).
 
 L'inventory definisce anche i gruppi di host (per esempio, tutti i server web, tutti i database) e può includere variabili specifiche per ogni host o gruppo di host.
 
 ------------------
+
+# BECOME plugin 
+ci permette di impostare privilegi per gli utenti 
+# In Ansible, la direttiva "become" serve per eseguire comandi con privilegi elevati, tipicamente come utente root.
+
+Nel file di configurazione "ansible.cfg" (o anche in un inventario o playbook), puoi usare become = true per dire ad Ansible di usare il privilege escalation (ad esempio con sudo), senza doverlo specificare ogni volta nei playbook.
+
+esempio
+
+[defaults]
+become = true
+become_method = sudo
+become_user = root
+--
+
+become = true: abilita l’elevazione dei privilegi.
+
+become_method = sudo: usa sudo per cambiare utente (default).
+
+become_user = root: diventa l’utente root (default).
+
+
+------------------
+
+#VARIABLE plugin
+
+
+---------------
+
+# LOOKUP plug in
+cerca info,serve per recuperare dati esterni e usarli nei playbook 
+
+
+---------------
 
 
 #SATELLITE
