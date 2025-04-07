@@ -24,5 +24,16 @@ manager host chiamato anche "inventory" host
 #inventory
 #configuration files che determinano come si deve comportare ansible
 
+---------
 
-    
+2 tipi di macchine nell'Architettura Ansible:
+# CONTROL NODES
+su cui è installato ansible e che gestisce le altre macchine (ansible controller)
+# MANAGED HOSTS
+sono i nodi controllati e gestiti dal nodo principale. Sono elencati nelle INVENTORY
+
+
+--------
+
+
+
