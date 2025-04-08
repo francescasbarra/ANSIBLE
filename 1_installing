@@ -91,9 +91,9 @@ SSH default connection plugin
 
 
 #INVENTORY
-dynamic inventory
+'static and dynamic inventory'
 è un file che elenca tutti gli host (server o macchine) su cui Ansible deve eseguire le operazioni.
-Può essere un semplice file di testo (solitamente in formato INI o YAML) o può essere "dinamico" (ad esempio, una sorgente che genera l'elenco degli host in tempo reale).
+Può essere un semplice file di testo ('inventory statico' solitamente in formato INI o YAML) o può essere "dinamico" (ad esempio, una sorgente che genera l'elenco degli host in tempo reale).
 
 L'inventory definisce anche i gruppi di host (per esempio, tutti i server web, tutti i database) e può includere variabili specifiche per ogni host o gruppo di host.
 
@@ -156,7 +156,54 @@ Gestione dei contenuti e delle configurazioni: Satellite aiuta a distribuire i p
 # Gestione dell'inventory: In Satellite, gli host vengono automaticamente organizzati e gestiti, e possono essere configurati tramite playbook Ansible basati su gruppi di macchine.
 
 # Ansible richiede a Satellite la lista dei server collegati da gestire
+
+
+# Red Hat Satellite è usato  per gestire i sistemi (host) e orchestrare le attività tramite Ansible,
+# usando il Controller (cioè il nodo da cui parte l'automazione).
+
+
+Componenti coinvolti:
+#Ansible Controller:
+È il nodo da cui esegui i playbook e controlli i target (sistemi gestiti).
+
+#Red Hat Satellite:
+È una piattaforma per:
+
+gestire sistemi Red Hat
+
+distribuire pacchetti
+
+applicare patch
+
+tenere traccia dell’inventario
+
+e anche integrare Ansible
+
+#🔄 Come funziona l’integrazione:
+Satellite raccoglie l’inventario degli host registrati.
+
+Puoi associare ruoli Ansible agli host direttamente da Satellite.
+
+Il Controller Ansible esegue i playbook o ruoli su quegli host.
+
+Satellite può usare Ansible come motore di configurazione, senza bisogno di Puppet o altri tool.
+
+#🛠️ Esempio pratico:
+Hai 10 server registrati su Satellite.
+
+Assegni a un gruppo di server un ruolo Ansible (es. installare Apache).
+
+Satellite passa le info al nodo Controller Ansible, che esegue le attività su quei server via SSH.
+
+#✅ Vantaggi:
+Centralizzi tutto (inventory, ruoli, aggiornamenti).
+
+Tracci tutto da un’interfaccia web (Satellite).
+
+Automatizzi in modo coordinato e sicuro.
+
+
+
 --------------------
 
-# LOOKUP plug in 
 
