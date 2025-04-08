@@ -17,7 +17,9 @@ ANSIBLE deve essere installato su una macchina "ansible controller", sul tuo sis
 "configuration file" descrive/dice ad ansible come si deve comportare
   config file = /etc/ansible/ansible.cfg
 
-#ansible è un programma python quindi sul controller ci sono dipendenze python (necessaria versione 3.8 o successive)
+#ansible è un programma Python quindi sul controller ci sono dipendenze python (necessaria versione 3.8 o successive)
+
+
 
 ANSIBLE 2.1
 
@@ -41,9 +43,13 @@ interfaccia tra comando config, comando inventory, comando playbook, comando doc
 
 Ansible Navigator è un'interfaccia utente per Ansible che semplifica l'esecuzione e la gestione di playbook, ruoli e moduli tramite un'interfaccia a riga di comando interattiva. Si integra con Ansible e consente di interagire facilmente con le risorse di Ansible in modo più visivo e user-friendly.
 
+prima si usavano ansible config, ansible inventory, ansible playbook
+# ora si usa ansible-navigator +playbook, ecc
+
 
 ---
 ansible usa container
+EXECUTION ENVIRONMENT è un'immagine di container
 
 # execution environment image, all'interno ci sono il software ansible, le collezioni ecc
 
@@ -54,9 +60,32 @@ immagine di container che rappresenta "execution environment image" che vogliamo
 
 podman login "registro" in cui si trova l'immagine
 
+-----
+dnf info ansible-core  # per vedere info
 
+dnf info ansible-navigator
 
+-----
+
+INSTALLAZIONE ANSIBLE
+
+sudo dnf install -y ansible-navigator  installare/verificare ci sia ansible-navigator
+
+ansible-navigator --version
   
+# ansible-navigator lavora con l'execution environment che ha un'immagine che deve essere scaricata dal registry
+podman login registry
+
+ansible-navigator image (info sull'immagine)
+
+# pull policy: missing (oppure always)
+quando c è 'missing' nel playbook non scarica ogni volta l'immagine dell execution environment quando mandi in run il playbook, lo fa solo quando non c è in locale
+quando c è 'always' la scarica
+
+quindi quando eseguo ansible-navigator image vengono mostrate le info e i parametri riguardo l'immagine (e viene scaricata)
+quando il comando si conclude si apre il menu/ambiente di ansible navigator
+
+
 
   
   
