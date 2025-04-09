@@ -1,0 +1,110 @@
+WRITING AND RUNNING PLAYBOOKS
+
+opzionale, si può iniziare il playbook con --- o finirlo con ...
+
+all'inizio del play si scrive -
+
+#the playbook is defined as a list of plays
+The play itself is a collection of "key-value pairs". Keys in the same play should have the same indentation. The following example shows a YAML snippet with three keys. The first two keys have simple values. The third has a list of three items as a value.
+
+  name: just an example
+  hosts: webservers
+  tasks:
+    - first
+    - second
+    - third
+
+# il playbook è un insieme di coppie chiave-valore
+
+---
+- name: Configure important user consistently
+  hosts: servera.lab.example.com
+  tasks:
+    - name: Newbie exists with UID 4000    #name is optional but recommended
+      ansible.builtin.user:   #ansible.builtin.user is the module to run for this task
+        name: newbie
+        uid: 4000
+        state: present
+
+
+
+# MODULI
+sono tools usati per portare a termine task
+sono stati scritti centinaia di moduli per eseguire determinate attività
+#Ansible Content Collections sono pacchetti contenenti moduli/ ognuno contiene contenuti ansible correlati come moduli e documentazione (creati da core ansible 2.11 in poi)
+Il pacchetto ansible-core fornisce un pacchetto chiamato
+# ansible.builtin
+
+the default automation execution environment used by ansible-navigator in Red Hat Ansible Automation Platform 2.2, ee-supported-rhel8, includes a number of other Ansible Content Collections
+
+# ansible-navigator collection
+per vedere i pacchetti contenuti nell'exec environment
+---
+
+Modules are named using fully qualified collection names (FQCNs). This allows the same name to be used for different modules in two Ansible Content Collections without causing conflicts. For example, the copy module provided by the ansible.builtin Ansible Content Collection has ansible.builtin.copy as its FQCN.
+# FQCN Fully Qualified Collection Name
+es. modulo "copy" nella collection "ansible.builtin" ha come
+#FQCN ansible.builtin.copy
+
+----
+#IDEMPOTENZA
+La maggior parte dei moduli sono idempotenti, il che significa che possono essere eseguiti in sicurezza più volte e, se il sistema è già nello stato corretto, non fanno nulla. Ad esempio, se si esegue la riproduzione dell'esempio precedente una seconda volta, non dovrebbe segnalare alcuna modifica
+-------
+ 
+# RUNNING PLAYBOOKS
+comando per eseguire playbook
+# ansible-navigator run playbook.yaml
+ansible-navigator run nome.playbook
+ansible-navigator run -m stdout site.yaml
+# -m stdout 
+se si aggiunge questa opzione l'output viene visualizzato a schermo, altrimenti ansible navigator viene eseguiro in modalità interattiva
+
+--
+Quando si esegue il playbook, viene generato un output che mostra la riproduzione e le attività in esecuzione. L'output riporta anche i risultati di ciascuna attività eseguita.
+---
+Increasing output verbosity
+ -v fornisce info in +
+---
+
+Prima di eseguire un playbook è buona norma verificare la correttezza della sintassi:
+# ansible navigator --syntax-check
+ansible-navigator run -m stdout webserver.yml --syntax-check
+
+----
+# DRY-RUN (--check)
+si può eseguire un playbook anche in dry-run, in check mode, il playbook non viene effttivamente eseguito ma vengono riportate le modifiche nel caso in cui venga eseguito il playbook, è una sorta di simulazione senza effetti.
+---
+
+# ansible-navigator doc :help documentazione dei moduli, info ed esempi
+------------------------------------------
+
+#QUESTO ESEMPIO VERIFICA CHE  NEGLI INVENTORY HOST DEL GRUPPO SPECIFICATO
+#CI SIA IL PACCHETTO HTTPD,
+#SIA PRESENTE IL CORRETTO FILE INDEX.HTML
+#SIA STARTATO E ABILITATO IL SERVIZIO HTTPD
+
+---
+- name: Install and start Apache HTTPD
+  hosts: web
+  tasks:
+    - name: Ensure httpd package is present
+      ansible.builtin.dnf:
+        name: httpd
+        state: present
+
+    - name: Correct index.html is present
+      ansible.builtin.copy:
+        src: files/index.html
+        dest: /var/www/html/index.html
+
+    - name: Ensure httpd is started
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: true
+
+
+--------------------------------------------
+
+
+

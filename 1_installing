@@ -18,6 +18,8 @@ Python anche sugli hosts da controllare
 software da installare
 è la parte centrale di Ansible, il motore che esegue i comandi, i moduli e i playbook per automatizzare attività su sistemi remoti.
 
+Ansible Core provides the fundamental functionality used to run Ansible Playbooks. It defines the automation language that is used to write Ansible Playbooks in YAML text files. It provides the key functions such as loops, conditionals, and other Ansible imperatives needed for automation code. It also provides the framework and basic command-line tools to drive automation.
+
 
 # COMMUNITY ANSIBLE
 
@@ -29,7 +31,7 @@ software da installare
 Ansible Playbooks are human-readable text files that describe the "desired state" of an IT infrastructure.
 
 # PLAYBOOK FILE
-In Ansible, i playbook sono dei file in formato YAML che contengono una serie di istruzioni (chiamate play) per automatizzare compiti su server o macchine remote. Ogni play descrive cosa deve essere fatto su un gruppo di host, ad esempio installare un software, configurare un servizio o copiare dei file.
+In Ansible, i 'playbook' sono dei file in formato YAML che contengono una serie di istruzioni ('play') per automatizzare compiti su server o macchine remote. Ogni play descrive cosa deve essere fatto su un gruppo di host, ad esempio installare un software, configurare un servizio o copiare dei file.
 
 
 un file yaml con tutte le istruzioni di configurazione e automazione

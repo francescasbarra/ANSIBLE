@@ -49,9 +49,14 @@ prima si usavano ansible config, ansible inventory, ansible playbook
 
 ---
 ansible usa container
-EXECUTION ENVIRONMENT è un'immagine di container
+#  EXECUTION ENVIRONMENT è un'immagine di container
 
 # execution environment image, all'interno ci sono il software ansible, le collezioni ecc
+
+An automation execution environment is a container image that contains Ansible Core, Ansible Content Collections, and any Python libraries, executables, or other dependencies needed to run your playbook.
+
+When you run a playbook with ansible-navigator, you can select an automation execution environment for it to use to run that playbook. When your code is working, you can provide the playbook and the automation execution environment to automation controller and know that it has everything needed to correctly run your playbook.
+
 
 -------------
 
