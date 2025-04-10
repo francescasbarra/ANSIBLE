@@ -26,6 +26,10 @@ The play itself is a collection of "key-value pairs". Keys in the same play shou
         uid: 4000
         state: present
 
+-----
+#playbook insieme di istruzioni (play), in formato yaml
+#play insieme ordinato di tasks da eseguire sugli host specificati dell'inventory
+#moduli sono le specifiche attività/comandi da eseguire
 
 
 # MODULI
@@ -104,7 +108,178 @@ si può eseguire un playbook anche in dry-run, in check mode, il playbook non vi
         enabled: true
 
 
+IMPORTANT spazio dopo :
 --------------------------------------------
+
+# WRITING MULTIPLE PLAYS
+
+un playbook può contenere + play, ogni play potrebbe applicare i propri task a diversi hosts, appena finisce uno inizia l'altro
+-------------
+
+# Remote Users and Privilege Escalation in Plays
+
+I play possono usare REMOTE USER e impostazioni di ESCALATION DEI PRIVILEGI  diverse da quelle indicate nel file di configurazione ansible.
+è possibile indicare queste modifiche che riguardano solo il play nel play stesso, al livello di 'hosts' e 'tasks'
+
+#User Attributes
+
+Le attività nei playbook vengono normalmente eseguite tramite una connessione di rete agli host gestiti. Ansible deve connettersi a ciascun host come utente per eseguire tali attività.
+
+#di default, se si utilizza ansible-navigator run per eseguire un playbook, Ansible si connette all'host gestito come utente corrente all'interno dell'ambiente di esecuzione dell'automazione, root.
+If you run an Ansible command that does not use execution environments, such as ansible-playbook, then by default Ansible tries to authenticate to the remote managed host using the username of the account you used to run the command.
+
+# remote_user 
+per impostare l'utente con cui connettersi agli host nel file di configurazione ANSIBLE.CFG
+
+se necessario poi eseguire le attività come utente ROOT si può usare l'ESCALATION DEI PRIVILEGI PER PASSARE A ROOT DOPO LA CONNESSIONE INIZIALE
+remote_user si può inserire anche specificare nei vari play
+remote_user: remoteuser
+
+------
+
+IMPORTANT 
+Ansible determines which user account to use when connecting to a managed host based on the following list, selecting the first username it finds in this order:
+
+#The ansible_user variable set for the host or group, if set.
+
+#The remote_user from the current play, if set.
+
+#The remote_user from the ansible.cfg configuration file, if set.
+
+If no value has been set for any of the preceding settings, and you are running playbooks by using ansible-navigator with an execution environment, Ansible uses root. (If you are using ansible-playbook, Ansible uses the name of the user that ran the command.)
+
+----------
+
+# PRIVILEGE ESCALATION ATTRIBUTES
+si possono configurare anche nei singoli play come nel
+#file di config ansible.cfg
+
+[defaults]
+inventory = ./inventory 
+remote_user = user 
+ask_pass = false
+
+[privilege_escalation]
+become = true           #per abilitare/disabilitare p.e. (si può usare true/yes e false/no e simili
+become_method = sudo    #modalità escalation/accesso sudo 
+become_user = root      #per definire l'utente da usare per p.e.nel play
+become_ask_pass = false 
+
+
+# ESEMPIO
+
+- name: /etc/hosts is up-to-date
+  hosts: datacenter-west
+  remote_user: automation
+  become: true
+
+  tasks:
+    - name: server.example.com in /etc/hosts
+      ansible.builtin.lineinfile:
+        path: /etc/hosts
+        line: '192.0.2.42 server.example.com server'
+        state: present
+
+
+------------
+
+# ansible-navigator doc -l
+elenca i moduli disponibili nell execution environment con info
+# ansible-navigator doc -l nome.modulo
+dà info dettagliate sul modulo
+
+
+# ansible-navigator collection list  (modalità interattiva, formato YAML)
+elenca le collezioni disponibili nell exec env con i moduli associati
+(non interattiva= ansible-navigator collection list -m stdout, visualizza output a video)
+
+Important
+The ansible-navigator doc -l command displays the short names of modules in the ansible.builtin Ansible Content Collection instead of their FQCNs.
+
+---------------
+
+# Running Arbitrary Commands on Managed Hosts
+se non esistono moduli per automatizzare il task desiderato si possono usare moduli speciali che eseguono comandi arbitrari direttamente sugli host
+# ansible.builtin.command
+cmd : per specificare il comando da eseguire
+
+- name: Run the /opt/bin/makedb.sh command
+  ansible.builtin.command:
+    cmd: /opt/bin/makedb.sh
+ 
+important ansible.builtin.command non è idempotente
+
+Puoi provare a rendere l'attività più sicura configurandola in modo che venga eseguita solo in base all'esistenza di un file.
+# L'opzione "creates" fa sì che l'attività venga eseguita solo se manca un file; il presupposto è che, se l'attività viene eseguita, crei quel file. L'opzione "removes" fa sì che l'attività venga eseguita solo se un file è presente; il presupposto è che, se l'attività viene eseguita, rimuova quel file
+
+For example, the following task only runs if /opt/db/database.db is not present:
+
+- name: Initialize the database
+  ansible.builtin.command:
+    cmd: /opt/bin/makedb.sh
+    creates: /opt/db/database.db
+
+---------------
+il modulo "command" non può accedere alle var d'ambiente della shell nè eseguire operazioni shell come indirizzamento output, pipeline, ecc
+Quando è necessario eseguire elaborazione shell si usa il comando 
+# ansible.builtin.shell 
+anche in questo caso i comandi da eseguire vengono passati come argomenti del modulo
+
+- name: Non-idempotent approach with shell module
+  ansible.builtin.shell:
+    cmd: echo "nameserver 192.0.2.1" > /etc/resolv.conf
+
+
+Questi moduli richiedono python installato, in caso contratio si può usare il modulo
+# ansible.builtin.raw
+che esegue comandi usando direttamente shell remota
+(può essere amche usato per scaricare python su hosts)
+
+
+
+----------
+
+# YAML files are structured using space indentation to represent the data hierarchy.
+
+
+
+# YAML Syntax
+possono essere usati anche i commenti # per dare maggiore leggibilità
+Le stringhe in YAML normalmente non devono essere racchiuse tra virgolette, anche se non contengono spazi. È possibile racchiudere le stringhe tra virgolette doppie o singole.
+
+#chiavi-valore possono essere espressi sia indentati che su un'unica riga (meno leggibile però)
+name: svcrole
+  svcservice: httpd
+  svcport: 80
+
+diventa
+  {name: svcrole, svcservice: httpd, svcport: 80}
+
+
+-------------
+
+# YAML Lists
+You have also seen lists written with the normal single-dash syntax:
+
+  hosts:
+    - servera
+    - serverb
+    - serverc
+Lists also have an inline format enclosed in square braces, as follows:
+
+hosts: [servera, serverb, serverc]
+
+
+
+----------
+
+
+
+
+--------------
+
+
+
 
 
 
