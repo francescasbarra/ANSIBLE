@@ -1,0 +1,131 @@
+# MANAGING VARIABLES AND FACTS
+
+Write playbooks that use variables to simplify management of the playbook and facts to reference information about managed hosts.
+
+Ansible supporta variabili che possono essere utilizzate per memorizzare valori che possono poi essere riutilizzati in tutti i file di un progetto Ansible. Questo può semplificare la creazione e la manutenzione di un progetto e ridurre il numero di errori. 
+Le variabili offrono un modo pratico per gestire i valori dinamici per un determinato ambiente nel progetto Ansible. 
+Esempi di valori che le variabili potrebbero contenere includono:
+
+Users to create
+
+Packages to install
+
+Services to restart
+
+Files to remove
+
+Archives to retrieve from the internet
+
+
+# NAMING VARIABLES
+devono iniziare con lettere
+possono contenere lettere, numeri e underscore
+devono essere messe tra parentesi graffe "{{ var }}" (gli spazi sono opzionali, migliorano la leggibilità)
+
+vars:
+  web_pck: httpd
+  web_port: 80
+  ...
+tasks:
+  - name: Ensure {{ web_pck }} is installed
+    ansible.builtin.dnf:
+      name: "{{ web_pck }}"  #tra virgolette come valore (chiave-valore)
+      state: latest
+
+
+
+
+-possono essere definite in diversi punti in un progetto ansible
+-se c'è una stessa var in 2 punti diversi con valori diversi, la precedenza determina quale usare
+
+Una var può influenzare un singolo host o un gruppo di hosts
+
+#si possono inserire anche nel file di configurazione ansible
+# ansible-navogator run --extra-vars 
+per aggiungere variabili
+
+# COME DEFINIRE VARIABILI (dalla precedenza + bassa alla + alta)
+- var di 'gruppo' definite in 'inventory'
+- var di 'gruppo'  definite nei file in una sottodirectory 'group_vars' nella stessa dir dell'inventory o del playbook
+- var di 'hosts' definite in inventory
+- var di 'hosts' definite nella sottodir 'hosts_vars'
+- 'hosts facts' scoperte durante l'esecuzione
+- var di 'play' nei playbook ('vars e vars_file')
+- var di 'tasks'
+- var 'extra' definite da cli  #ansible-navigator run -e "package=apache"
+
+#una var di ambito stretto come task o host ha la precedenza su quella di gruppo, le var definite nel playbook hanno precedenza su quelle nelle inventory, le extra var da cli hanno precedenza +alta
+
+---
+
+# VAR IN PLAYBOOKS
+
+si possono anche definire var di playbook in file esterni:
+invece di usare il blocco 'vars' nel playbook si può usare
+#hosts: all
+#vars_files:
+#  - vars/users.yml
+
+----
+
+host var applicate agli hosts, group var applicate ai gruppi
+
+# Defining the ansible_user host variable for demo.example.com:
+[servers]
+demo.example.com  ansible_user=joe
+
+
+# Defining the user group variable for the servers host group.
+
+[servers]
+demo1.example.com
+demo2.example.com
+
+[servers:vars]
+user=joe
+
+# Using Directories to Populate Host and Group Variables
+
+You can define variables for hosts and host groups by creating two directories, 'group_vars' and 'host_vars', in the same working directory as the inventory file or playbook
+
+
+-------
+
+#Using Dictionaries as Variables
+
+Instead of assigning configuration data that relates to the same element to multiple variables, administrators can use dictionaries. 
+A dictionary is a data structure containing key-value pairs, where the values can also be dictionaries.
+
+users:
+  bjones:
+    first_name: Bob
+    last_name: Jones
+    home_dir: /users/bjones
+  acook:
+    first_name: Anne
+    last_name: Cook
+    home_dir: /users/acook
+
+-----
+#Registered Variables
+
+# register
+cattura output di un comando o altre info sull esecuzione di un modulo salvandolo in un una 'variabile' che poi può essere usato nel playbook per debug o altri scopi, come l'applicazione di una determinata impostazione di configurazione in base all output del comando
+
+
+---
+- name: Installs a package and prints the result
+  hosts: all
+  tasks:
+    - name: Install the package
+      ansible.builtin.dnf:
+        name: httpd
+        state: installed
+#     register: install_result
+
+    - debug:
+        var: install_result
+
+--------------------------------------
+
+
