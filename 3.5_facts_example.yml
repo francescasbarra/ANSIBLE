@@ -1,0 +1,19 @@
+---
+- name: Facts demo
+  hosts: "{{ my_host | default('localhost') }}"
+  gather_facts: true
+  become: false
+
+  tasks:
+    - name: Picios
+      ansible.builtin.debug:
+        msg: |
+
+          My system name: {{ ansible_facts['hostname'] }}
+          My FQDN: {{ ansible_facts['fqdn'] }}
+          My operating system: {{ ansible_facts['distribution'] }}
+          My default ipv4 address: {{ ansible_facts['default_ipv4']['address'] }}
+          My root file system has: {{ ansible_facts['mounts'][0]['size_available'] | human_readable }} available
+          How I am referenced in the inventory is as: {{ inventory_hostname }}
+          The group which I am member of are: {{ group_names }}
+
