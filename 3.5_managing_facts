@@ -49,4 +49,63 @@ IPv4 address      ansible_facts['default_ipv4']['address']
 
 ------
 
+Note
+Remember that when a variable's value is a dictionary, one of two syntaxes can be used to retrieve the value. To take two examples from the preceding table:
+
+# ansible_facts['default_ipv4']['address'] can also be written 
+  ansible_facts.default_ipv4.address
+
+# ansible_facts['dns']['nameservers'] can also be written 
+  ansible_facts.dns.nameservers
+
+---------
+
+# When a fact is used in a playbook, Ansible dynamically substitutes the variable name for the fact with the corresponding value:
+
+---
+- hosts: all
+  tasks:
+  - name: Prints various Ansible facts
+    ansible.builtin.debug:
+      msg: >
+        The default IPv4 address of {{ ansible_facts.fqdn }}
+        is {{ ansible_facts.default_ipv4.address }}
+
+
+-----------
+
+# Turning off Fact Gathering
+
+per disabilitare #ansible.builtin.setup e quindi la raccolta dei dati, inserire nel play (dopo name e hosts...)
+# gather_facts: false
+
+anche se è settato 'false' si può comunque eseguire manualmente 'gather_facts' in un task
+#   tasks:
+#   - name: Manually gather facts
+#     ansible.builtin.setup:
+
+
+
+--------------
+
+#Gathering a Subset of Facts
+
+# to only gather hardware facts, set gather_subset to hardware:
+- name: Collect only hardware facts
+  ansible.builtin.setup:
+    gather_subset:
+      - hardware
+
+#to gather all facts except a certain subset add ! in front of the subset name
+- name: Collect all facts except for hardware facts
+  ansible.builtin.setup:
+    gather_subset:
+      - "!hardware"
+
+-------------------------
+
+# Creating Custom Facts
+
+You can use custom facts to define certain values for managed hosts. Plays can use custom facts to populate configuration files or conditionally run tasks.
+
 
