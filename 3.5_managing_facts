@@ -5,7 +5,47 @@ formati da altri dizionari o coppie di chiavi-valore
 
 info che il controller raccoglie
 
-gathering raccolta
+#gathering = raccolta
+
+------
+
+# ANSIBLE FACTS
+sono variabili che vengono automaticamente rilevate da ansible su un managed host. Contengono informazioni dell'host che possono essere usate come variabili nei play
+
+si possono creare anche 'facts personalizzati' che vengono archiviati sul managed host
+
+Facts are a convenient way to retrieve the state of a managed host and to determine what action to take based on that state
+
+# ansible.builtin.setup
+Di solito, ogni play esegue automaticamente il modulo 'ansible.builtin.setup' per raccogliere informazioni, prima di eseguire il suo primo task
+(non è necessario creare un task per eseguire ansible.builtin.setup)
+Ciò si definisce come task 'Gathering Facts'
+
+--------
+
+un modo per vedere i dati raccolti è creando un playbook che raccolga i dati e li mostri a video con il modulo 'ansible.builtin.debug' il valore della variabile 'ansible_facts'
+
+
+- name: Fact dump
+  hosts: all
+  tasks:
+    - name: Print all facts
+      ansible.builtin.debug:
+        var: ansible_facts
+
+
+-------
+
+#The playbook displays the content of the ansible_facts variable in JSON format as a dictionary of variables. You can browse the output to see what facts are gathered, and to find facts that you might want to use in your plays.
+
+-------
+
+Examples of Ansible Facts
+
+Fact	          Variable
+Short hostname    ansible_facts['hostname']
+FQDN	          ansible_facts['fqdn']
+IPv4 address      ansible_facts['default_ipv4']['address']
 
 ------
 
