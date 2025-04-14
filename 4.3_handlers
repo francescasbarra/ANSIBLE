@@ -1,0 +1,28 @@
+# IMPLEMENTING HANDLERS
+
+i 'moduli' ansible sono 'idempotenti', se si esegue più volte un playbook il risultato è sempre lo stesso, gli host vengono modificati solo se le modifiche sono necessarie a portare gli host allo stato desiderato.
+------
+a volte, quando viene apportata una modifica, può essere necessario eseguirne un'altra (esempio, una modifica al file di configurazione di un servizio potrebbe richiedere il ricaricamento del servizio affinché la configurazione modificata abbia effetto.)
+
+# Handlers are tasks that respond to a notification triggered by other tasks. Tasks only notify their handlers when the task changes something on a managed host. Each handler is triggered by its name after the play's block of tasks.
+
+If no task notifies the handler by name then the handler does not run. If one or more tasks notify the handler, the handler runs once after all other tasks in the play have completed. Because handlers are tasks, administrators can use the same modules in handlers that they would use for any other task.
+
+Normally, handlers are used to reboot hosts and restart services.
+
+#esempio 
+
+tasks:
+  - name: copy demo.example.conf configuration template1
+    ansible.builtin.template:
+      src: /var/lib/templates/demo.example.conf.template
+      dest: /etc/httpd/conf.d/demo.example.conf
+    notify:2
+      - restart apache3
+
+handlers:4
+  - name: restart apache5
+    ansible.builtin.service:6
+      name: httpd
+      state: restarted
+
