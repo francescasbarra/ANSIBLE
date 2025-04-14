@@ -1,0 +1,133 @@
+# IMPLEMENTING TASK CONTROL 
+
+# WRITING LOOPS AND CONDITIONAL TASKS
+
+
+# lookup plugin
+I lookup plugin servono per ottenere dati da fonti esterne durante l'esecuzione del playbook, come file, variabili d’ambiente, output di comandi, ecc.
+
+
+# LOOP permette di eseguire i task più volte in automatico
+evita di scrivere + tasks che usano lo stesso modulo
+ad es. invece di scrivere 5 volte un modulo che verifichi l'esistenza di 5 utenti, si può creare un loop nel task che ripete il modulo 5 volte
+
+# dictionary
+formati da altri dizionari o coppie di chiavi-valore
+
+nel eguente caso non si tratta di un dizionario ma di una chiave (key) con un array di valori
+
+# vars:
+#   my_user
+      - user1
+      - user2
+      - user3
+      - user4
+
+---------------
+
+#SIMPLE LOOPS
+esegue l'iterazione di un'attività su un elenco di elementi
+
+# loop:
+
+nel playbook si inserisce loop nel task da eseguire + volte:
+
+# vars:
+#   my_user
+      - user1
+      - user2
+      - user3
+      - user4
+
+tasks:
+  - name: Existing user
+#   loop: {{ my_user }}   # si inserisce il nome della lista da cui si devono prendere i valori
+    ansible.builtin.user:
+      name: {{ item }}
+      state:
+
+-------
+
+- name: Postfix and Dovecot are running
+  ansible.builtin.service:
+    name: "{{ item }}"    # item è una var che non c'è bisogno di dichiarare
+    state: started
+  loop:
+    - postfix
+    - dovecot
+
+---------
+
+
+# Loops over a List of Dictionaries
+
+In the following example, each item in the list is actually a dictionary. Each dictionary in the example has two keys, name and groups, and the value of each key in the current item loop variable can be retrieved with the item['name'] and item['groups'] variables, respectively.
+
+- name: Users exist and are in the correct groups
+  user:
+    name: "{{ item['name'] }}"
+    state: present
+    groups: "{{ item['groups'] }}"
+  loop:
+    - name: jane
+      groups: wheel
+    - name: joe
+      groups: root
+
+---------
+
+# Using Register Variables with Loops
+
+tasks:
+    - name: Looping Echo Task
+      ansible.builtin.shell: "echo This is my item: {{ item }}"
+      loop:
+        - one
+        - two
+#     register: echo_results1
+
+    - name: Show echo_results variable
+      ansible.builtin.debug:
+#       var: echo_results2
+
+--------------
+
+# Running Tasks Conditionally
+
+---
+  name
+  hosts
+...
+# when <condizione>
+# block:     #blocco tasks da eseguire se soddisfatta la condizioni
+    tasks:
+      ....
+
+--------------
+
+#SETUP MODULE
+#ansible -m setup servera | less
+mostra i facts relativi a servera
+
+
+----------------
+
+
+# Combining Loops and Conditional Tasks
+
+- name: install mariadb-server if enough space on root
+  ansible.builtin.dnf:
+    name: mariadb-server
+    state: latest
+# loop: "{{ ansible_facts['mounts'] }}"
+# when: item['mount'] == "/" and item['size_available'] > 300000000
+
+
+
+Important
+When you use when with loop for a task, the when statement is checked for each item.
+--------------------
+
+
+
+
