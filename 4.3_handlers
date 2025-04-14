@@ -10,6 +10,8 @@ If no task notifies the handler by name then the handler does not run. If one or
 
 Normally, handlers are used to reboot hosts and restart services.
 
+#Even if more than one task notifies a handler, the handler runs one time. If no tasks notify it, the handler does not run.
+
 #esempio 
 
 tasks:
@@ -25,4 +27,18 @@ handlers:4
     ansible.builtin.service:6
       name: httpd
       state: restarted
+
+
+#task - notify - handlers
+----------------
+
+
+Important
+Handlers are meant to perform an extra action when a task makes a change to a managed host. They should not be used as a replacement for normal tasks.
+
+--------
+
+opzione
+# force_handler: true/false
+si inserisce nell'intestazione del playbook 
 
