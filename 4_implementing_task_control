@@ -103,6 +103,15 @@ tasks:
     tasks:
       ....
 
+
+tasks:
+  - name: Verify that we are using a Red Hat based OS
+    when: "'RedHat' in ansible_facts['distribution']"
+    block:
+      
+      - name: ........
+
+
 --------------
 
 #SETUP MODULE

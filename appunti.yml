@@ -1,0 +1,11 @@
+ansible.builtin.command: per eseguire comando
+ansible.builtin.file: per creare directory
+ansible.builtin.uri: test di connessione
+ansible.builtin.reboot: riavviare
+ansible.builtin.fail:
+ansible.builtin.meta:
+ansible.builtin.stat:
+ansible.builtin.waitfor:
+ansible.builtin.assert: 
+
+

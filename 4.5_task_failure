@@ -1,0 +1,65 @@
+# HANDLING TASK FAILURE
+
+# Managing Task Errors in Plays
+
+Ansible valuta il codice di ritorno di ogni task per determinare se l'attività è riuscita o meno. Normalmente, quando un task fallisce, Ansible salta immediatamente tutti i task successivi.
+
+A volte potrebbe essere necessario che l'esecuzione vada avanti anche se dei task falliscono.
+
+# Ignoring Task Failure
+
+'ignore_errors'
+da inserire nel task
+
+- name: Latest version of notapkg is installed
+  ansible.builtin.dnf:
+    name: notapkg
+    state: latest
+# ignore_errors: true
+
+------------
+
+# Forcing Execution of Handlers After Task Failure
+normalmente quando un task fallisce, gli handlers associati non vanno in esecuzione
+ma se si aggiunge 'force_handlers: true' nel play vengono eseguiti 
+
+important se + impostato 'ignore_errors: true' ma c è anche 'force_handlers: false'
+il play continua l'esecuzione
+
+
+#ESEMPI
+
+# The following snippet shows how to use the force_handlers keyword in a play to force execution of the notified handler even if a subsequent task fails:
+
+---
+- hosts: all
+ 'force_handlers: true'
+  tasks:
+    - name: a task which always notifies its handler
+      ansible.builtin.command: /bin/true
+      notify: restart the database
+
+    - name: a task which fails because the package doesn't exist
+      ansible.builtin.dnf:
+        name: notapkg
+        state: latest
+
+  handlers:
+    - name: restart the database
+      ansible.builtin.service:
+        name: mariadb
+        state: restarted
+
+------------------
+
+Important
+Remember that handlers are notified when a task reports a changed result but are not notified when it reports an ok or failed result.
+
+If you set force_handlers: true on the play, then any handlers that have been notified are run even if a later task failure causes the play to fail. Otherwise, handlers are not run at all when a play fails.
+
+Setting force_handlers: true on a play does not cause handlers to be notified for tasks that report ok or failed; it only causes the handlers to run that have already been notified before the point at which the play failed.
+
+
+------------------
+
+
