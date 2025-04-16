@@ -1,4 +1,4 @@
-ansible.builtin.command: per eseguire comando
+ansible.builtin.command: per eseguire comando (quando non ci sono specifici moduli per il nostro task) - non è idempotetnte 
 ansible.builtin.file: per creare directory
 ansible.builtin.uri: test di connessione
 ansible.builtin.reboot: riavviare

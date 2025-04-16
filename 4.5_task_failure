@@ -62,4 +62,17 @@ Setting force_handlers: true on a play does not cause handlers to be notified fo
 
 ------------------
 
+# SPECIFING TASK FAILURE CONDITIONS (condizioni di errore)
+
+'failed when' 
+
+'changed_when'
+
+------------
+
+# BLOCK / RESCUE
+se i task nel 'block' falliscono, entrano in gioco i task in 'rescue'
+
+
+'RESCUE' viene eseguito solo quando fallisce il blocco dei task principale
 
