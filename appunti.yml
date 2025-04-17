@@ -11,4 +11,6 @@ ansible.builtin.stat:
 ansible.builtin.waitfor:
 ansible.builtin.assert: 
 
+ansible.builtin.git:  per scaricare ad es. repository da git?
+
 
