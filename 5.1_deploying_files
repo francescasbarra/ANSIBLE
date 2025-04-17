@@ -6,6 +6,7 @@ Deploy, manage, and adjust files on hosts managed by Ansible.
 
 # MODULI FILE
 
+#ANSIBLE.BUILTIN.
 La maggior parte dei moduli usati per la gestione dei file linux sono forniti con ansible-core nella collection 'ansible.builtin' ed eseguono attività come creazione, modifica, copia, modifica permessi e altri attributi.
 
 
@@ -21,5 +22,18 @@ La maggior parte dei moduli usati per la gestione dei file linux sono forniti co
 'lineinfile' Ensure that a particular line is in a file, or replace an existing line using a back-reference regular expression. This module is primarily useful when you want to change a single line in a file.
 
 'stat' Retrieve status information for a file, similar to the Linux stat command.
+
+----------------
+
+#ANSIBLE.POSIX.
+
+'ansible.posix' collection, è incluso nell'execution environment, fornisce moduli aggiuntivi per la gestione dei file
+
+'patch' Apply patches to files by using GNU patch.
+
+'synchronize' A wrapper around the rsync command to simplify common tasks. The synchronize module is not intended to provide access to the full power of the rsync command, but does make the most common invocations easier to implement. You might still need to call the rsync command directly via the command module depending on your use case.
+
+---------------
+
 
 
