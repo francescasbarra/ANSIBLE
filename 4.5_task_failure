@@ -44,12 +44,18 @@ il play continua l'esecuzione
         name: notapkg
         state: latest
 
-  handlers:
+ 'handlers:'
     - name: restart the database
       ansible.builtin.service:
         name: mariadb
         state: restarted
 
+
+important 
+# Handlers are special tasks that execute at the end of the play if notified by other tasks.
+# Handlers are only notified when a task reports that it changed something on a managed host.
+#
+#
 ------------------
 
 Important
@@ -72,13 +78,69 @@ Setting force_handlers: true on a play does not cause handlers to be notified fo
 # FAILED_WHEN
 specifica quali condizioni indicano che il task è fallito
 
+tasks:
+  - name: Run user creation script
+    ansible.builtin.shell: /usr/local/bin/create_users.sh
+    register: command_result
+    failed_when: "'Password missing' in command_result.stdout"
 
+
+# ansible.builtin.fail
+può anche essere utilizzato per forzare il fallimento di un'attività. In alternativa, è possibile scrivere l esempio come due attività:
+
+tasks:
+  - name: Run user creation script
+    ansible.builtin.shell: /usr/local/bin/create_users.sh
+    register: command_result
+    ignore_errors: true
+
+  - name: Report script failure
+    ansible.builtin.fail:
+      msg: "The password is missing in the output"
+    when: "'Password missing' in command_result.stdout"
+
+
+You can use the ansible.builtin.fail module to provide a clear failure message for the task. This approach also enables delayed failure, which means that you can run intermediate tasks to complete or roll back other changes.
+
+------------------------
+
+# Specifying When a Task Reports "Changed" Results (segnalazione risultati modificati)
+
+
+Quando task apporta una modifica a un host, segnala lo stato 'changed' e invia la modifica agli 'handlers'
+Quando il task non necessita di modifiche segnala 'ok' e non invia notifiva agli handlers
+
+per controllare il modo in cui un'attività segnala di aver apportato modifiche all'host gestito.
+
+It normally would always report changed when it runs. To suppress that change report, changed_when: false is set so that it only reports ok or failed.
+
+ - name: Validate httpd configuration
+    ansible.builtin.command: httpd -t
+    changed_when: false
+    register: httpd_config_status
+
+# The following example uses the ansible.builtin.shell module and only reports changed if the string "Success" is found in the output of the registered variable. If it does report changed, then it notifies the handler.
+
+tasks:
+  - ansible.builtin.shell:
+      cmd: /usr/local/bin/upgrade-database
+    register: command_result
+    changed_when: "'Success' in command_result.stdout"
+    notify:
+      - restart_database
+
+handlers:
+  - name: restart_database
+     ansible.builtin.service:
+       name: mariadb
+       state: restarted
 
 
 
 
 ------------
-
+# Ansible Blocks and Error Handling
+#
 # BLOCK / RESCUE
 se i task nel 'block' falliscono, entrano in gioco i task in 'rescue'
 
@@ -87,10 +149,35 @@ se i task nel 'block' falliscono, entrano in gioco i task in 'rescue'
 
 
 
+# BLOCK
+nei playbook i 'blocchi' sono clausole che raggruppano logicamente tasks e possono controllarne l'esecuzione.
+I blocchi vengono utilizzati per raggruppare i task come un'unità e per eseguire altri task a seconda che tutte le attività nel blocco abbiano esito positivo.
+
+
+es. un blocco può contenere la parola chiave 'when' per applicare la condizione a + task
+
+- name: block example
+  hosts: all
+  tasks:
+    - name: installing and configuring DNF versionlock plugin
+      block:
+      - name: package needed by dnf
+        ansible.builtin.dnf:
+          name: python3-dnf-plugin-versionlock
+          state: present
+      - name: lock version of tzdata
+        ansible.builtin.lineinfile:
+          dest: /etc/yum/pluginconf.d/versionlock.list
+          line: tzdata-2016j-1
+          state: present
+      when: ansible_distribution == "RedHat"
+
+----------------------
 
 
 
 
+Tasks can be configured to handle error conditions by ignoring task failure, forcing handlers to be called even if the task failed, marking a task as failed when it succeeded, or overriding the behavior that causes a task to be marked as changed.
 
 
 

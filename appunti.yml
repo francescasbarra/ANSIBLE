@@ -1,4 +1,7 @@
 ansible.builtin.command: per eseguire comando (quando non ci sono specifici moduli per il nostro task) - non è idempotetnte 
+ansible.builtin.command module, reports 'changed', even though it did not change the remote system; it only collected information about the time. That is because the ansible.builtin.command module cannot tell the difference between a command that collects data and a command that changes state.
+# Because you know that the task never changes a managed host, add the line changed_when: false to the task to suppress the change.
+
 ansible.builtin.file: per creare directory
 ansible.builtin.uri: test di connessione
 ansible.builtin.reboot: riavviare
