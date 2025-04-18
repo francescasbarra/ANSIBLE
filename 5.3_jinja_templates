@@ -42,7 +42,38 @@ Si possono usare i 'facts' degli hosts come variabili del template.
 I 'template files' sono solitamente salvati nella directory 'templates' del progetto del playbook con estensione '.j2'
 L'estensione non è obbligatoria ma aiuta a riconoscere e trovare + facilmente i file templates.
 
- 
+# L'esempio seguente mostra come creare un modello per /etc/ssh/sshd_config con variabili e dati recuperati da Ansible dagli host  
+Quando il template viene deployato dal play tutti i facts sono sostituiti dai valori rispettivi dell'host gestito in fase di configurazione.
+
+# {{ ansible_managed }}
+# DO NOT MAKE LOCAL MODIFICATIONS TO THIS FILE BECAUSE THEY WILL BE LOST
+
+Port {{ ssh_port }}
+ListenAddress {{ ansible_facts['default_ipv4']['address'] }}
+
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+
+SyslogFacility AUTHPRIV
+
+PermitRootLogin {{ root_allowed }}
+AllowGroups {{ groups_allowed }}
+
+AuthorizedKeysFile /etc/.rht_authorized_keys .ssh/authorized_keys
+
+PasswordAuthentication {{ passwords_allowed }}
+
+ChallengeResponseAuthentication no
+
+...output omitted...
+
+
+------------
+
+# Deploying Jinja2 Templates
+
+
 
  
 

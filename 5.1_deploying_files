@@ -149,6 +149,34 @@ state: present or state: absent
 
 # Retrieving the Status of a File on Managed Hosts
 
+'ansible.builtin.stat'
+recupera i dati relativi a un file, in modo simile al comando stat di Linux.
+I parametri forniscono la funzionalità per recuperare gli attributi del file, determinarne il checksum e altro ancora.
+
+- name: Verify the checksum of a file
+  ansible.builtin.stat:
+    path: /path/to/file
+    checksum_algorithm: md5
+  register: result
+
+- ansible.builtin.debug
+    msg: "The checksum of the file is {{ result.stat.checksum }}"
 
 
+-----------------
+
+# Synchronizing Files Between the Control Node and Managed Hosts
+
+'ansible.posix.synchronize' 
+The ansible.posix.synchronize module is a wrapper around the rsync tool, which simplifies common file management tasks in your playbooks. The rsync tool must be installed on both the local and remote host. By default, when using the ansible.posix.synchronize module, the "local host" is the host that the ansible.posix.synchronize task originates on (usually the control node), and the "destination host" is the host that ansible.posix.synchronize connects to.
+
+The following example synchronizes a file located in the Ansible working directory to the managed hosts:
+
+- name: synchronize local file to remote files
+  ansible.posix.synchronize:
+    src: file
+    dest: /path/to/file
+You can use the ansible.posix.synchronize module and its many parameters in many different ways, including synchronizing directories. Run the ansible-navigator doc ansible.posix.synchronize command for additional parameters and playbook examples.
+
+-----------
 
