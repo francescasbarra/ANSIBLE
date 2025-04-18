@@ -22,5 +22,48 @@ git push --force
 
 ----------
 
+YAML formato testo che consente di scrivere dati strutturati in modo semplice e leggibile
+
+
+----------
+
+state: present (deve essere presente)
+
+---------
+
+@RPM dev tool (gruppo di pacchetti, si indicano con @)
+
+# dnf update
+aggiorna elenco pacchetti nel repository, ricerca
+
+# dnf upgrade
+aggiorna i pacchetti
+
+
+:set nu (indica numero righe)
+:set paste (per copiare senza sfalsamenti, da casella testo T)
+:set list (indica dove finiscono righe)
+
+\n (a capo, interruzione riga)
+
+
+# lineinfile
+state: present/absent (riguarda la riga, se è già presente o meno)
+create: true (riguarda la creazione del file se non esiste già)
+
+
+# ansible-doc modulo (per consultare la documentazione di un det modulo, con esempi)
+
+# tree - F directory
+mostra la struttura della dir
+
+ssh utente@server 'comando' (es. ssh devops@servera 'cat /dir/file.txt'
+
+- Consiglio loop e notify handler meglio prima dei moduli (ansible.builtin....)
+
+nm tui (TUI Test User Interface)
+
+------
+
 
 

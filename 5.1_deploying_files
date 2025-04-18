@@ -89,6 +89,7 @@ If force: false is set, then it only copies the file to the managed host if it d
 
 # To retrieve files from managed hosts use the ansible.builtin.fetch module. 
 This could be used to retrieve a file such as an SSH public key from a reference system before distributing it to other managed hosts.
+'fetch'
 
 - name: Retrieve SSH key from reference host
   ansible.builtin.fetch:
@@ -97,6 +98,7 @@ This could be used to retrieve a file such as an SSH public key from a reference
 
 
 # To ensure a specific single line of text exists in an existing file, use the lineinfile module:
+'lineinfile'
 
 - name: Add a line of text to a file
   ansible.builtin.lineinfile:
@@ -104,8 +106,13 @@ This could be used to retrieve a file such as an SSH public key from a reference
     line: 'Add this line to the file'
     state: present
 
+state: present/absent (riguarda la riga, se è già presente o meno)
+create: true (riguarda la creazione del file se non esiste già)
+
+
 
 # To add a block of text to an existing file, use the ansible.builtin.blockinfile module:
+'blockinfile'
 
 - name: Add additional lines to a file
   ansible.builtin.blockinfile:

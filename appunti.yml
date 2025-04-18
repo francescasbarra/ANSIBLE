@@ -3,7 +3,7 @@ ansible.builtin.command module, reports 'changed', even though it did not change
 # Because you know that the task never changes a managed host, add the line changed_when: false to the task to suppress the change.
 
 ansible.builtin.file: per creare directory
-ansible.builtin.uri: test di connessione
+ansible.builtin.uri: test di connessione, webservice
 ansible.builtin.reboot: riavviare
 ansible.builtin.fail:
 ansible.builtin.meta:
