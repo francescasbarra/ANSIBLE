@@ -1,0 +1,26 @@
+!= diverso
+
+--ee true/false (ee execution environment)
+es -ee false disattiva l'exec environment
+
+# ansible all -m setup (gathering facts)
+# ansible all -m setup | grep ...
+#
+
+
+debug printa messaggi
+
+chiave-valore / array è una chiave con + valori
+
+ZA-ZC  folda task yml
+
+----------
+#restorare git
+git repolist / git log (vedi git che interessa)
+git reset --hard commit che interessa
+git push --force
+
+----------
+
+
+
