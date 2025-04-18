@@ -1,0 +1,50 @@
+# Deploying Custom Files with Jinja2 Templates
+
+# Templating Files
+
+la collection 'ansible.builtin' fornisce molti moduli che possono essere usati per modificare dile esistenti.
+es. lineinfile e blockinfile, ma non sempre sono facili da usare in modo efficace e corretto
+
+Un modo molto più efficace per gestire i file è quello di creare modelli 'templates'
+Con questo metodo, è possibile scrivere un file di configurazione template che viene personalizzato automaticamente per l'host al momento del deployment del file, utilizzando variabili ed Ansible facts
+in questo modo è più facile controllare ed meno soggetto ad errori 
+
+# Introduction to Jinja2
+
+Ansible usa il sistema di 'template Jinja2' per i template dei file,
+usa anche la sintassi Jinja2 per fare riferimento alle var nei playbook
+
+# Using Delimiters
+'DELIMITER' variabili ed espressioni logiche sono inserite tra i tag o delimiters (delimitatori).
+
+Quando viene valutato un modello Jinja2, l espressione '{{ EXPR }}' viene sostituita con i risultati di tale espressione o variabile.
+'{% EXPR %}' per strutture di controllo speciali o logica che esegue cicli sul codice Jinja2 o esegue test
+'{# COMMENT #}' per includere commenti che non devono apparire nel file finale
+
+In the following example of a Jinja2 template file, the first line includes a comment that is not included in the final file. The variable references in the second line are replaced with the values of the system facts being referenced.
+
+{# /etc/hosts line #}
+{{ ansible_facts['default_ipv4']['address'] }}    {{ ansible_facts['hostname'] }}
+
+------
+
+# Building a Jinja2 Template
+
+'Template Jinja2' composto da + elementi:
+dati
+variabili
+espressioni
+
+# Questi elementi vengono sostituiti con i rispettivi valori durante il rendering del template
+Le variabili usate nel template possono essere specificate nella sezione 'vars' del playbook.
+Si possono usare i 'facts' degli hosts come variabili del template.
+
+I 'template files' sono solitamente salvati nella directory 'templates' del progetto del playbook con estensione '.j2'
+L'estensione non è obbligatoria ma aiuta a riconoscere e trovare + facilmente i file templates.
+
+ 
+
+ 
+
+
+
