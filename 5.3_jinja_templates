@@ -74,8 +74,91 @@ ChallengeResponseAuthentication no
 # Deploying Jinja2 Templates
 
 
+'ansible.builtin.template' 
+jinja2 templates sono un importante strumento per personalizzare file di config da deployare sugli hosts
+quando viene creato un template per file di config viene deployato sugli hosts con il modulo 'ansible.builtin.template' che supporta il trasferimento del file
 
+tasks:
+  - name: template render
+    ansible.builtin.template:
+      src: /tmp/j2-template.j2
+      dest: /tmp/dest-config-file.txt
+
+
+-----------------
+
+# Managing Templated Files
+
+Per evitare che altri amministratori di sistema modifichino i file gestiti da Ansible, è buona norma includere un commento nella parte superiore del modello per indicare che il file non deve essere modificato manualmente.
+
+per farlo si usa la stringa ansible managed nella direttiva ansible_managed
+'ansible_managed = Ansible managed' # nel file ansible_cfg
+non è una var normale ma può essere usata come tale in un template
+
+per includere questa stringa in un file jinja2 usare 
+'{{ ansible_managed }}'
+
+-----------------
+
+# Control Structures
+
+You can use Jinja2 control structures in template files to reduce repetitive typing, to enter entries for each host in a play dynamically, or conditionally insert text into a file.
+
+# USING LOOPS
+
+Jinja2 usa l istruzione 'for' come loop
+
+{% for user in users %}
+      {{ user }}
+{% endfor %}
+
+
+esempio
+
+{# for statement #}
+{% for myuser in users if not myuser == "root" %}
+User number {{ loop.index }} - {{ myuser }}
+{% endfor %}
+
+
+The loop.index variable expands to the index number that the loop is currently on. It has a value of 1 the first time the loop executes, and it increments by 1 through each iteration.
  
 
+{% for myhost in groups['myhosts'] %}
+{{ myhost }}
+{% endfor %}
+
+
+
+-----------------
+
+
+
+For a more practical example, you can use this example to generate an /etc/hosts file from host facts dynamically. Assume that you have the following playbook:
+
+- name: /etc/hosts is up to date
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Deploy /etc/hosts
+      ansible.builtin.template:
+        src: templates/hosts.j2
+        dest: /etc/hosts
+
+
+-----------------
+
+# Using Conditionals
+
+In the following example, the value of the result variable is placed in the deployed file only if the value of the finished variable is True.
+
+{% if finished %}
+{{ result }}
+{% endif %}
+
+
+-------------------
+
+# Variable Filters
 
 
