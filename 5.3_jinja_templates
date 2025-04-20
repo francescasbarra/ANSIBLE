@@ -159,6 +159,30 @@ In the following example, the value of the result variable is placed in the depl
 
 -------------------
 
-# Variable Filters
+# Variable Filters  
+
+Jinja fornisce filtri che modificano il formato dell'output delle espressioni del template convertendo i dati in una variabile in altro formato nel file che risulta dal template
+
+es. filtri per linguaggi come YAML e JSON
+'to_json' formatta l'output dell'espressione usando JSON
+'to_yaml' formatta output usando YAML
+
+{{ output | to_json }}
+{{ output | to_yaml }}
+
+-----------------------------
+
+{{ output | to_nice_json }} 'in human-readable format'
+{{ output | to_nice_yaml }}
+
+----------------------------
+
+'from_json/yaml' si aspettano stringhe rispettivamente in formato JSON o YAML.
+
+{{ output | from_json }}
+{{ output | from_yaml }}
+
+
+-----------------------------
 
 
