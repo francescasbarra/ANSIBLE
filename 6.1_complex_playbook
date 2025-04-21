@@ -106,4 +106,35 @@ hosts: lab,data*,192.168.2.2
 
 ---------------------
 
+Note
+The colon character (:) can be used instead of a comma. However, the comma is the preferred separator, especially when working with IPv6 addresses as managed host names. You might see the colon syntax in earlier examples.
+
+--------------------
+
+If an item in a list starts with an ampersand character (&), then hosts must match that item in order to match the host pattern. It operates similarly to a logical AND.
+
+For example, based on our example inventory, the following host pattern matches machines in the lab group only if they are also in the datacenter1 group:
+
+hosts: lab,&datacenter1
+
+----------------------
+
+You could also specify that machines in the datacenter1 group match only if they are in the lab group with the host patterns &lab,datacenter1 or datacenter1,&lab.
+
+You can exclude hosts that match a pattern from a list by using the exclamation point or "bang" character (!) in front of the host pattern. This operates like a logical NOT.
+
+This example matches all hosts defined in the datacenter group, except test2.example.com based on the example inventory:
+
+hosts: datacenter,!test2.example.com
+
+-----------------------
+
+hosts: all,!datacenter1
+
+----------------------
+
+
+
+
+
 
