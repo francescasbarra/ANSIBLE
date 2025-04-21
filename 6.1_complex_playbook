@@ -1,3 +1,43 @@
-# MANAFE COMPLEX PLAY AND PLAYBOOK
+# MANAGE COMPLEX PLAY AND PLAYBOOK
+
+'ELENCA TUTTI GLI HOSTS'
+ansible --list all
+
+hosts (6):
+  servera
+  serverb
+  serverc
+  serverd
+  servere
+  serverf
+
+'ELENCA HOSTS PRESENTI NEL GRUPPO WEBSERVERS E RHEL' &
+ansible --list 'webservers:&rhel'
+hosts (2):
+  servera
+  serverc
+
+
+'ELENCA HOSTS PRESENTI NEL GRUPPO  WEBSERVERS E FEDORA' &
+ansible --list 'webservers:&fedora'
+hosts (1):
+  servere
+
+'ELENCA HOSTS CHE FANNO PARTE DI WEBSERVERS MA NON DI FEDORA' !
+ansible --list 'webservers:!fedora'
+hosts (2):
+  servera
+  serverc
+
+'ELENCA SIA GLI HOSTS DI WEBSERVERS CHE DI DBSERVER' :
+ansible --list 'webservers:dbservers'
+hosts (6):
+  servera
+  serverb
+  serverc
+  serverd
+  servere
+  serverf
+
 
 
