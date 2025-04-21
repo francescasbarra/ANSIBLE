@@ -1,5 +1,9 @@
 # MANAGE COMPLEX PLAY AND PLAYBOOK
 
+# Selecting Hosts with Host Patterns
+'HOST PATTERNS'
+
+
 'ELENCA TUTTI GLI HOSTS'
 ansible --list all
 
@@ -39,5 +43,67 @@ hosts (6):
   servere
   serverf
 
+
+--------------------
+
+# la chiave hosts: può contenere un elenco di inventory hosts
+
+- name: Gather common properties of our systems
+  hosts:
+    - servera
+    - serverb
+    - webservers:&fedora
+    - dbservers:!fedora
+  gather_facts: true
+  become: false
+
+
+# in teoria si possono inserire gli hosts anche su una sola riga, ma è molto meno leggibile e quindi non consigliato
+
+hosts: servera,serverb,serverc, ....
+
+(senza spazio dopo la virgola)
+
+--------------------
+
+hosts: "{{ my_host | default('localhost'] }}"
+
+
+-----------------
+
+You can only use an IP address in a host pattern if it is explicitly listed in the inventory. If the IP address is not listed in the inventory, then you cannot use it to specify the host even if the IP address resolves to that host name in DNS.
+
+------------------
+
+# Matching Multiple Hosts with Wildcards (caratteri jolly come * )
+
+hosts: '*'
+
+important
+Some characters that are used in host patterns also have meaning for the shell. If you are using any special wildcards or list characters in an Ansible Playbook, then you must put your host pattern in single quotes to ensure it is parsed correctly.
+
+hosts: '!test1.example.com,development'
+
+
+The asterisk character can also be used to match any managed hosts or groups that contain a particular substring.
+hosts: '*.example.com'
+
+hosts: '192.168.2.*'
+
+hosts: 'datacenter*'
+
+----------------------------
+
+# LIST
+
+hosts: labhost1.example.com,test2.example.com,192.168.2.2
+
+hosts: lab,data*,192.168.2.2
+
+
+
+
+
+---------------------
 
 
