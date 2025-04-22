@@ -159,6 +159,36 @@ le 'variabili' sono utili a questo scopo
 ----------------------------
 
 
+# IMPORT - import_* (es. import_tasks, import_playbook)
+- caricamento statico, viene importato il file con task/playbook
+il contenuto viene caricato subito, al momento del parsing del playbook (prima di eseguirlo).
+
+- È come se il contenuto fosse "copiato e incollato" nel file principale.
+
+- 'no condizioni'. Non può essere condizionato (when, with_items, ecc.)
+
+- name: Importa task
+  ansible.builtin.import_tasks: install.yml
+
+----------------------------------
+
+# INCLUDE - include_* (es. include_tasks, include_playbook)
+- Caricamento dinamico → il contenuto viene caricato solo durante l'esecuzione, quando il task viene raggiunto.
+
+- 'sì condizioni' Può usare condizioni (when, with_items, loop, ecc.).
+
+- Utile per caricare dinamicamente contenuto in base a variabili o loop.
+
+- name: Includi task se richiesto
+  ansible.builtin.include_tasks: install.yml
+  when: install_nginx
+
+-------------------------------------
+
+
+
+
+
 
 
 
