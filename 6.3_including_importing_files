@@ -185,6 +185,8 @@ il contenuto viene caricato subito, al momento del parsing del playbook (prima d
 
 -------------------------------------
 
+When you include content, Ansible processes it dynamically as content is reached. When you import content, Ansible preprocesses it before the run starts.
+
 
 
 

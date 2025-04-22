@@ -1,0 +1,29 @@
+# Simplifying Playbooks with Roles and Ansible Content Collections
+
+'Role' facilita la riusabilità del codice ansible
+
+È possibile impacchettare tutte le attività, le variabili, i file, i modelli e le altre risorse necessarie per il provisioning dell'infrastruttura o la distribuzione delle applicazioni in una struttura di directory standardizzata.
+
+Copia un ruolo da un progetto all'altro copiando la directory, quindi richiama il ruolo all interno di un play
+
+Un ruolo ben scritto può accettare le variabili passate dal playbook. Queste variabili possono modificare il comportamento del ruolo, impostando tutti i nomi host, gli indirizzi IP, i nomi utente, i segreti o altri dettagli specifici del sito.
+
+# benefit dei roles
+
+-  raggruppano i contenuti, consentendo una facile condivisione del codice con altri.
+
+- possono definite gli elementi essenziali di un tipo di sistema, come un server web, un server di database o un repository Git.
+
+- rendono gestibili i progetti + grandi
+
+- possono essere sviluppati in parallelo da + utenti
+
+----------------
+
+Oltre ai ruoli che scriviamo, usiamo e riusiamo possiamo ottenere ruoli da altre fonti... 
+da pacchetti di distribuzione come 'Ansible Content Colelction' 
+si possono scaricare anche dall'hub di automazione Red Hat (hub privato di automazione) e dal sito Ansible Galaxy
+
+RH include dei ruoli nel pacchetto 'rhel-system-roles'
+
+
