@@ -134,6 +134,30 @@ hosts: all,!datacenter1
 ----------------------
 
 
+nel playbook 
+
+hosts: db,&london
+
+hosts: 'prod,172*,*lab*'
+
+hosts: 's*'
+
+hosts: '172.25.*'
+
+hosts: '*.example.com, !*.lab.example.com'
+
+----------------------
+
+hosts: servera,serverb,serverc
+
+oppure (maggiore leggibilità)
+
+hosts:
+  - servera
+  - serverb
+  - serverc
+
+---------------------
 
 
 

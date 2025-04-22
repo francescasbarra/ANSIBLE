@@ -1,0 +1,127 @@
+# INCLUDING AND IMPORTING FILES
+
+Manage large playbooks by importing or including other playbooks or tasks from external files, either unconditionally or based on a conditional test.
+
+Quando un playbook diventa lungo e complesso è possibile suddividerlo in file + piccoli per semplificarne la gestione.
+Si possono combinare + playbook nel playbook principale o inserire un elenco di tasks da un file in un play.
+
+Ansible supporta 2 modalità per inserire contenuti in un playbook:
+'includere'
+'importare'
+
+'Including' dynamic operation
+Ansible elabora il contenuto incluso durante l'esecuzione del playbook, man mano che il contenuto viene raggiunto.
+
+'Importing' static operation
+Ansible elabora il contenuto importato quando il playbook viene analizzato all'inizio 
+
+
+# IMPORTING
+'ansible.builtin.import_playbook' 
+per importare file esterni contenenti play o interi playbook nel playbook principale
+
+# se si importa un playbook intero il modulo di importazione si deve inserire all'inizio del playbook principale, non può essere inserito all interno di un play
+
+- name: Prepare the web server
+  ansible.builtin.import_playbook: web.yml
+
+- name: Prepare the database server
+  ansible.builtin.import_playbook: db.yml
+
+
+# si possono importare anche tra un play e l'altro
+
+---
+- name: Play 1
+  hosts: localhost
+  tasks:
+    - name: Display a message
+      ansible.builtin.debug:
+        msg: Play 1
+
+- name: Import Playbook
+  ansible.builtin.import_playbook: play2.yml
+
+
+--------------
+
+# Importing and Including Tasks
+
+'IMPORTARE'
+
+è possibile importare o includere un elenco di task da un task file di un play
+'task file' file che contiene elenco semplice di task
+
+esempio
+
+[user@host ~]$ cat webserver_tasks.yml
+---
+- name: Install the httpd package
+  ansible.builtin.dnf:
+    name: httpd
+    state: latest
+
+- name: Start the httpd service
+  ansible.builtin.service:
+    name: httpd
+    state: started
+
+
+'ansible.builtin.import_tasks'
+la posizione in cui viene inserito definisce l'ordine con cui vengono eseguiti i tasks
+
+---
+- name: Install web server
+  hosts: webservers
+  tasks:
+    - name: Import webserver tasks
+      ansible.builtin.import_tasks: webserver_tasks.yml
+
+
+Important
+ç When using the ansible.builtin.import_tasks module, conditional statements set on the import, such as when, are applied to each of the tasks that are imported.
+
+ç You cannot use loops with the ansible.builtin.import_tasks module.
+
+ç If you use a variable to specify the name of the file to import, then you cannot use a host or group inventory variable.
+
+
+-------------------------------
+
+'INCLUDERE'
+
+'ansible.builtin.include_tasks'
+---
+- name: Install web server
+  hosts: webservers
+  tasks:
+    - name: Include webserver tasks
+      ansible.builtin.include_tasks: webserver_tasks.yml
+
+
+il modulo di inclusione non elabora il contenuto del playbook finchè finchè non viene raggiunta quella parte del play
+
+ç When using the ansible.builtin.include_tasks module, conditional statements such as when set on the include determine whether the tasks are included in the play at all.
+
+ç If you run 'ansible-navigator run --list-tasks' to list the tasks in the playbook, then tasks in the included task files are not displayed. 
+The tasks that include the task files are displayed. 
+By comparison, the ansible.builtin.import_tasks module would not list tasks that import task files, but instead would list the individual tasks from the imported task files.
+
+ç You cannot use ansible-navigator run --start-at-task to start playbook execution from a task that is in an included task file.
+
+-------------------------
+
+Il comando ansible-navigator run --start-at-task serve per iniziare l'esecuzione di un playbook da un task specifico in poi, saltando quelli precedenti.
+
+Esegue il playbook a partire da un determinato task, identificato dal suo nome (name:), utile per test o debug.
+
+ansible-navigator run playbook.yml --start-at-task "Install nginx"
+
+-------------------------
+
+ç You cannot use a notify statement to trigger a handler name that is in an included task file. You can trigger a handler in the main playbook that includes an entire task file, in which case all tasks in the included file run.
+
+
+-------------------------------------------------
+
+
