@@ -1,6 +1,6 @@
 # Simplifying Playbooks with Roles and Ansible Content Collections
 
-'Role' facilita la riusabilità del codice ansible
+'Role' è una struttura di directory che facilita la riusabilità del codice ansible
 
 È possibile impacchettare tutte le attività, le variabili, i file, i modelli e le altre risorse necessarie per il provisioning dell'infrastruttura o la distribuzione delle applicazioni in una struttura di directory standardizzata.
 
@@ -25,5 +25,43 @@ da pacchetti di distribuzione come 'Ansible Content Colelction'
 si possono scaricare anche dall'hub di automazione Red Hat (hub privato di automazione) e dal sito Ansible Galaxy
 
 RH include dei ruoli nel pacchetto 'rhel-system-roles'
+
+----------------
+
+# Examining the Ansible Role Structure
+
+# Un role Ansible è definito da una struttura standardizzata di sottodirectory e file.
+
+# La directory di primo livello definisce il nome del ruolo stesso.
+
+# I file sono organizzati in sottodirectory in base allo scopo di ciascuno nel ruolo, come tasks e handlers.
+
+Le sottodirectory File e Template contengono file a cui fanno riferimento le attività in altri playbook e file di attività.
+
+----------
+
+'The following tree command displays the directory structure of the user.example role.'
+
+[user@host roles]$ tree user.example
+user.example/
+├── defaults
+│   └── main.yml
+├── files
+├── handlers
+│   └── main.yml
+├── meta
+│   └── main.yml
+├── README.md
+├── tasks
+│   └── main.yml
+├── templates
+├── tests
+│   ├── inventory
+│   └── test.yml
+└── vars
+    └── main.yml
+
+
+
 
 
