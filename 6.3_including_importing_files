@@ -124,4 +124,41 @@ ansible-navigator run playbook.yml --start-at-task "Install nginx"
 
 -------------------------------------------------
 
+# Importing and Including with Conditionals
+
+Le istruzioni con condizioni si comportano in modo diverso a seconda che si tratti di task importati o inclusi.
+
+ç When you add a conditional to a task that uses an 'ansible.builtin.import_*' module, Ansible applies the condition to all tasks within the imported file.
+
+ç When you use a conditional on a task that uses an ansible.builtin.include_* module, the condition is applied only to the include task itself and not to any other tasks within the included file.
+
+
+--------------------------------------
+
+# Use Cases for Task Files
+
+# Managing Task Files
+si può creare una directory dedicata per i file di task in modo da poter salvare tutti i file lì gestendoli in modo più facile
+
+# Defining Variables for External Plays and Tasks
+Per massimizzare la possibilità di riutilizzo, questi file di task e play dovrebbero essere + generici possibili..
+le 'variabili' sono utili a questo scopo
+
+---
+- name: Install the {{ package }} package
+  ansible.builtin.dnf:
+    name: "{{ package }}"
+    state: latest
+
+- name: Start the {{ service }} service
+  ansible.builtin.service:
+    name: "{{ service }}"
+    enabled: true
+    state: started
+
+----------------------------
+
+
+
+
 
