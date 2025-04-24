@@ -206,6 +206,103 @@ ansible.builtin.include_role applies the task's conditionals and loops to the st
 
 # Using a Roles Section in a Play
 
+Un altro modo per richiamare i ruoli nel play è elencarli nella sezione 'roles'
+
+---
+- name: A play that only has roles
+  hosts: remote.example.com
+  roles:
+    - role: role1
+    - role: role2
+
+per ogni ruolo specificato, i role tasks, handlers, variabili e dipendenze sono importate nel play nell'ordine in cui sono elencate
+
+# quando si usa la sezione 'RUOLI' questi vengono eseguiti per primi, prima di ogni tasks, indipendentemente dal posizionamento (si consiglia di inserirli sempre prima dei tasks)
+
+---
+- name: Roles run before tasks
+  hosts: remote.example.com
+  tasks:
+    - name: A task
+      ansible.builtin.debug:
+        msg: "This task runs after the role."
+  roles:
+    - role: role1  #il role verrà eseguito prima anche se si trova dopo i tasks
+
+
+-------------------------------
+
+Important
+A tasks section in a play is not required. In fact, it is generally a good practice to avoid both roles and tasks sections in a play to avoid confusion about the order in which roles and tasks run.
+
+If you must have a tasks section and roles, it is better to create tasks that use ansible.builtin.import_role and ansible.builtin.include_role to run at the correct points in the play's execution.
+
+-------------------------------
+
+# The following example sets values for two role variables of role2, var1 and var2. Any defaults and vars variables are overridden when role2 is used.
+
+---
+- name: A play that runs the second role with variables
+  hosts: remote.example.com
+  roles:
+    - role: role1
+    - role: role2
+      var1: val1
+      var2: val2
+
+
+# Another equivalent playbook syntax that you might see in this case is:
+(POCO LEGGIBILE)
+
+---
+- name: A play that runs the second role with variables
+  hosts: remote.example.com
+  roles:
+    - role: role1
+    - { role: role2, var1: val1, var2: val2 }
+
+
+Important
+Ansible looks for duplicate role lines in the roles section. If two roles are listed with exactly the same parameters, the role only runs once.
+
+-----------------------------------
+
+# Special Tasks Sections
+
+2 SEZIONI DI ATTIVITA' SPECIALI
+
+- 'pre_tasks' vengono eseguiti prima ancora dei roles
+se un task dei pre_task notifica un handler, questo viene eseguito prima ancora dei roles e dei normali tasks
+
+- 'post_tasks' vengono eseguiti dopo tutti gli altri tasks (anche dopo gli handlers)
+
+
+- name: Play to illustrate order of execution
+  hosts: remote.example.com
+  pre_tasks:
+    - name: This task runs first
+      ansible.builtin.debug:
+        msg: This task is in pre_tasks
+      notify: my handler
+      changed_when: true
+  roles:
+    - role: role1
+  tasks:
+    - name: This task runs after the roles
+      ansible.builtin.debug:
+        msg: This task is in tasks
+      notify: my handler
+      changed_when: true
+  post_tasks:
+    - name: This task runs last
+      ansible.builtin.debug:
+        msg: This task is in post_tasks
+      notify: my handler
+      changed_when: true
+  handlers:
+    - name: my handler
+      ansible.builtin.debug:
+        msg: Running my handler
 
 
 
