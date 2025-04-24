@@ -125,7 +125,59 @@ Vengono definite nel file 'default/main.yml'
 'possono essere sovrascritte da qualsiasi altra variabile'
 È possibile utilizzare le variabili predefinite per fornire al ruolo le informazioni necessarie per configurare o distribuire correttamente qualcosa.
 
+Si può definire una var specifica in vars/main.yml o default/main.yml ma non in entrambi i file.
+Usare le var di default quando possono essere sovrascritte
 
+IMPORTANT i ruoli non dovrebbero contenere dati sensibili, password, ecc ma solo dati generici in quando sono riutilizzabili e condivisibili
+I 'secret' vengono forniti ai ruoli in altri modi + sicuri, non direttamente nei ruoli, ma nei ruoli vengono viene si viene indirizzati al file Ansible Vault che contiene il segreto.
+
+---------------------------
+
+# USO DEI ROLES ANSIBLE NEI PLAY
+
+2 MODI PRINCIPALI PER RICHIAMARE I ROLES NEI PLAY:
+
+1) importare o includere come tasks nell'elenco dei tasks
+
+2) creare una lista dei roles che esegue roles specifici prima che vengano eseguiti i task del play
+
+# 1) IMPORTARE/INCLUDERE ROLES COME TASKS
+
+moduli
+'ansible.builtin.import_role'
+'ansible.builtin.include_role'
+
+- name: Run a role as a task
+  hosts: remote.example.com
+  tasks:
+    - name: A normal task
+      ansible.builtin.debug:
+        msg: 'first task'
+    - name: A task to import role2 here
+      ansible.builtin.import_role:
+        name: role2
+
+
+--------------------
+
+With the ansible.builtin.import_role module, Ansible treats the role as a static import and parses it during initial playbook processing.
+
+In the preceding example, when the playbook is parsed:
+
+If roles/role2/tasks/main.yml exists, Ansible adds the tasks in that file to the play.
+
+If roles/role2/handlers/main.yml exists, Ansible adds the handlers in that file to the play.
+
+If roles/role2/defaults/main.yml exists, Ansible adds the default variables in that file to the play.
+
+If roles/role2/vars/main.yml exists, Ansible adds the variables in that file to the play (possibly overriding values from role default variables due to precedence).
+
+--------------------
+
+Important
+Because ansible.builtin.import_role is processed when the playbook is parsed, the role's handlers, default variables, and role variables are all exposed to all the tasks and roles in the play, and can be accessed by tasks and roles that precede it in the play (even though the role has not run yet).
+
+----------------------
 
 
 
