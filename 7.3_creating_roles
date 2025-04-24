@@ -145,7 +145,35 @@ The following example shows how to use the motd role with a different value for 
 
 --------------------- 
 
+# Fewer variables can override variables defined in a role's vars directory
 
+# Fewer variables can override variables defined in a role's vars directory. Facts, variables loaded with include_vars, registered variables, and role parameters can override these variables. Inventory variables and play vars cannot. This behavior is important because it helps keep your play from accidentally changing the internal functioning of the role.
+
+# Variables declared inline as role parameters have very high precedence; they can also override variables defined in a role's vars directory.
+
+--------------------
+
+# Defining Role Dependencies
+
+'role dependencies' permettono di includere altri roles come dipendenze
+
+le dipendenze sono definite nel file '/meta/main.yml'
+
+---
+dependencies:
+  - role: apache
+    port: 8080
+  - role: postgres
+    dbname: serverlist
+    admin_user: felix
+
+
+-------------------
+
+important
+di default se più ruoli dipendono da un ruolo e tale ruolo viene chiamato più volte da ruoli diversi nella riproduzione con gli stessi attributi, il ruolo viene eseguito solo la prima volta che appare. Questo comportamento può essere ignorato impostando la variabile allow_duplicates su yes nel file meta/main.yml del ruolo.
+
+# MEGLIO EVITARE LE DIPENDENZE
 
  
 
