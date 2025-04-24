@@ -179,6 +179,33 @@ Because ansible.builtin.import_role is processed when the playbook is parsed, th
 
 ----------------------
 
+You can also set variables for the role when you call the task, in the same way that you can set task variables:
+
+- name: Run a role as a task
+  hosts: remote.example.com
+  tasks:
+    - name: A task to include role2 here
+      ansible.builtin.import_role:
+        name: role2
+      vars:
+        var1: val1
+        var2: val2
+
+
+-----------------------
+
+One key difference between the two modules is how they handle task-level keywords, conditionals, and loops:
+
+ansible.builtin.import_role applies the task's conditionals and loops to each of the tasks being imported.
+
+ansible.builtin.include_role applies the task's conditionals and loops to the statement that determines whether the role is included or not
+
+# In addition, when you include a role, its role variables and default variables are not exposed to the rest of the play, unlike ansible.builtin.import_role.
+
+--------------------
+
+# Using a Roles Section in a Play
+
 
 
 
