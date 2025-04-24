@@ -82,6 +82,29 @@ I roles semplificano il riutilizzo generico del codice Ansible.
 
 ('provisioning infrastructure', creazione e configurazione)
 
+Un role ben scritto può accettare le variabili passate dal playbook e le variabili possono modificare il comportamento del role impostando tutti i nomi host, gli indirizzi IP, i nomi utente, i secrets o altri dettagli specifici.
+
+BENEFITS:
+
+ç raggruppano i contenuti, consentendo una facile condivisione del codice con altri
+
+ç possono definire gli elementi essenziali di un tipo di sistema, come un server web, un server di database o un repository Git.
+
+ç rendono i progetti grandi + gestibili
+
+ç possono essere sviluppati in parallelo da utenti differenti
+
+# Oltre a scrivere, usare e riutilizzare e condividere i roles si possono anche ottenere da altri fonti.
+# pacchetti di distribuzione come Ansible Content Collection
+# download da Red Hat automation hub, hub di automazione privato
+# sito web Ansible Galaxy della community
+
+RHEL include alcuni roles nel pacchetto 'rhel-system-roles'
+
+# STRUTTURA ANSIBLE ROLES
+
+
+
 
 
 
