@@ -36,3 +36,42 @@ Se una sottodirectory esiste ma è vuota, come "handlers" in questo esempio, vie
 # Creating a Role Skeleton
 
 
+nella cartella 'roles'
+
+P.S.
+# nel file di config ansible.cfg
+  roles_path= ./roles/
+
+'ansible-galaxy' per gestire i roles Ansible
+
+'ansible-galaxy role init' per creare la struttura directory per un nuovo role
+
+# ansible-galaxy role init nome_role
+
+[user@host playbook-project]$ cd roles
+
+[user@host roles]$ ansible-galaxy role init my_new_role
+- Role my_new_role was created successfully
+
+[user@host roles]$ ls my_new_role/
+defaults  files  handlers  meta  README.md  tasks  templates  tests  vars
+
+---------------------------
+
+# Defining the Role Content
+
+Una volta creata la struttura si passa al contenuto del role
+
+un buon punto di partenza è il file 'nome_ruolo/tasks/main.yml' che contiene l'elenco principale dei tasks eseguiti dal role
+
+'tasks/main.yml' gestisce il file '/etc/motd' sugli hosts
+
+
+
+
+
+
+
+
+
+
