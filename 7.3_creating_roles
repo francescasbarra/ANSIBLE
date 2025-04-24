@@ -74,4 +74,85 @@ un buon punto di partenza è il file 'nome_ruolo/tasks/main.yml' che contiene l'
 
 
 
+-----------------------------
+
+# Recommended Practices for Role Content Development
+
+I ruoli consentono di suddividere i playbook in più file, ottenendo codice riutilizzabile. 
+Per massimizzare l'efficacia dei nuovi ruoli, si consiglia di implementare le seguenti procedure nello sviluppo dei ruoli:
+
+ç mantenere ogni ruolo nel proprio repository di controllo. Ansible lavora bene con i repository basati su git
+
+ç Creare e gestire i file 'README.md e meta/main.yml' per documentare lo scopo, autore e utilizzo del ruolo.
+
+ç usare un role per ogni funzione/scopo
+
+ç usa role spesso
+
+....
+
+
+------------------
+
+# Changing a Role's Behavior with Variables
+
+I roles che usano variabili sono + generici e possono essere usati in + contesti
+
+# Il valore di qualsiasi variabile definita nella directory default di un ruolo viene sovrascritto se la variabile è definita:
+
+- in un inventory file sia come variabile host che var group
+
+- in un file YAML nelle dir group_vars o host_var
+
+- come var annidata in vars: nel play
+
+- come var quando si include in roles: nel play
+
+----------------
+
+
+The following example shows how to use the motd role with a different value for the system_owner role variable. The value specified, someone@host.example.com, replaces the variable reference when the role is applied to a managed host.
+
+[user@host ~]$ cat use-motd-role.yml
+---
+- name: use motd role playbook
+  hosts: remote.example.com
+  remote_user: devops
+  become: true
+  vars:
+    system_owner: someone@host.example.com
+  roles:
+    - role: motd
+
+
+# When defined in this way, the system_owner variable replaces the value of the default variable of the same name
+# Any variable definitions nested within the vars keyword do not replace the value of the same variable if defined in a role's vars directory.
+
+------------------
+
+# The value specified, someone@host.example.com, replaces the variable reference regardless of being defined in the role's vars or defaults directory.
+
+[user@host ~]$ cat use-motd-role.yml
+---
+- name: use motd role playbook
+  hosts: remote.example.com
+  remote_user: devops
+  become: true
+  roles:
+    - role: motd
+      system_owner: someone@host.example.com
+
+
+--------------------- 
+
+
+
+ 
+
+
+
+
+-------------------
+
+
 
