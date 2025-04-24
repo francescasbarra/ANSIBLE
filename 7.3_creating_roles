@@ -8,3 +8,31 @@ PROCESSO DI CREAZIONE ROLES
 
 # 1 - CREARE LA STRUTTURA DI DIRECTORY DEL ROLE
 
+I roles si trovano in una directory 'roles' 
+Ogni role ha una sua directory con la sua struttura di sottodirectory
+
+[user@host ~]$ tree roles/
+roles/
+└── motd
+    ├── defaults
+    │   └── main.yml
+    ├── files
+    ├── handlers
+    ├── meta
+    │   └── main.yml
+    ├── README.md
+    ├── tasks
+    │   └── main.yml
+    └── templates
+        └── motd.j2
+
+
+file 'README.md'  fornisce una descrizione di base del ruolo, la documentazione, esempi di utilizzo e tutti i requisiti per i ruoli non Ansible.
+
+Se una sottodirectory esiste ma è vuota, come "handlers" in questo esempio, viene ignorata. È possibile omettere del tutto la sottodirectory se il ruolo non utilizza una funzionalità. In questo esempio, la sottodirectory "vars" viene omessa.
+
+---------------------------
+
+# Creating a Role Skeleton
+
+
