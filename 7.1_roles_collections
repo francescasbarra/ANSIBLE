@@ -81,6 +81,8 @@ role lavora sugli hosts, legge i valori che gli sono stati specificati
 
 # SUBDIRECTORY ROLES
 
+Important non tutti i roles hanno queste directory
+
 # defaults
 The 'main.yml' file in this directory contains the default values of role variables that can be overwritten when the role is used. 
 These variables have 'low precedence' and are intended to be changed and customized in plays 
@@ -107,6 +109,31 @@ This directory can contain an inventory and test.yml playbook that can be used t
 # vars
 The main.yml file in this directory 'defines the role s variable values'. Often these variables are used for internal purposes within the role. 
 These variables have 'high precedence and are not intended to be changed when used in a playbook'.
+
+
+-----------------------------------
+
+# Defining Variables and Defaults
+
+'Role variables' vengono definite creando un file 'vars/main.yml' con coppie chiavi-valore nella gerarchia delle directory del ruolo
+Hanno 'elevata precedenza' e non possono essere sovrascritte dalle var dell'inventory
+
+{{ var_name }}
+
+'Default variables' consentono di impostare valori predefiniti per le variabili che possono essere usate in un play per configurare un ruolo o personalizzarne il comportamento.
+Vengono definite nel file 'default/main.yml'
+'possono essere sovrascritte da qualsiasi altra variabile'
+È possibile utilizzare le variabili predefinite per fornire al ruolo le informazioni necessarie per configurare o distribuire correttamente qualcosa.
+
+
+
+
+
+
+
+
+
+
 
 
 
