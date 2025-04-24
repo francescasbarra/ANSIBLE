@@ -66,3 +66,20 @@ user.example/
 ----------------------
 
 
+role facilita la riusabilità del codice ansible attraverso le variabili dell'utente
+
+# parametri - valori
+
+role lavora sugli hosts, legge i valori che gli sono stati specificati 
+
+----------------------
+
+# Structuring Ansible Playbooks with Roles
+
+I roles semplificano il riutilizzo generico del codice Ansible. È possibile impacchettare tutte le attività, le variabili, i file, i template e le altre risorse necessarie per il provisioning dell'infrastruttura o il deployment delle applicazioni in una struttura di directory standardizzata. È possibile copiare un ruolo da un progetto all'altro copiando la directory, quindi richiamarlo all'interno di un'esecuzione.
+
+
+
+
+
+
