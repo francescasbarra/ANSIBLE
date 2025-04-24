@@ -2,27 +2,32 @@
 
 'Role' è una struttura di directory che facilita la riusabilità del codice ansible
 
-È possibile impacchettare tutte le attività, le variabili, i file, i modelli e le altre risorse necessarie per il provisioning dell'infrastruttura o la distribuzione delle applicazioni in una struttura di directory standardizzata.
+# Structuring Ansible Playbooks with Roles
 
-Copia un ruolo da un progetto all'altro copiando la directory, quindi richiama il ruolo all interno di un play
+ç I roles semplificano il riutilizzo generico del codice Ansible.
+È possibile impacchettare tutte le attività, le variabili, i file, i template e le altre risorse necessarie per il provisioning (creazione e configurazione) dell infrastruttura o il deployment delle applicazioni in una struttura di directory standardizzata.
+# È possibile copiare un ruolo da un progetto all altro copiando la directory, quindi richiamarlo all interno di un play.
 
-Un ruolo ben scritto può accettare le variabili passate dal playbook. Queste variabili possono modificare il comportamento del ruolo, impostando tutti i nomi host, gli indirizzi IP, i nomi utente, i segreti o altri dettagli specifici del sito.
+('provisioning infrastructure', creazione e configurazione)
 
-# benefit dei roles
+Un role ben scritto può accettare le variabili passate dal playbook e le variabili possono modificare il comportamento del role impostando tutti i nomi host, gli indirizzi IP, i nomi utente, i secrets o altri dettagli specifici.
 
--  raggruppano i contenuti, consentendo una facile condivisione del codice con altri.
+# benefit dei roles 
 
-- possono definite gli elementi essenziali di un tipo di sistema, come un server web, un server di database o un repository Git.
+ç raggruppano i contenuti, consentendo una facile condivisione del codice con altri.
 
-- rendono gestibili i progetti + grandi
+ç possono definite gli elementi essenziali di un tipo di sistema, come un server web, un server di database o un repository Git.
 
-- possono essere sviluppati in parallelo da + utenti
+ç rendono gestibili i progetti + grandi
+
+ç possono essere sviluppati in parallelo da + utenti
 
 ----------------
 
 Oltre ai ruoli che scriviamo, usiamo e riusiamo possiamo ottenere ruoli da altre fonti... 
-da pacchetti di distribuzione come 'Ansible Content Colelction' 
-si possono scaricare anche dall'hub di automazione Red Hat (hub privato di automazione) e dal sito Ansible Galaxy
+- da pacchetti di distribuzione come 'Ansible Content Colelction' 
+- si possono scaricare anche dall'hub di automazione Red Hat (hub privato di automazione)
+- dal sito Ansible Galaxy della community
 
 RH include dei ruoli nel pacchetto 'rhel-system-roles'
 
@@ -74,34 +79,9 @@ role lavora sugli hosts, legge i valori che gli sono stati specificati
 
 ----------------------
 
-# Structuring Ansible Playbooks with Roles
-
-I roles semplificano il riutilizzo generico del codice Ansible. 
-È possibile impacchettare tutte le attività, le variabili, i file, i template e le altre risorse necessarie per il provisioning (creazione e configurazione) dell infrastruttura o il deployment delle applicazioni in una struttura di directory standardizzata. 
-# È possibile copiare un ruolo da un progetto all altro copiando la directory, quindi richiamarlo all interno di un play.
-
-('provisioning infrastructure', creazione e configurazione)
-
-Un role ben scritto può accettare le variabili passate dal playbook e le variabili possono modificare il comportamento del role impostando tutti i nomi host, gli indirizzi IP, i nomi utente, i secrets o altri dettagli specifici.
-
-BENEFITS:
-
-ç raggruppano i contenuti, consentendo una facile condivisione del codice con altri
-
-ç possono definire gli elementi essenziali di un tipo di sistema, come un server web, un server di database o un repository Git.
-
-ç rendono i progetti grandi + gestibili
-
-ç possono essere sviluppati in parallelo da utenti differenti
-
-# Oltre a scrivere, usare e riutilizzare e condividere i roles si possono anche ottenere da altri fonti.
-# pacchetti di distribuzione come Ansible Content Collection
-# download da Red Hat automation hub, hub di automazione privato
-# sito web Ansible Galaxy della community
-
-RHEL include alcuni roles nel pacchetto 'rhel-system-roles'
 
 # STRUTTURA ANSIBLE ROLES
+
 
 
 
