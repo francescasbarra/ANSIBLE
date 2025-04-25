@@ -1,3 +1,66 @@
 # Deploying Roles from External Content Sources
+#
+# Selezionare e scaricare roles da fonti esterne come Git o Ansible Galaxy
+
+se il ruolo riguarda contenuti privati creati e curati dalla tua organizzazione, potrebbe essere archiviato in un repository Git gestito dalla tua organizzazione. In alternativa, potrebbe essere distribuito come file di archivio tar da un sito web o tramite altri mezzi.
+
+# Inoltre, la comunità open source mantiene alcuni roles tramite il sito Web di Ansible Galaxy. 
+# Questi roles non sono rivisti o supportati ufficialmente da Red Hat, ma potrebbero contenere codice che la tua organizzazione ritiene utile.
+
+-------------
+
+sempre + spesso i roles vengono inseriri nelle Collection Ansible e offerte dai loro autori attraverso diversi metodi:
+
+- collection ansible certificate RH dall'hub di automazione su https://console.redhat.com o tramite hub privato
+- come pacchetto privato da hub privato
+- dalla community attraverso il sito Ansible Galaxy https://galaxy.ansible.com
+
+ç Ideally, you want to be able to download the latest version of the role into the roles directory of your project simply, whenever necessary.
+
+-------------
+
+# Introducing Ansible Galaxy
+
+sul sito 'ANSIBLE GALAXY' è disponibile una libreria pubblica di contenuti Ansible scritti da diversi amministratori e utenti.
+contiene migliaia di roles e un database consultabile che aiuta a cercare e identificare roles che potrebbero essere utili
+
+# il comando ansible-galaxy può essere usato sia per scaricare roles da ansible galaxy che dai repository Git
+
+'ansible-galaxy role' per cercare, visualizzare info, installare, elencare, rimuovere o inizializzare i roles.
+
+
+'ansible-galaxy role -h' (o --help)
+per info e documentazione
+
+'ansible-galaxy role list' lista dei roles
+
+ansible-galaxy search 'redis' --platforms EL 
+(per cercare roles che possono essere installati nel sito di ansivle-galaxy)
+
+-----------------------
+
+# Installing Roles Using a Requirements File
+
+'roles/requirements.yml file' 
+quando si crea un playbook potremmo aver bisogno di specifici roles già pronti:
+qui entra in gioco il file 'roles/requirements.yml' in cui vengono inserite le informazioni sui roles necessari e da dove scaricarli in modo da non doverli scaricare a mano uno alla volta
+
+# es. requirements.yml
+- src: https://git.example.com/someuser/someuser.myrole
+  scm: git           
+  version: "1.5.0"  # opzionale
+
+# scm indica che il role si trova in un repository
+
+
+per installare i roles nel file requirements:
+'ansible-galaxy role -r role/requirements.yml'
+
+
+
+
+
+
+
 
 
