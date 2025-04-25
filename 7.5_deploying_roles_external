@@ -34,8 +34,10 @@ per info e documentazione
 
 'ansible-galaxy role list' lista dei roles
 
-ansible-galaxy search 'redis' --platforms EL 
-(per cercare roles che possono essere installati nel sito di ansivle-galaxy)
+ansible-galaxy role search 'redis' --platforms EL 
+(per cercare roles che possono essere installati nel sito di ansible-galaxy)
+
+ansible-galaxy info nome.role
 
 -----------------------
 
@@ -50,13 +52,58 @@ qui entra in gioco il file 'roles/requirements.yml' in cui vengono inserite le i
   scm: git           
   version: "1.5.0"  # opzionale
 
-# scm indica che il role si trova in un repository
+# scm, indica che il role si trova in un repository
+# version, se non specificata viene usata la versione dell'ultimo git nel branch di default
+
+--------------
+Important
+Specify the version of the role in your requirements.yml file, especially for playbooks in production.
+
+If you do not specify a version, you get the latest version of the role.
+
+If the upstream author makes changes to the role that are incompatible with your playbook, it might cause an automation failure or other problems
+--------------
 
 
-per installare i roles nel file requirements:
-'ansible-galaxy role -r role/requirements.yml'
+per installare i roles contenuti nel file requirements:
+'ansible-galaxy role install -r role/requirements.yml'
+ -r ...  per indicare dove si trova il req. file
+
+ -p roles - per installare il role in una subdirectory della directory roles
+ansible-galaxy role install -r roles/requirements.yml -p roles
+
+-------------
+One way to avoid the need to specify -p roles is to apply the following setting in the defaults section of your project's ansible.cfg file:
+
+'roles_path = roles'
+-------------
+ 
+# Retrieve role from tar archive
+
+# from a role tar ball, given a URL;
+#   supports 'http', 'https', or 'file' protocols
+- src: file:///opt/local/roles/tarrole.tar
+  name: tarrole
+
+--------------
+
+# Finding Community-managed Roles in Ansible Galaxy
+
+The open source Ansible community operates a public server, https://galaxy.ansible.com, that contains roles and Ansible Content Collections shared by other Ansible users.
+
+warning i roles gestiti dalla community ansible non sono supportati da RedHat, quindi potrebbero essere rischiosi da usare.
+
+# Browsing Ansible Galaxy for Roles
+
+The Search tab on the left side of the Ansible Galaxy website home page gives you access to information about the roles published on Ansible Galaxy. You can search for an Ansible role by name or by using tags or other role attributes.
+
+---------------
+
+# Searching for Roles from the Command Line
 
 
+'ansible-galaxy role search 'redis' --platforms EL'
+(per cercare roles che possono essere installati nel sito di ansible-galaxy)
 
 
 
