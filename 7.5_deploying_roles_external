@@ -104,6 +104,32 @@ The Search tab on the left side of the Ansible Galaxy website home page gives yo
 
 'ansible-galaxy role search 'redis' --platforms EL'
 (per cercare roles che possono essere installati nel sito di ansible-galaxy)
+'EL' sta per Enterprise Linux
+
+
+# Downloading Roles from Ansible Galaxy
+
+The following example shows how to configure a requirements file that uses a variety of remote sources.
+
+[user@host project]$ cat roles/requirements.yml
+# from Ansible Galaxy, using the latest version
+- src: geerlingguy.redis 1
+
+# from Ansible Galaxy, overriding the name and using a specific version
+- src: geerlingguy.redis
+  version: "1.5.0" 2
+  name: redis_prod
+
+# from any Git based repository, using HTTPS
+- src: https://github.com/geerlingguy/ansible-role-nginx.git
+  scm: git 3
+  version: master
+  name: nginx
+
+# from a role tar ball, given a URL;
+#   supports 'http', 'https', or 'file' protocols
+- src: file:///opt/local/roles/myrole.tar 4
+  name: myrole 
 
 
 
