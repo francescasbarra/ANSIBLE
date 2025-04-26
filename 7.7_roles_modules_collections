@@ -15,4 +15,69 @@ e si possono scaricare da:
 - Ansible Galaxy
 - terze parti come Git
 
+------------------
 
+ansible-galaxy
+dà info sull'uso del comando
+
+'ansible-galaxy collection list' per elencare le collection
+'ansible-galaxy collection install redhat.RHCollection'
+                                   fornitore.nome-collezione
+
+
+--------
+Note
+# You can develop your own collections to provide custom roles and modules to your teams. 
+Creating Ansible Content Collections of your own is outside the scope of this course. You can learn more about how to create Ansible Content Collections in the course that follows this one, Developing Advanced Automation with Red Hat Ansible Automation Platform (DO374).
+-------
+
+# Namespaces for Ansible Content Collections
+
+i nomi delle 'collections' sono organizzati in 'namespaces'.
+Venditori, fornitori, sviluppatori e creatori di contenuti possono usare i # namespace per assegnare nomi univoci alle loro collections in modo da non andare in conflitto con quelli delle altre.
+
+il 'namespace' è la prima parte del nome di una collection
+
+es Ansible community collections
+community.crypto
+
+Red Hat collections
+redhat.satellite, redhat.insights, ecc
+
+---------
+
+# Selecting Sources of Ansible Content Collections
+
+sia che si usi ansible-navigator che ansible-playbook si ha a disposizione almeno la collezione 'ansible.builtin'
+
+se è necessario scaricare altre collezioni, si possono aggiungere alla sottodirectory 'collection' nel progetto ansible da diverse fonti:
+- Red Hat Certified Collection
+- Private Automation Hub
+- Ansible Galaxy
+- terze parti come Git
+
+-----------
+
+# Installing Ansible Content Collections
+
+Prima che i playbook possano usare i contenuti di una collection ci si deve assicurare che questa sia disponibile nell'execution environment.
+
+l impostazione 'collection_path' in 'ansible.cfg' specifica un elenco di path nel sistema dove ansible cersca le collezioni installate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
