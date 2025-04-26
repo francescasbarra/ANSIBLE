@@ -64,9 +64,31 @@ Prima che i playbook possano usare i contenuti di una collection ci si deve assi
 
 l impostazione 'collection_path' in 'ansible.cfg' specifica un elenco di path nel sistema dove ansible cersca le collezioni installate
 
+-----
+
+The following default value references the collections_paths directive.
+
+# ~/.ansible/collections:/usr/share/ansible/collections
+
+-----
 
 
+'ansible-galaxy collection install community.crypto -p collections'
 
+installa la collection community.crypto nella sottodirectory collections
+
+IMPORTANT È necessario specificare l opzione -p collections, altrimenti ansible-galaxy installa la raccolta in base all'impostazione collections_paths corrente o nella directory ~/.ansible/collections/ sul nodo di controllo per impostazione predefinita
+
+Il comando ansible-navigator non carica questa directory nell'ambiente di esecuzione dell'automazione,
+
+your Ansible project checks the local collections subdirectory before checking directories specified by the collections_paths setting and can use the collections stored there.
+
+The command can also install a collection from a local or a remote tar archive, or a Git repository. 
+ansible-galaxy collection install git@git.example.com:organization/repo_name.git -p collections
+
+---------
+
+# Installing Ansible Content Collections with a Requirements File
 
 
 

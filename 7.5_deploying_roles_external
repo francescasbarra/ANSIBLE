@@ -150,6 +150,24 @@ RISULTATO
 # [student2 on servera in ~ dir]$
 
 
+sta creando una variabile (default_prompt) che contiene un testo speciale usato per personalizzare il prompt del terminale, cioè quella scritta che vedi prima di digitare i comandi.
+
+Vediamo cosa significano i simboli dentro le parentesi quadre [...]:
+
+'\u' → mostra il nome dell'utente (esempio: mario).
+
+'\h' → mostra il nome del computer (esempio: server1).
+
+'\W' → mostra il nome della cartella corrente (non il percorso completo, solo il nome).
+
+'\$' → mette un $ se sei un utente normale, oppure un # se sei root (amministratore).
+
+Quindi, se ad esempio: utente mario, 'c server1, cartella documenti...il prompt apparirà così:
+
+# [mario on server1 in documenti dir]$ 
+
+
+
 -----------------------
 
 
