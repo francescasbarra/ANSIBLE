@@ -71,6 +71,7 @@ per installare i roles contenuti nel file requirements:
 
  -p roles - per installare il role in una subdirectory della directory roles
 ansible-galaxy role install -r roles/requirements.yml -p roles
+# se ti trovi già nella cartella roles, si può usare '-p . (. in questa dir di lavoro')
 
 -------------
 One way to avoid the need to specify -p roles is to apply the following setting in the defaults section of your project's ansible.cfg file:
