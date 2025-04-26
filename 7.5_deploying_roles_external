@@ -73,6 +73,10 @@ per installare i roles contenuti nel file requirements:
 ansible-galaxy role install -r roles/requirements.yml -p roles
 # se ti trovi già nella cartella roles, si può usare '-p . (. in questa dir di lavoro')
 
+Important
+If you do not specify the option -p roles to your ansible-galaxy role list command, the role that you installed is not listed because the roles subdirectory is not in your default roles_path.
+
+
 -------------
 One way to avoid the need to specify -p roles is to apply the following setting in the defaults section of your project's ansible.cfg file:
 
@@ -134,7 +138,19 @@ The following example shows how to configure a requirements file that uses a var
 
 
 
+-------------------
 
+# ESEMPIO DA ESERCIZIO
+#
+# vars:
+    default_prompt: '[\u on \h in \W dir]\$ '
+
+RISULTATO
+
+# [student2 on servera in ~ dir]$
+
+
+-----------------------
 
 
 

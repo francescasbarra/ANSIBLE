@@ -1,0 +1,18 @@
+# Getting Roles and Modules from Content Collections
+
+Ottenere un set di roles collegati, moduli e altri contenuti da Ansible Content Collection e usarli nei playbook.
+
+# ANSIBLE CONTENT COLLECTION
+
+le 'COLLECTION' possono contenere:
+# plugin
+# moduli
+# roles
+
+e si possono scaricare da:
+- Red Hat Certified Collection
+- Private Automation Hub
+- Ansible Galaxy
+- terze parti come Git
+
+
