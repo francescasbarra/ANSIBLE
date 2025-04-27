@@ -55,7 +55,7 @@ create: true (riguarda la creazione del file se non esiste già)
 # ansible-doc modulo (per consultare la documentazione di un det modulo, con esempi)
 
 # tree - F directory
-mostra la struttura della dir
+mostra la struttura ad albero della dir
 
 ssh utente@server 'comando' (es. ssh devops@servera 'cat /dir/file.txt'
 
@@ -64,6 +64,23 @@ ssh utente@server 'comando' (es. ssh devops@servera 'cat /dir/file.txt'
 nm tui (TUI Test User Interface)
 
 ------
+
+# SHIFT+v (seleziona varie righe) e 'canc' per cancellare 
+
+src: dir/  (/ trailing slash, copia directory e tutto il contentuto)
+
+# mkdir directory; cd directory
+
+---------
+
+ansible-galaxy role --help
+
+---------
+
+'ROLLBACK' ripristino dello stato precedente o stato desiderato
+
+---------
+
 
 
 

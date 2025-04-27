@@ -10,4 +10,9 @@ forniscono l'automazione per molte comuni attività di configurazione del sistem
 
 # Simplified Configuration Management
 
+es. 'redhat.rhel_system_roles.timesync'
+ruolo per configurare la sincronizzazione oraria per gli host 
+
+# Support for System Roles
+
 
