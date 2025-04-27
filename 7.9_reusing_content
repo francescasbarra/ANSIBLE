@@ -15,4 +15,63 @@ ruolo per configurare la sincronizzazione oraria per gli host
 
 # Support for System Roles
 
+# Installing the System Roles Ansible Content Collection
+
+'ansible-galaxy collection install redhat.rhel_system_roles'
+
+An Ansible project can specify this dependency by creating a collections/requirements.yml file. The following example assumes that your project is set up to pull Ansible Content Collections from automation hub.
+
+---
+collections:
+  - name: redhat.rhel_system_roles
+
+
+------------
+
+The following command installs any required collections for a given project into the project's collections/ directory.
+
+ansible-galaxy collection install -p collections/ -r collections/requirements.yml
+
+
+
+
+
+
+
+
+
+
+---------------
+
+# Using System Roles with Ansible Core Only
+
+If you do not have a subscription to Red Hat Ansible Automation Platform, but you do have Red Hat Enterprise Linux systems, you can use system roles with the version of Ansible Core provided with RHEL.
+
+
+
+# Installing the System Roles RPM Package
+
+Make sure that your control node is registered with Red Hat Subscription Manager and has a Red Hat Enterprise Linux subscription. You should also install the ansible-core RPM package.
+
+repository App Stream deve essere abilitato
+
+'sudo dnf install rhel-system-roles'
+
+After installation, the collection is installed in the 
+'/usr/share/ansible/collections/ansible_collections/redhat/rhel_system_roles' directory on your control node.
+
+The individual roles are also installed in the 
+/usr/share/ansible/roles directory for backward compatibility: (per compatibilità con le versioni precedenti)
+
+
+
+
+-------------------------
+
+# Running Playbooks Without Automation Content Navigator
+
+si può usare il comando 'ansible-playbook' per eseguire un playbook che usa roles in RHEL quando non si ha Red Hat Ansible Automation Platform o ansible-navigator
+
+'ansible-playbook playbook.yml'
+
 
