@@ -1,0 +1,13 @@
+# Reusing Content with System Roles
+
+Write playbooks that take advantage of system roles for Red Hat Enterprise Linux to perform standard operations.
+
+# SYSTEM ROLES
+
+i 'system roles' sono un insieme di roles usati per configurare e gestire vari componenti, sottosistemi e pacchetti inclusi in RHEL.
+
+forniscono l'automazione per molte comuni attività di configurazione del sistema, tra cui la sincronizzazione oraria, la rete, il firewall, l'ottimizzazione e la registrazione.
+
+# Simplified Configuration Management
+
+
