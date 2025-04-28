@@ -1,3 +1,71 @@
 # THROUBLESHOOTING ANSIBLE
 
+# Troubleshooting Playbooks
 
+# Debugging Playbooks
+
+L'output del comando asnible-navigator run è già un buon punto di partenza per risolvere i problemi dei playbook
+
+# i risultati dei tasks possono essere:
+'ok'
+'fatal'
+'changed'
+'skipped'
+
+'PLAY RECAP' mostra il numero di task eseguiti per ogni host in base al risultato del task
+
+PLAY RECAP *********************************************************************
+demoservera    : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+demoserverb    : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+
+è possibile aumentaare il dettaglio dell output ('verbosity') aggiungendo l'opzione -v dopo ansible navigator run
+
+ansible navigator run -v
+ -vv -vvv -vvvv
+
+
+-----------
+
+# Examining Values of Variables with the Debug Module
+
+modulo 'ansible.builtin.debug'
+
+per ottenere info su quanto accade nel play
+per visualizzare il valore di una det variabile in un punto specifico del play
+Questo può aiutare a eseguire il debug di attività che utilizzano variabili per comunicare tra loro (ad esempio, utilizzando l'output di un'attività come input per quella successiva).
+
+Il modulo ansible.builtin.debug serve semplicemente per stampare messaggi a video durante l'esecuzione di un playbook Ansible. È utile per mostrare il valore di variabili o dare informazioni su cosa sta succedendo.
+
+- name: Display free memory
+  ansible.builtin.debug:
+    msg: "Free memory for this system is {{ ansible_facts['memfree_mb'] }}"
+
+
+- name: Display the "output" variable
+  ansible.builtin.debug:
+    var: output
+    verbosity: 2
+
+# This second example displays the value of the output variable.
+
+
+# Reviewing Playbooks for Errors
+
+Possono verificarsi diversi problemi durante l'esecuzione di un playbook, molti dei quali sono correlati alla sintassi del playbook o di uno qualsiasi dei modelli utilizzati, oppure dovuti a problemi di connettività con gli host gestiti (ad esempio, un errore nel nome host dell host nell inventory).
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------
+
+'ansible-lint playbook'
+controlla in modo + approfondito rispetto a --syntax-check
