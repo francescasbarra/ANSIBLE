@@ -42,7 +42,7 @@ P.S.
 # nel file di config ansible.cfg
   roles_path= ./roles/
 
-'ansible-galaxy' per gestire i roles Ansible
+'ansible-galaxy' per gestire i roles e collections Ansible
 
 'ansible-galaxy role init' per creare la struttura directory per un nuovo role
 
