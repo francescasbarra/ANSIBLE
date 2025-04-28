@@ -75,3 +75,7 @@ si può usare il comando 'ansible-playbook' per eseguire un playbook che usa rol
 'ansible-playbook playbook.yml'
 
 
+#
+
+
+
