@@ -54,18 +54,55 @@ Il modulo ansible.builtin.debug serve semplicemente per stampare messaggi a vide
 
 Possono verificarsi diversi problemi durante l'esecuzione di un playbook, molti dei quali sono correlati alla sintassi del playbook o di uno qualsiasi dei modelli utilizzati, oppure dovuti a problemi di connettività con gli host gestiti (ad esempio, un errore nel nome host dell host nell inventory).
 
+ci sono diversi tool per revisionare il playbook ed individiare gli errori:
+
+# Checking Playbook Syntax for Problems
+'--syntax-check'
+ansible-navigator run -m stdout playbook.yml --syntax-check
+
+verifica la presenza di errori di sintassi anzichè eseguire effettivamente il playbook
+
+# Checking a Given Task in a Playbook
+'--step'
+ansible-navigator run -m stdout playbook.yml --step --pae false  
+
+Richiede in modo interattivo la conferma dell'esecuzione di ogni attività. 
+Premi Y per confermare l esecuzione dell'attività, N per saltarla o C per continuare l esecuzione delle attività rimanenti
+
+Important
+Because Ansible prompts you for input when you use the --step option, you must disable playbook artifacts and use standard output mode.
+
+
+pae = playbook artifact enable
+Se metti false, Ansible Navigator non salva un file di artifact (cioè un file JSON con i dettagli dell'esecuzione del playbook).
+
+In breve:
+➡️ --pae false = non crea il file di salvataggio dell'esecuzione.
+
+
+'--start-at-task'
+ansible-navigator run -m stdout playbook.yml --start-at-task "Ensure webservice is started"
+
+per iniziare il playbook da uno specifico task
+
+'ansible-navigator run --list-task' per fare la lista dei task nel playbook
+
+
+# Checking Playbooks for Issues and Following Good Practices
+
+- dare un nome breve e descrittivo ai play/task
+- usare i commenti per dare + info 
+- usare al meglio gli spazi per facilitare leggibilità
+- fare attenzione agli spazi/indentazione
+- mantenere il playbook + semplice possibile, usare funzionalità necessarie
+
+
+'ansible-lint'
+ansible-lint playbook.yml
+
+utilizza un insieme di regole predefinite per individuare possibili problemi nel tuo playbook. Non tutti i problemi segnalati interrompono il playbook, ma un problema segnalato potrebbe indicare la presenza di un errore più grave.
 
 
 
-
-
-
-
-
-
-
-
----------------------
-
-'ansible-lint playbook'
+'ansible-lint playbook.yml'
 controlla in modo + approfondito rispetto a --syntax-check
