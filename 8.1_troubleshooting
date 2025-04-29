@@ -106,3 +106,24 @@ utilizza un insieme di regole predefinite per individuare possibili problemi nel
 
 'ansible-lint playbook.yml'
 controlla in modo + approfondito rispetto a --syntax-check
+
+
+Important
+The ansible-lint command evaluates your playbook based on the software on your workstation. It does not use the automation execution environment container that is used by ansible-navigator.
+
+[...]
+
+
+-----------------
+
+
+# Reviewing Playbook Artifacts and Log Files
+
+# Ansible può registrare (log) l'output dei playbook in diversi modi:
+ç ansible-navigator puà produrre 'playbook artifacts' che memorizzano informazioni sull'esecuzione dei playbook in formato json
+ç log delle info in file di testo
+
+
+# Playbook Artifacts from Automation Content Navigator
+
+
