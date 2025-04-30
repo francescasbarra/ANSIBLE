@@ -134,4 +134,21 @@ raccoglie facts in un file, simile al comando stat
 
 se il file non esiste non fallisce, ma la sua variabile registrata segnala 'false' per *['stat']['exists']
 
+In this example, an application is still running if /var/run/app.lock exists, in which case the play should abort.
+
+  tasks:
+    - name: Check if /var/run/app.lock exists
+      ansible.builtin.stat:
+        path: /var/run/app.lock
+      register: lock
+
+    - name: Fail if the application is running
+      ansible.builtin.fail:
+      when: lock['stat']['exists']
+
+--------------------
+
+'ansible.builtin.assert'
+è un'alternativa al modulo ansible.builtin.fail
+
 
