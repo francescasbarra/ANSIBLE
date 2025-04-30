@@ -113,7 +113,7 @@ The ansible-lint command evaluates your playbook based on the software on your w
 
 [...]
 
-
+(non è ufficialmente supportato)
 -----------------
 
 
@@ -125,5 +125,4 @@ The ansible-lint command evaluates your playbook based on the software on your w
 
 
 # Playbook Artifacts from Automation Content Navigator
-
 
