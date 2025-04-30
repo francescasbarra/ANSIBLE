@@ -1,0 +1,86 @@
+# Troubleshooting Ansible Managed Hosts
+
+Troubleshoot failures on managed hosts when running a playbook
+
+# Troubleshooting Connections
+
+Molti problemi sono associati alle connessioni con gli hosts e ai problemi di configurazione riguardo all'utente remoto e all'escalation dei provilegi
+
+# Problems Authenticating to Managed Hosts
+
+- assicurarsi che sia settato correttamente 'remote_user' nel file di configurazione o nel play, che combacino e siano gli user desiderati altrimenti fallisce il playbook
+
+- 'permission denied': un altro motivo di fail può essere dovuto alle impostazioni non corrette delle chiavi ssh o password errate
+
+es.
+TASK [Gathering Facts] *********************************************************
+fatal: [host.lab.example.com]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: root@host: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).", "unreachable": true}
+
+in questo caso il playbook tenta di connettersi all host come utente root ma la chiave ssh per l utente root sul controlnode non è stato aggiunto al file 'authorized_keys' per l'utente root sull host
+(credenziali di autenticazione mancanti o errate)
+
+----------------
+
+# Problems with Name or Address Resolution
+You can set a host inventory variable, 'ansible_host', that overrides the inventory name with a different name or IP address and be used by Ansible to connect to that host. This variable could be set in the host_vars file or directory for that host, or could be set in the inventory file itself.
+
+For example, the following inventory entry configures Ansible to connect to 192.0.2.4 when processing the web4.phx.example.com host:
+
+web4.phx.example.com ansible_host=192.0.2.4
+
+------------------
+
+# Problems with Privilege Escalation
+se il playbook si connette come 'remote_user' e poi usa privilege escalation per diventare root o altro utente
+assicurarsi che 'become' sia impostato correttamente e che ci sia il valore corretto per 'become_user'
+(DI DEFAULT BECOME_USER è impostato su ROOT)
+
+
+se l'utente remoto deve fornire la password sudo è necessario fornire la corretta pw sull'host
+
+TASK [Gathering Facts] *********************************************************
+fatal: [host]: FAILED! => {"msg": "Missing sudo password"}
+
+In the preceding example, the playbook is attempting to run sudo on the host machine but it fails. The remote_user is not set up to run sudo commands without a password on the host machine. Either sudo on the host machine is not properly configured, or it is supposed to require a sudo password and you neglected to provide one when running the playbook.
+
+Important
+Normally, ansible-navigator runs as root inside its automation execution environment. However, the root user in the container has access to SSH keys provided by the user that ran ansible-navigator on the workstation. 
+--------------
+
+# Problems with Python on Managed Hosts
+
+Ansible necessita che sugli hosts ci sia un interprete Python
+
+TASK [Gathering Facts] *********************************************************
+.............'["No python interpreters found for host......'
+
+
+----------
+
+# Using Check Mode as a Testing Tool
+
+ansible-navigator run --check
+ansible-navigator run -m stdout playbook.yml --check
+
+
+questa opzione esegue il playbook sugli hosts ma senza apportare modifiche ('dry-run')
+
+vengono visualizzate le eventuali modifiche senza fare cambiamenti
+
+in caso di 'condizioni' potrebbe non funzionare
+
+'check_mode' true / false
+se 'true' si forza l'esecuzione dei tasks in modalità check
+se false , run normalmente 
+
+tasks:
+    - name: task always in check mode
+      ansible.builtin.shell: uname -a
+      check_mode: true
+
+# questo task run sempre in check mode e non apporta cambiamenti
+This can be useful because you can run most of a playbook normally and test individual tasks with check_mode: true
+
+-----------------
+
+
