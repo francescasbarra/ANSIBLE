@@ -101,4 +101,37 @@ mostra i cambiamenti apportati sugli host. Se si usa con l'opzione --check i cam
 
 # Testing with Modules
 
+alcuni moduli possono fornire ulteriori info sullo stato degli host e vengono usati per testare e risolvere i problemi
+
+'ansible.builtin.uri' verifica che un RESTful API restituisca il contenuto richiesto
+
+tasks:
+    - ansible.builtin.uri:
+        url: http://api.myapp.example.com
+        return_content: true
+      register: apiresponse
+
+    - ansible.builtin.fail:
+        msg: 'version was not provided'
+      when: "'version' not in apiresponse.content"
+
+
+---------------
+
+'ansible.builtin.script'
+esegue uno script sugli host e fallisce se il codice di ritorno è diverso da zero
+lo script si deve trovare nel progetto ansible e deve essere trasferito ed eseguito sugli hosts
+
+ tasks:
+    - ansible.builtin.script: scripts/check_free_memory --min 2G
+
+----------------------
+
+'ansible.builtin.stat'
+raccoglie facts in un file, simile al comando stat
+
+È possibile utilizzarlo per registrare una variabile e quindi verificare se il file esiste o per ottenere altre informazioni sul file.
+
+se il file non esiste non fallisce, ma la sua variabile registrata segnala 'false' per *['stat']['exists']
+
 
