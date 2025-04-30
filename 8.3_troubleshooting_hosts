@@ -82,5 +82,23 @@ tasks:
 This can be useful because you can run most of a playbook normally and test individual tasks with check_mode: true
 
 -----------------
+important
+A task can determine if the playbook is running in check mode by testing the value of the magic variable ansible_check_mode. This Boolean variable is set to true if the playbook is running in check mode.
+
+------------------
+
+Warning
+Tasks that have check_mode: false set run even when the playbook is run with ansible-navigator run --check. Therefore, you cannot trust that the --check option makes no changes to managed hosts, without inspecting the playbook and any roles or tasks associated with it.
+
+------------------
+
+'--diff'
+mostra i cambiamenti apportati sugli host. Se si usa con l'opzione --check i cambiamenti vengono visualizzati nell output del comando ma non realmente effettuati.
+
+# ansible-navigator run -m stdout playbook.yml --check --diff
+
+------------------
+
+# Testing with Modules
 
 
