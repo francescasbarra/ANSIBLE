@@ -4,4 +4,82 @@ Automate common Linux system administration tasks with Ansible.
 
 # Managing Software and Subscriptions
 
+# Managing Packages with Ansible
+
+'ansible.builtin.dnf' per gestire operazioni sui pacchetti
+
+tasks:
+    - name: Install the httpd packages
+      ansible.builtin.dnf:
+        name: httpd    
+        state: present 
+
+
+The 'state' keyword indicates the expected state of the package on the managed host:
+
+'present' Ansible installs the package if it is not already installed. # (dnf install)
+
+'absent' Ansible removes the package if it is installed. # (dnf remove)
+
+'latest' Ansible updates the package if it is not already at the most recent available version. If the package is not installed, Ansible installs it. # (dnf upgrade)
+
+
+note
+you must prefix 'group names with the at sign (@)'. Remember that you can retrieve the list of groups with the dnf group list command.
+ansible.builtin.dnf:
+    name: '@Development Tools' 1
+    state: present
+
+
+# ansible-navigator doc ansible.builtin.dnf command for additional parameters and playbook examples.
+
+
+-------------------------------
+
+# Optimizing Multiple Package Installation
+
+tasks:
+    - name: Install the packages
+      ansible.builtin.dnf:
+        name:
+          - httpd
+          - mod_ssl
+          - httpd-tools
+        state: present
+
+
+With this syntax, Ansible installs the packages in a single DNF transaction. This is equivalent to running the dnf install httpd mod_ssl httpd-tools command.
+
+# A commonly seen but less efficient and slower version of this task is to use a loop.
+Avoid using this method because it requires the module to perform three individual transactions; one for each package.
+
+tasks:
+    - name: Install the packages
+      ansible.builtin.dnf:
+        name: "{{ item }}""
+        state: present
+      loop:
+        - httpd
+        - mod_ssl
+        - httpd-tools
+
+
+# Gathering Facts about Installed Packages
+
+
+'ansible.builtin.package_facts'  collects the installed package details on managed host
+It sets the 'ansible_facts['packages']' variable with the package details.
+
+
+
+
+-----------------------
+
+# Reviewing Alternative Modules to Manage Packages
+
+For other package managers, Ansible usually provides a dedicated module. 
+
+The 'ansible.builtin.apt' module uses the APT package tool available on Debian and Ubuntu. 
+The 'ansible.windows.win_package' module can install software on Microsoft Windows systems.
+
 
