@@ -214,7 +214,39 @@ rhc_repositories:
         gpgcheck: true   
         state: present  
 
+----------
 
+# Importing an RPM GPG Key
+
+# Le chiavi GPG servono a verificare che i pacchetti non siano stati manomessi
+
+when in 'ansible.builtin.yum_repository' 
+gpgcheck=true you need to install GPG key on the hosts
+(per verificare la firma dei pacchetti con GPG)
+
+- se gpg è attivo si deve installare la chiave gpg sull host, se non si fa non si può verificare la firma dei pacchetti e dà errore 
+
+#per installare la chiave gpg si usa
+'ansible.builtin.rpm_key' deploys the GPG public key hosted on a remote web server to the servera.lab.example.com managed host.
+
+---
+- name: Configure the company YUM/DNF repositories
+  hosts: servera.lab.example.com
+  tasks:
+    - name: Deploy the GPG public key
+      ansible.builtin.rpm_key:
+        key: http://materials.example.com/yum/repository/RPM-GPG-KEY-example
+        state: present
+
+    - name: Ensure Example Repo exists
+      ansible.builtin.yum_repository:
+        file: example
+        name: example-internal
+        description: Example Inc. Internal YUM/DNF repo
+        baseurl: http://materials.example.com/yum/repository/
+        enabled: true
+        gpgcheck: true
+        state: present
 
 
 
