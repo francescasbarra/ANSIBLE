@@ -71,7 +71,11 @@ tasks:
 It sets the 'ansible_facts['packages']' variable with the package details.
 
 
+- name: Gather Package Facts
+      ansible.builtin.package_facts:
+        manager: auto
 
+# il parametro manager: auto indica di scegliere in automatico il gestore dei pacchetti + adatto in base al sistema operativo
 
 -----------------------
 
