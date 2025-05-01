@@ -161,11 +161,58 @@ attivazione del pool, associa automaticamente una sottoscrizione disponibile al 
 
 # Managing Red Hat Subscription Management by Using a Role
 
+Whether you use the rhel-system-roles.rhc role from the rhel-system-roles RPM or the redhat.rhel_system_roles.rhc role from the redhat.rhel_system_roles collection, the steps for managing Red Hat subscription management are essentially the same.
+
+# 1 Create a play that includes the desired role:
+
+---
+- name: Register systems
+  hosts: all
+  become: true
+  tasks:
+    - name: Include the rhc role
+      ansible.builtin.include_role:
+        name: redhat.rhel_system_roles.rhc
+
+# 2 Define variables for the role. You might define these variables in the play, in a group_vars directory, in a host_vars directory, or in a separate variable file:
+
+---
+rhc_state: present 
+rhc_auth: 
+  login:
+    username: yourusername
+    password: yourpassword
+rhc_insights: 
+  state: present
+rhc_repositories: 
+  - name: rhel-9-for-x86_64-baseos-rpms
+    state: enabled
+  - name: rhel-9-for-x86_64-appstream-rpms
+    state: enabled
 
 
 
+---------------
 
+# Configuring an RPM Package Repository
 
+'ansible.builtin.yum_repository' To enable support for a third-party Yum repository on a managed host
+
+# Declaring an RPM Package Repository
+
+---
+- name: Configure the company YUM/DNF repositories
+  hosts: servera.lab.example.com
+  tasks:
+    - name: Ensure Example Repo exists
+      ansible.builtin.yum_repository:
+        file: example   
+        name: example-internal
+        description: Example Inc. Internal YUM/DNF repo
+        baseurl: http://materials.example.com/yum/repository/
+        enabled: true
+        gpgcheck: true   
+        state: present  
 
 
 
