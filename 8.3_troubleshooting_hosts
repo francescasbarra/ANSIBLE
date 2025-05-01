@@ -151,4 +151,54 @@ In this example, an application is still running if /var/run/app.lock exists, in
 'ansible.builtin.assert'
 è un'alternativa al modulo ansible.builtin.fail
 
+supporta opzione 'that' che accetta un elenco di condizioni
+- se una di esse è falsa il task fallisce
 
+- opzioni 'success_msg' e 'fail_msg' per personalizzare il messaggio visualizzato in caso di successo/fallimento 
+
+
+The following example repeats the preceding one, but uses ansible.builtin.assert instead of the ansible.builtin.fail module:
+
+  tasks:
+    - name: Check if /var/run/app.lock exists
+      ansible.builtin.stat:
+        path: /var/run/app.lock
+      register: lock
+
+    - name: Fail if the application is running
+      ansible.builtin.assert:
+        that:
+          - not lock['stat']['exists']
+
+
+--------------------------
+
+# Running Ad Hoc Commands with Ansible
+
+# Un comando ad hoc è un modo per eseguire rapidamente un singolo task Ansible, senza doverlo salvare per eseguirlo di nuovo in seguito. Si tratta di semplici operazioni online che possono essere eseguite senza dover scrivere un playbook.
+
+- non vengono eseguiti all'interno dell execution environment
+- vengono eseguiti utilizzando il software, i ruoli e le raccolte Ansible installati direttamente sulla workstation.
+
+#  Per utilizzare i comandi ad hoc di Ansible Core 2.13, è necessario installare il pacchetto RPM ansible-core sulla workstation.
+
+Important
+The ansible-core RPM package provides only the modules in the ansible.builtin Ansible Content Collection. If you need modules from other collections, you need to install those on your workstation separately.
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------
+
+
+
+# Use the ansible-navigator replay command to review play execution
