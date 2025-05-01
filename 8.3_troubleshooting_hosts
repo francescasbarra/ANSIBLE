@@ -186,12 +186,39 @@ Important
 The ansible-core RPM package provides only the modules in the ansible.builtin Ansible Content Collection. If you need modules from other collections, you need to install those on your workstation separately.
 
 
+# useful for quick tests and troubleshooting
+
+'ansible.builtin.ping' per assicurarsi che gli hosts siano raggiungibili
+
+'ansible.builtin.command' 
+
+-----
+
+ç  ansible host-pattern -m module [-a 'module arguments'] [-i inventory]
+
+- l argomento 'host-pattern' viene utilizzato per specificare gli host
+- opzione  -i per specificare una posizione dell'inventory diversa da quella riportata nel file di configurazione ansible
+- opzione -m specifica il modulo da eseguire sugli hosts
+- opzione -a accetta un elenco di argomenti per il modulo come stringa tra virgolette
+
+Note
+If you use the ansible command but do not specify a module with the -m option, the 'ansible.builtin.command module is used by default'. It is always best to specify the module you intend to use, even if you intend to use the ansible.builtin.command module.
+
+----------------
 
 
+# Testing Managed Hosts Using Ad Hoc Commands
 
+'ansible.builtin.ping' per verificare se è possibile connettersi agli hosts 
+# A seconda delle opzioni selezionate, è possibile utilizzarlo anche per verificare se l'escalation dei privilegi e le credenziali sono configurate correttamente.
 
+ansible demohost -m ansible.builtin.ping
 
+ansible demohost -m ansible.builtin.ping --become
 
+ansible demohost -m ansible.builtin.command -a 'df' (spazio disponibile e utilizzato su dischi dell'host demhost)
+
+ansible demohost -m ansible.builtin.command -a 'free -m' (memoria ram disponibile))
 
 
 
