@@ -83,3 +83,28 @@ The 'ansible.builtin.apt' module uses the APT package tool available on Debian a
 The 'ansible.windows.win_package' module can install software on Microsoft Windows systems.
 
 
+the generic 'ansible.builtin.package' module automatically detects and uses the package manager available on the managed hosts
+
+- name: Install the required packages on the web servers
+  hosts: webservers
+  tasks:
+    - name: Install httpd
+      ansible.builtin.package:
+        name: httpd
+        state: present
+
+However, the ansible.builtin.package module does not support all the features that the more specialized modules provide.
+
+
+----------------
+
+note
+Also, operating systems often have different names for the packages they provide. For example, the package that installs the Apache HTTP Server is httpd on Red Hat Enterprise Linux and apache2 on Ubuntu.
+
+In that situation, you still need a conditional for selecting the correct package name depending on the operating system of the managed host.
+
+----------------
+
+# Registering and Managing Systems with Red Hat Subscription Management
+
+
