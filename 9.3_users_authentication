@@ -21,4 +21,60 @@ To create a user that can log in to the machine, you need to provide a hashed pa
 'se non è indicato append' i gruppi supplementari esistenti vengono sovrascritti da quelli indicati nel task
 'group' per impostare il gruppo primario
 
+-------------------
+
+# Use the User Module to Generate an SSH Key
+
+il modulo 'ansible.builtin.user' può essere usato per generare chiavi SSH se usati insieme al paramentro 'generate_ssh_key'
+
+- name: Create an SSH key for user1
+  ansible.builtin.user:
+    name: user1
+    generate_ssh_key: true 
+    ssh_key_bits: 2048 
+    ssh_key_file: .ssh/id_my_rsa 
+
+
+
+'generate_ssh_key: true' specifica se generare la chiave, non sovrascrive chiave esistente a meno che non sia specificato il paramentro 'force' insime a true
+'ssh_key_bits: 2048' imposta il numero dei bit nella nuova chiave
+'ssh_key_file' specifica il nome del file per la nuova chiave privata SSH (quella pubblica aggiunge '.pub' come suffisso)
+
+----------------------
+
+# THE GROUP MODULE
+
+'ansible.builtin.group' per gestire i gruppi negli hosts
+
+gli hosts devono disporre dei comandi groupadd, groupdel, groupmod forniti dal pacchetto'shadows-utils' (per gli host windows si usa il modulo 'win_group')
+
+- name: Verify that the auditors group exists
+  ansible.builtin.group:
+    name: auditors 
+    state: present
+
+state=present/absent
+
+
+
+---------------------------
+
+# THE KNOWN HOSTS MODULE
+
+'ansible.builtin.known hosts' gestisce le chiavi ssh degli hosts (aggiunge/rimuove)
+
+Ciò garantisce che gli host possano stabilire automaticamente l autenticità delle connessioni SSH ad altri host, assicurando che agli utenti non venga richiesto di verificare la fingerprint SSH di un host remoto la prima volta che si connettono ad esso.
+
+
+- name: Copy host keys to remote servers
+  ansible.builtin.known_hosts:
+    path: /etc/ssh/ssh_known_hosts 
+    name: servera.lab.example.com 
+    key: servera.lab.example.com,172.25.250.10 ssh-rsa ASDeararAIUHI324324
+
+
+'path' specifica il percorso del file 'known_hosts' da modificare. Se il file non esiste, viene creato.
+'name' specifica il nome dell'host da aggiungere o rimuovere. 
+Il nome deve corrispondere al nome host o all'indirizzo IP della chiave da aggiungere.
+'key' è la chiave SSH pubblica dell'host sotto forma di stringa in un formato specifico.
 
