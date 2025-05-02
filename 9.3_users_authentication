@@ -1,0 +1,24 @@
+# MANAGING USERS AND AUTHENTICATION
+
+Manage Linux users and groups, configure SSH, and modify the Sudo configuration on managed hosts.
+
+# THE USER MODULE
+
+'ansible.builtin.user' per gestire e configurare user account sugli hosts
+
+To create a user that can log in to the machine, you need to provide a hashed password for the password parameter
+
+
+- name: Create devops_user if missing, make sure is member of correct groups
+  ansible.builtin.user:
+    name: devops_user 
+    shell: /bin/bash 
+    groups: sys_admins, developers 
+    append: true
+
+
+'groups + append' indica alla macchina di aggiungere all'utente quei gruppi supplementari
+'se non è indicato append' i gruppi supplementari esistenti vengono sovrascritti da quelli indicati nel task
+'group' per impostare il gruppo primario
+
+
