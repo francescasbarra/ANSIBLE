@@ -59,6 +59,7 @@ state=present/absent
 
 ---------------------------
 
+
 # THE KNOWN HOSTS MODULE
 
 'ansible.builtin.known hosts' gestisce le chiavi ssh degli hosts (aggiunge/rimuove)
@@ -77,9 +78,6 @@ Ciò garantisce che gli host possano stabilire automaticamente l autenticità de
 'name' specifica il nome dell'host da aggiungere o rimuovere. 
 Il nome deve corrispondere al nome host o all'indirizzo IP della chiave da aggiungere.
 'key' è la chiave SSH pubblica dell'host sotto forma di stringa in un formato specifico.
-
-
-
 
 
 ----------
