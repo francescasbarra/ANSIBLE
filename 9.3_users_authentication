@@ -82,12 +82,92 @@ Il nome deve corrispondere al nome host o all'indirizzo IP della chiave da aggiu
 
 
 
+----------
+
+The following example demonstrates how to use the 'lookup plug-in' to populate the key parameter from an existing file in the Ansible project:
+
+- name: Copy host keys to remote servers
+  ansible.builtin.known_hosts:
+    path: /etc/ssh/ssh_known_hosts
+    name: serverb
+    key: "{{ lookup('ansible.builtin.file', 'pubkeys/serverb') }}"
 
 
 
 
+'lookup' è un plugin che serve per leggere dati da fuori (cioè da file, variabili esterne, comandi, ecc.) e usarli nei tuoi playbook.
+
+key: "{{ lookup('ansible.builtin.file', 'pubkeys/serverb') }}"
+# lookup('file', 'percorso') = leggi il contenuto del file e usalo come valore.
+
+Significa: Leggi il contenuto del file pubkeys/serverb e mettilo qui come valore della chiave key."
+
+In questo caso:
+Il modulo known_hosts sta aggiungendo una chiave pubblica SSH al file /etc/ssh/ssh_known_hosts sul server remoto.
+
+La chiave viene presa da un file all’interno del progetto Ansible (nella cartella pubkeys).
+
+lookup('ansible.builtin.file', ...) legge proprio il contenuto del file.
+
+È utile quando hai già delle chiavi pubbliche salvate in file e vuoi copiarle automaticamente nei server remoti, senza scriverle a mano nel playbook.
+
+lookup('file', 'percorso') = leggi il contenuto del file e usalo come valore.
+
+
+-----------------
+
+
+'ansible.builtin.slurp' per ottenere il contenuto delle chiavi degli hosts in formato Base64
+
+...
 
 
 
+
+------------------
+
+# The Authorized Key Module
+
+'ansible.posix.authorized_key' gestisce le chiavi autorizzate ssh degli utenti sugli host
+
+L'esempio seguente mostra come utilizzare il modulo ansible.posix.authorized_key per aggiungere una chiave SSH a un host gestito:
+
+
+- name: Set authorized key
+  ansible.posix.authorized_key:
+    user: user1 
+    state: present 
+    key: "{{ lookup('ansible.builtin.file', 'files/user1/id_rsa.pub') }}"
+
+
+'user' specifica l'utente il cui file viene modificato
+'key' specifica la chiave da aggiungere/rimuovere
+
+
+--------------------
+
+
+# CONFIGURAZIONE DELL'ACCESSO SUDO PER UTENTI E GRUPPI
+
+# L'esempio seguente mostra come utilizzare il modulo ansible.builtin.lineinfile per fornire a un gruppo l'accesso sudo all'account root senza richiedere una password ai membri del gruppo:
+
+
+- name: Modify sudo to allow the group01 group sudo without a password
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/group01 
+    state: present 
+    create: true 
+    mode: 0440 
+    line: "%group01 ALL=(ALL) NOPASSWD: ALL" 
+    validate: /usr/sbin/visudo -cf %s 
+
+
+
+'path' specifica il file da modificare nella directory /etc/sudoers.d/. 
+# È buona norma abbinare il nome del file al nome dell'utente o del gruppo a cui si concede l'accesso. Questo rende più facile il riferimento futuro.
+
+'create' specifica se il file deve essere creato nel caso in cui non esista
+'line' specifica la riga da inserire nel file
+'validate' specifica il comando da eseguire per verificare la correttezza del file. Quando il parametro validate è presente, il file viene creato in un percorso temporaneo e il comando fornito lo convalida. Se il comando validate ha esito positivo, il file temporaneo viene copiato nel percorso specificato nel parametro path e rimosso.
 
 
