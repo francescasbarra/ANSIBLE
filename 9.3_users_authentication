@@ -168,4 +168,6 @@ L'esempio seguente mostra come utilizzare il modulo ansible.posix.authorized_key
 'line' specifica la riga da inserire nel file
 'validate' specifica il comando da eseguire per verificare la correttezza del file. Quando il parametro validate è presente, il file viene creato in un percorso temporaneo e il comando fornito lo convalida. Se il comando validate ha esito positivo, il file temporaneo viene copiato nel percorso specificato nel parametro path e rimosso.
 
+--------------------------
+
 
