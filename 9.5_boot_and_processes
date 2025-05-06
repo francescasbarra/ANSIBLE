@@ -59,7 +59,7 @@ il seguente task esegue il job indicato ogni venerdì alle 16:00
 
 ----------------------
 
-n the following example, the task creates a system Cron job in the /etc/cron.d/flush_bolt file that runs a command as root to flush the Bolt cache every morning at 11:45.
+In the following example, the task creates a system Cron job in the /etc/cron.d/flush_bolt file that runs a command as root to flush the Bolt cache every morning at 11:45.
 
 - name: Schedule job to flush the Bolt cache
   ansible.builtin.cron:
@@ -72,5 +72,25 @@ n the following example, the task creates a system Cron job in the /etc/cron.d/f
 
 
 --------------------
+
+Warning
+Do not use cron_file to modify the /etc/crontab file. The file you specify must only be maintained by Ansible and should only contain the entry specified by the task.
+
+--------------------
+
+# Controlling Systemd Timer Units
+
+'ansible.builtin.systemd' can be used to enable or disable existing systemd timer units that run recurring jobs (usually systemd service units that eventually exit).
+
+The following example disables and stops the systemd timer that automatically populates the dnf package cache on Red Hat Enterprise Linux 9.
+
+
+- name: Disable dnf makecache
+  ansible.builtin.systemd:
+    name: dnf-makecache.timer
+    state: stopped
+    enabled: false
+
+---------------------
 
 
