@@ -3,7 +3,7 @@
 Manage service startup, schedule processes with at, cron, and systemd, reboot managed hosts with reboot, and control the default boot target on managed hosts.
 
 
-# Scheduling Jobs for Future Execution
+# SCHEDULING JOBS FOR FUTURE EXECUTION 
 
 The 'at' command schedules jobs that run once at a specified time. 
 
@@ -92,5 +92,109 @@ The following example disables and stops the systemd timer that automatically po
     enabled: false
 
 ---------------------
+
+# MANAGING SERVICES
+
+# two modules to manage services or reload daemons:
+
+
+'ansible.builtin.service'
+
+
+'ansible.builtin.systemd'
+
+----
+
+
+# ansible.builtin.service
+ it provides a generic interface to the initialization system, it offers a basic set of options to start, stop, restart, and enable services and other daemons.
+
+
+- name: Start and enable nginx
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: true
+
+
+# ansible.builtin.systemd
+is designed to work with systemd only
+
+- name: Start nginx
+  ansible.builtin.systemd:
+    name: nginx
+    state: started
+    enabled: true
+
+
+----
+
+# The next example reloads the httpd daemon, but before it does that it runs systemctl daemon-reload to reload the entire systemd configuration.
+
+- name: Reload web server
+  ansible.builtin.systemd:
+    name: httpd
+    state: reloaded
+    daemon_reload: true
+
+------------------------------
+
+
+# SETTING THE DEFAULT BOOT TARGET
+ansible.builtin.systemd non può impostare il target di default di boot
+
+'ansible.builtin.command' 
+
+
+- name: Change default systemd target
+  hosts: all
+  gather_facts: false
+
+  vars:
+    systemd_target: "multi-user.target"  #target desiderato
+
+  tasks:
+    - name: Get current systemd target
+      ansible.builtin.command:
+        cmd: systemctl get-default #mostra il target corrente
+      changed_when: false #si tratta di raccolta info quindi non ci devono essere cambi di stato, l'attività non dovrebbe mai segnalare modifiche
+      register: target #var target contiene info raccolte
+
+    - name: Set default systemd target
+      ansible.builtin.command:
+        cmd: systemctl set-default {{ systemd_target }} #imposta target desiderato
+      when: systemd_target not in target['stdout'] # task ignorato se il target di default è già quello desiderato
+      become: true # questo è l'unico task del play che richiede accesso come root
+
+
+--------------------------
+
+# REBOOTING MANAGED HOSTS
+
+'ansible.builtin.reboot'  reboots the managed host, and waits until the managed host comes back up before continuing with playbook execution
+The module determines that a managed host is back up by waiting until Ansible can run a command on the managed host.
+
+The following simple example immediately triggers a reboot:
+
+- name: Reboot now
+  ansible.builtin.reboot:
+
+
+# By default, the playbook waits up to 600 seconds before deciding that the reboot failed, and another 600 seconds before deciding that the test command failed. You can adjust this value so that the timeouts are each 180 seconds. For example:
+
+
+- name: Reboot, shorten timeout
+  ansible.builtin.reboot:
+    reboot_timeout: 180
+
+
+# Some other useful options to the module include:
+
+'pre_reboot_delay' The time to wait before reboot. On Linux, this is measured in minutes, and if less than 60, is rounded down to 0.
+'msg' The message to display to users before reboot.
+'test_command' The command used to determine whether the managed host is usable and ready for more Ansible tasks after reboot. The default is 'whoami'.
+
+
+
 
 
