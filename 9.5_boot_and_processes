@@ -1,3 +1,76 @@
 # Managing the Boot Process and Scheduled Processes
 
+Manage service startup, schedule processes with at, cron, and systemd, reboot managed hosts with reboot, and control the default boot target on managed hosts.
+
+
+# Scheduling Jobs for Future Execution
+
+The 'at' command schedules jobs that run once at a specified time. 
+
+'Crontab' schedules jobs to run on a recurring schedule
+
+-------------------
+
+# Scheduling Jobs That Run One Time
+
+'at' command schedules jobs that run once at a specified time.
+
+'ansible.posix.at' 
+
+In the following example, the task shown uses at to schedule the userdel -r tempuser command to run in 20 minutes.
+
+- name: Remove tempuser
+  ansible.posix.at:
+    command: userdel -r tempuser
+    count: 20       
+    units: minutes
+    unique: true
+
+
+'count' numero intero di unità a partire da ora in cui il processo deve essere eseguito
+'units' specifica se il conteggio 'count' è misurato in minuti/ore/giorni/settimane
+
+--------------------
+
+# Scheduling Repeating Jobs with Cron
+
+'Crontab' schedules jobs to run on a recurring schedule
+
+'ansible.builtin.crontab'
+
+Opzioni:
+
+'name' identifica il job, è obbligatorio
+'job' comando da eseguire
+'cron_file' Se impostato, crea un Cron job di sistema in cron_file. È necessario specificare l'utente e un orario. Se si utilizza un percorso relativo, il file viene creato in /etc/cron.d.
+
+
+il seguente task esegue il job indicato ogni venerdì alle 16:00
+
+- name: Schedule backups for my home directory
+  ansible.builtin.cron:
+    name: Backup my home directory
+    user: testing
+    job: /home/testing/bin/backup-home-dir
+    minute: 0
+    hour: 16
+    weekday: 5
+
+
+----------------------
+
+n the following example, the task creates a system Cron job in the /etc/cron.d/flush_bolt file that runs a command as root to flush the Bolt cache every morning at 11:45.
+
+- name: Schedule job to flush the Bolt cache
+  ansible.builtin.cron:
+    name: Flush Bolt cache
+    cron_file: flush_bolt
+    user: "root"
+    minute: 45
+    hour: 11
+    job: "php ./app/nut cache:clear"
+
+
+--------------------
+
 
