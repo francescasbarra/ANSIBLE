@@ -92,5 +92,80 @@ la var 'storage_pools'
 
 # The following entry creates the volume group vg01 with the type key set to the value lvm. The volume group's physical volume is the /dev/vdb disk
 
+# TO CREATE A VOLUME GROUP 
+
+---
+- name: Configure storage on webservers
+  hosts: webservers
+
+  roles:
+    - name: redhat.rhel_system_roles.storage
+      storage_pools:
+        - name: vg01
+          type: lvm
+          disks:
+            - /dev/vdb
+
+
+------------
+
+Important
+The disks option only supports unpartitioned block devices for your LVM physical volumes.
+
+------------
+
+# TO CREATE A LOGICAL VOLUME
+
+Per creare un LV popolare la var 'volumes', annidata sotto la var 'storage_pools' con un elenco di LV e relativi parametri
+Ogni elemento nell elenco è un dizionario che rappresenta un singolo LV all'interno della var storage_pools
+
+'name'
+'size'
+'mount_point'
+'fs_type'
+'state' present/absent
+
+
+# The following example creates two logical volumes, named lvol01 and lvol02. The lvol01 logical volume is 128 MB in size, formatted with the xfs file system, and is mounted at /data. The lvol02 logical volume is 256 MB in size, formatted with the xfs file system, and is mounted at /backup.
+
+
+---
+- name: Configure storage on webservers
+  hosts: webservers
+
+  roles:
+    - name: redhat.rhel_system_roles.storage
+      storage_pools:
+        - name: vg01
+          type: lvm
+          disks:
+            - /dev/vdb
+          volumes:
+            - name: lvol01
+              size: 128m
+              mount_point: "/data"
+              fs_type: xfs
+              state: present
+            - name: lvol02
+              size: 256m
+              mount_point: "/backup"
+              fs_type: xfs
+              state: present
+
+
+# In the following example entry, if the lvol01 logical volume is already created with a size of 128 MB, then the logical volume and file system are enlarged to 256 MB, assuming that the space is available within the volume group.
+
+
+volumes:
+            - name: lvol01
+              size: 256m
+              mount_point: "/data"
+              fs_type: xfs
+              state: present
+
+
+---------------------
+
+# CONFIGURING SWAP SPACE
 
 
