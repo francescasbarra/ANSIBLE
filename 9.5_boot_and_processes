@@ -36,7 +36,7 @@ In the following example, the task shown uses at to schedule the userdel -r temp
 
 'Crontab' schedules jobs to run on a recurring schedule
 
-'ansible.builtin.crontab'
+'ansible.builtin.cron'
 
 Opzioni:
 

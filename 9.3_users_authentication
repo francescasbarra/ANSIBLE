@@ -140,7 +140,7 @@ L'esempio seguente mostra come utilizzare il modulo ansible.posix.authorized_key
 
 'user' specifica l'utente il cui file viene modificato
 'key' specifica la chiave da aggiungere/rimuovere
-
+'manage_dir' se c è questo parametro crea la 'dir ssh' nel caso non ci sia
 
 --------------------
 
