@@ -80,7 +80,7 @@ Parametri della var 'storage_volumes'
 
 -------------------------
 
-# Managing LVM with the Storage Role
+# MANAGING LVM WITH THE STORAGE ROLEM
 
 Per creare un 'LVM VOLUME GROUP' con il ruolo redhat.rhel_system_roles.storage si deve definire 
 la var 'storage_pools' contiene una lista di pools (volume groups) da gestire
@@ -128,6 +128,7 @@ Ogni elemento nell elenco è un dizionario che rappresenta un singolo LV all'int
 
 # The following example creates two logical volumes, named lvol01 and lvol02. The lvol01 logical volume is 128 MB in size, formatted with the xfs file system, and is mounted at /data. The lvol02 logical volume is 256 MB in size, formatted with the xfs file system, and is mounted at /backup.
 
+'uguale alla creazione del VG + creazione LV'
 
 ---
 - name: Configure storage on webservers
@@ -155,6 +156,7 @@ Ogni elemento nell elenco è un dizionario che rappresenta un singolo LV all'int
 
 # In the following example entry, if the lvol01 logical volume is already created with a size of 128 MB, then the logical volume and file system are enlarged to 256 MB, assuming that the space is available within the volume group.
 
+'ESTENSIONE LV '
 
 volumes:
             - name: lvol01
@@ -167,5 +169,121 @@ volumes:
 ---------------------
 
 # CONFIGURING SWAP SPACE
+
+Si può usare il role anche per creare LV formattati come 'swap space'
+'Il ruolo crea il LV, il fs di tipo swap, aggiunge il volume di swap e abilita immediatamente la swap'
+
+# The following playbook example creates the lvswap logical volume in the vgswap volume group, adds the swap volume to the /etc/fstab file, and enables the swap space.
+
+- name: Configure a swap volume
+  hosts: all
+
+  roles:
+    - name: redhat.rhel_system_roles.storage
+      storage_pools:
+        - name: vgswap
+          type: lvm
+          disks:
+            - /dev/vdb
+          volumes:
+            - name: lvswap
+              size: 512m
+              fs_type: swap
+              state: present
+
+
+--------------------------------------------
+
+# MANAGING PARTITIONS AND FILE SYSTEMS WITH TASKS
+
+è possibile gestire partizioni e file systems senza usare system roles, ma i moduli utilizzati a questo scopo non sono supportati da Red Hat
+
+---------
+Warning attenzione a partizioni/formattazione fs con ansible, soprattutto con il modulo 'ansible.builtin.command', errori nel codice possono causare perdite di dati.
+---------
+
+# Managing Partitions
+
+- Si può usare la collezione 'community.general' con il modulo 'community.general.parted', ma non è supportato da Red Hat ed è rischioso
+
+- oppure 'ansible.builtin.command' per eseguire i comandi di partizionamento sugli host
+
+# For example, the following task creates a GPT disk label and a /dev/sda1 partition on the /dev/sda storage device only if /dev/sda1 does not already exist:
+
+- name: Ensure that /dev/sda1 exists
+  ansible.builtin.command:
+    cmd: parted --script mklabel gpt mkpart primary 1MiB 100%
+    creates: /dev/sda1
+
+This depends on the fact that if the /dev/sda1 partition exists, then a Linux system creates a /dev/sda1 device file for it automatically.
+
+---------------------
+
+# Managing File System
+
+- Il modo + semplice per gestire il file system senza il system role è
+il modulo 
+'community.general.filesystem' (ma non è supportato)
+
+- in alternativa 'ansible.builtin.command' 
+
+
+---------------------
+
+
+# ANSIBLE FACTS FOR STORAGE CONFIGURATION
+
+'ansible.builtin.setup' I dati Ansible raccolti da ansible.builtin.setup contengono informazioni utili sui dispositivi di archiviazione sugli host gestiti.
+
+# The following playbook gathers and displays the ansible_facts['devices'] fact for each managed host.
+
+- name: Display storage facts
+  hosts: all
+
+  tasks:
+    - name: Display device facts
+      ansible.builtin.debug:
+       'var: ansible_facts['devices']'
+
+
+For example, you could find the size of /dev/sda1 from the following fact:
+ansible_facts['devices']['sda']['partitions']['sda1']['size']
+
+-------------
+
+# Facts about Device Links
+
+
+
+---------------
+
+# Facts about Mounted File Systems
+
+'ansible_facts['mounts']' fact provides information about the currently mounted devices on the managed host. 
+
+The following playbook gathers and displays the ansible_facts['mounts'] fact for managed hosts.
+
+---
+- name: Gather mounts
+  hosts: all
+
+  tasks:
+    - name: Display mounts facts
+      ansible.builtin.debug:
+        var: ansible_facts['mounts']
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
 
 
