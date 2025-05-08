@@ -50,7 +50,7 @@ If you have other use cases, then you might need to use other modules and roles 
 
 
 Per creare un file system su un dispositivo a blocchi non partizionato con il ruolo redhat.rhel_system_roles.storage si deve definire la 
-'var storage_volumes' che contiene una lista di storage devices da gestire
+'variabile storage_volumes' che contiene una lista di storage devices da gestire
 
 Parametri della var 'storage_volumes'
 'name' nome del volume
@@ -64,12 +64,12 @@ Parametri della var 'storage_volumes'
 # The following example play creates an XFS file system on the /dev/vdg device, and mounts it on /opt/extra.
 
 
- name: Example of a simple storage device
+  name: Example of a simple storage device
   hosts: all
 
   roles:
     - name: redhat.rhel_system_roles.storage
-      storage_volumes:
+     'storage_volumes:'
         - name: extra
           type: disk
           disks:
@@ -82,9 +82,10 @@ Parametri della var 'storage_volumes'
 
 # Managing LVM with the Storage Role
 
-Per creare un LV con il ruolo redhat.rhel_system_roles.storage si deve definire 
-la var 'storage_pools'
+Per creare un 'LVM VOLUME GROUP' con il ruolo redhat.rhel_system_roles.storage si deve definire 
+la var 'storage_pools' contiene una lista di pools (volume groups) da gestire
 
+dizionario all'interno della variabile:
 'name' nome del LV
 'type' deve essere 'lvm'
 'disks' è l'elenco dei dispositivi a blocchi che il LV usa per l archiviazione
@@ -94,13 +95,12 @@ la var 'storage_pools'
 
 # TO CREATE A VOLUME GROUP 
 
----
 - name: Configure storage on webservers
   hosts: webservers
 
   roles:
     - name: redhat.rhel_system_roles.storage
-      storage_pools:
+     'storage_pools:'
         - name: vg01
           type: lvm
           disks:
