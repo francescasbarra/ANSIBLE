@@ -1,0 +1,16 @@
+# MANAGING NETWORK CONFIGURATION
+
+Configurare le impostazioni di rete e la risoluzione dei nomi sugli host gestiti e raccogliere informazioni Ansible relative alla rete.
+
+
+
+# Configuring Networking with the Network System Role
+
+'rhel_system_roles.network' system role provides a way to automate the configuration of network interfaces and network-related settings on Red Hat Enterprise Linux managed hosts.
+
+This role supports the configuration of Ethernet interfaces, bridge interfaces, bonded interfaces, VLAN interfaces, MACVLAN interfaces, InfiniBand interfaces, and wireless interfaces.
+
+The role is configured by using two variables: 
+'network_provider' and 'network_connections'.
+
+

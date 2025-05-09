@@ -41,8 +41,8 @@ tasks:
 Una var può influenzare un singolo host o un gruppo di hosts
 
 #si possono inserire anche nel file di configurazione ansible
-# ansible-navogator run --extra-vars 
-per aggiungere variabili
+# ansible-navigator run --extra-vars 
+per aggiungere variabili da riga di comando
 
 # COME DEFINIRE VARIABILI (dalla precedenza + bassa alla + alta)
 - var di 'gruppo' definite in 'inventory'
@@ -68,7 +68,7 @@ invece di usare il blocco 'vars' nel playbook si può usare
 
 ----
 
-host var applicate agli hosts, group var applicate ai gruppi
+'host var applicate agli hosts, group var applicate ai gruppi'
 
 # Defining the ansible_user host variable for demo.example.com:
 [servers]
