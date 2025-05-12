@@ -16,11 +16,12 @@ Ansible elabora il contenuto incluso durante l'esecuzione del playbook, man mano
 Ansible elabora il contenuto importato quando il playbook viene analizzato all'inizio 
 
 
-# IMPORTING
+# IMPORTING PLAYBOOK
 'ansible.builtin.import_playbook' 
 per importare file esterni contenenti play o interi playbook nel playbook principale
 
 # se si importa un playbook intero il modulo di importazione si deve inserire all'inizio del playbook principale, non può essere inserito all interno di un play
+# Se si importano più playbook, questi verranno importati ed eseguiti in ordine.
 
 - name: Prepare the web server
   ansible.builtin.import_playbook: web.yml
@@ -79,11 +80,11 @@ la posizione in cui viene inserito definisce l'ordine con cui vengono eseguiti i
 
 
 Important
-ç When using the ansible.builtin.import_tasks module, conditional statements set on the import, such as when, are applied to each of the tasks that are imported.
+#  When using the ansible.builtin.import_tasks module, conditional statements set on the import, such as when, are applied to each of the tasks that are imported.
 
-ç You cannot use loops with the ansible.builtin.import_tasks module.
+- You cannot use loops with the ansible.builtin.import_tasks module.
 
-ç If you use a variable to specify the name of the file to import, then you cannot use a host or group inventory variable.
+- If you use a variable to specify the name of the file to import, then you cannot use a host or group inventory variable.
 
 
 -------------------------------

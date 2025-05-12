@@ -2,12 +2,12 @@
 
 # Templating Files
 
-la collection 'ansible.builtin' fornisce molti moduli che possono essere usati per modificare dile esistenti.
+la collection 'ansible.builtin' fornisce molti moduli che possono essere usati per modificare file esistenti.
 es. lineinfile e blockinfile, ma non sempre sono facili da usare in modo efficace e corretto
 
 Un modo molto più efficace per gestire i file è quello di creare modelli 'templates'
 Con questo metodo, è possibile scrivere un file di configurazione template che viene personalizzato automaticamente per l'host al momento del deployment del file, utilizzando variabili ed Ansible facts
-in questo modo è più facile controllare ed meno soggetto ad errori 
+in questo modo è più facile controllare ed è meno soggetto ad errori 
 
 # Introduction to Jinja2
 
