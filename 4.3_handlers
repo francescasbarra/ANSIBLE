@@ -8,7 +8,7 @@ a volte, quando viene apportata una modifica, può essere necessario eseguirne u
 
 If no task notifies the handler by name then the handler does not run. If one or more tasks notify the handler, the handler runs once after all other tasks in the play have completed. Because handlers are tasks, administrators can use the same modules in handlers that they would use for any other task.
 
-Normally, handlers are used to reboot hosts and restart services.
+'Normally, handlers are used to reboot hosts and restart services.'
 
 #Even if more than one task notifies a handler, the handler runs one time. If no tasks notify it, the handler does not run.
 
@@ -19,12 +19,12 @@ tasks:
     ansible.builtin.template:
       src: /var/lib/templates/demo.example.conf.template
       dest: /etc/httpd/conf.d/demo.example.conf
-    notify:2
-      - restart apache3
+    notify:   # indica che il task deve attivare un handler
+      - restart apache # nome dell'handler da eseguire
 
-handlers:4
-  - name: restart apache5
-    ansible.builtin.service:6
+handlers:
+  - name: restart apache
+    ansible.builtin.service:
       name: httpd
       state: restarted
 
@@ -41,4 +41,11 @@ Handlers are meant to perform an extra action when a task makes a change to a ma
 opzione
 # force_handler: true/false
 si inserisce nell'intestazione del playbook 
+
+-----------
+
+# GLI HANDLERS VENGONO DI NORMA ESEGUITI DOPO L'ESECUZIONE DI TUTTI TASK
+# ANCHE SE + DI UN TASK NOTIFICA L'HANDLER QUESTO VIENE ESEGUITO UNA SOLA VOLTA
+# ANSIBLE NOTIFICA L'HANDLER SOLO SE C'è UN CAMBIAMENTO DELLO STATO
+
 

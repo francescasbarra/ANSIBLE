@@ -14,7 +14,7 @@ ad es. invece di scrivere 5 volte un modulo che verifichi l'esistenza di 5 utent
 # dictionary
 formati da altri dizionari o coppie di chiavi-valore
 
-nel eguente caso non si tratta di un dizionario ma di una chiave (key) con un array di valori
+'nel seguente caso non si tratta di un dizionario ma di una chiave (key) con un array di valori'
 
 # vars:
 #   my_user
@@ -33,7 +33,7 @@ esegue l'iterazione di un'attività su un elenco di elementi
 nel playbook si inserisce loop nel task da eseguire + volte:
 
 # vars:
-#   my_user
+#   my_user:
       - user1
       - user2
       - user3
@@ -44,7 +44,7 @@ tasks:
 #   loop: {{ my_user }}   # si inserisce il nome della lista da cui si devono prendere i valori
     ansible.builtin.user:
       name: {{ item }}
-      state:
+      state: present
 
 -------
 
@@ -134,7 +134,7 @@ mostra i facts relativi a servera
 
 
 Important
-When you use when with loop for a task, the when statement is checked for each item.
+When you use 'when with loop' for a task, the when statement is checked for each item.
 --------------------
 
 

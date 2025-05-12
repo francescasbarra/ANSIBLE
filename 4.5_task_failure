@@ -2,7 +2,8 @@
 
 # Managing Task Errors in Plays
 
-Ansible valuta il codice di ritorno di ogni task per determinare se l'attività è riuscita o meno. Normalmente, quando un task fallisce, Ansible salta immediatamente tutti i task successivi.
+Ansible valuta il codice di ritorno di ogni task per determinare se l'attività è riuscita o meno. 
+'Normalmente, quando un task fallisce, Ansible salta immediatamente tutti i task successivi.'
 
 A volte potrebbe essere necessario che l'esecuzione vada avanti anche se dei task falliscono.
 
@@ -23,7 +24,7 @@ da inserire nel task
 normalmente quando un task fallisce, gli handlers associati non vanno in esecuzione
 ma se si aggiunge 'force_handlers: true' nel play vengono eseguiti 
 
-important se + impostato 'ignore_errors: true' ma c è anche 'force_handlers: false'
+important se è impostato 'ignore_errors: true' ma c è anche 'force_handlers: false'
 il play continua l'esecuzione
 
 
@@ -70,7 +71,7 @@ Setting force_handlers: true on a play does not cause handlers to be notified fo
 
 # SPECIFING TASK FAILURE CONDITIONS (condizioni di errore)
 
-'failed when' 
+'failed_when' 
 
 'changed_when'
 
@@ -107,7 +108,7 @@ You can use the ansible.builtin.fail module to provide a clear failure message f
 # Specifying When a Task Reports "Changed" Results (segnalazione risultati modificati)
 
 
-Quando task apporta una modifica a un host, segnala lo stato 'changed' e invia la modifica agli 'handlers'
+Quando un task apporta una modifica a un host, segnala lo stato 'changed' e invia la modifica agli 'handlers'
 Quando il task non necessita di modifiche segnala 'ok' e non invia notifiva agli handlers
 
 per controllare il modo in cui un'attività segnala di aver apportato modifiche all'host gestito.
@@ -151,7 +152,7 @@ se i task nel 'block' falliscono, entrano in gioco i task in 'rescue'
 
 # BLOCK
 nei playbook i 'blocchi' sono clausole che raggruppano logicamente tasks e possono controllarne l'esecuzione.
-I blocchi vengono utilizzati per raggruppare i task come un'unità e per eseguire altri task a seconda che tutte le attività nel blocco abbiano esito positivo.
+'I blocchi vengono utilizzati per raggruppare i task come una unità e per eseguire altri task a seconda che tutte le attività nel blocco abbiano esito positivo.'
 
 
 es. un blocco può contenere la parola chiave 'when' per applicare la condizione a + task
@@ -181,4 +182,4 @@ Tasks can be configured to handle error conditions by ignoring task failure, for
 
 
 
-
+The when condition on a block clause also applies to its rescue and always clauses if present.

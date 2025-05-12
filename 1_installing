@@ -53,7 +53,7 @@ Ogni play in un playbook specifica quale gruppo di host (macchine) deve essere g
 
 task esecuzione di un modulo
 
-modulo ai può lanciare sia da riga di comando che nel manifest
+modulo si può lanciare sia da riga di comando che nel manifest
 
 Un "play" è una struttura che definisce su quali host eseguire delle attività e cosa fare su di essi.
 

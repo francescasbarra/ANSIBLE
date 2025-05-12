@@ -13,4 +13,17 @@ This role supports the configuration of Ethernet interfaces, bridge interfaces, 
 The role is configured by using two variables: 
 'network_provider' and 'network_connections'.
 
+---
+network_provider: nm
+network_connections:
+  - name: ens4
+    type: ethernet
+    ip:
+      address:
+        - 172.25.250.30/24
+
+
+# network_provider 
+variable configures the back-end provider, either nm (NetworkManager) or initscripts. On Red Hat Enterprise Linux 7 and later, use nm as the default networking provider.
+
 

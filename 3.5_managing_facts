@@ -82,7 +82,7 @@ per disabilitare #ansible.builtin.setup e quindi la raccolta dei dati, inserire 
 anche se è settato 'false' si può comunque eseguire manualmente 'gather_facts' in un task
 #   tasks:
 #   - name: Manually gather facts
-#     ansible.builtin.setup:
+     'ansible.builtin.setup:'
 
 
 
@@ -107,5 +107,12 @@ anche se è settato 'false' si può comunque eseguire manualmente 'gather_facts'
 # Creating Custom Facts
 
 You can use custom facts to define certain values for managed hosts. Plays can use custom facts to populate configuration files or conditionally run tasks.
+
+
+
+
+
+
+
 
 
