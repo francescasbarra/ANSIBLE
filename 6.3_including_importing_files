@@ -102,13 +102,14 @@ Important
 
 il modulo di inclusione non elabora il contenuto del playbook finchè finchè non viene raggiunta quella parte del play
 
-ç When using the ansible.builtin.include_tasks module, conditional statements such as when set on the include determine whether the tasks are included in the play at all.
+- When using the ansible.builtin.include_tasks module, conditional statements such as when set on the include determine whether the tasks are included in the play at all.
 
-ç If you run 'ansible-navigator run --list-tasks' to list the tasks in the playbook, then tasks in the included task files are not displayed. 
-The tasks that include the task files are displayed. 
+- If you run 'ansible-navigator run --list-tasks' to list the tasks in the playbook, then 'tasks in the included task files are not displayed.' 
+The tasks that include the task files are displayed.
+ 
 By comparison, the ansible.builtin.import_tasks module would not list tasks that import task files, but instead would list the individual tasks from the imported task files.
 
-ç You cannot use ansible-navigator run --start-at-task to start playbook execution from a task that is in an included task file.
+- You cannot use ansible-navigator run --start-at-task to start playbook execution from a task that is in an included task file.
 
 -------------------------
 
@@ -120,7 +121,7 @@ ansible-navigator run playbook.yml --start-at-task "Install nginx"
 
 -------------------------
 
-ç You cannot use a notify statement to trigger a handler name that is in an included task file. You can trigger a handler in the main playbook that includes an entire task file, in which case all tasks in the included file run.
+- You cannot use a 'notify' statement to trigger a handler name that is in an included task file. You can trigger a handler in the main playbook that includes an entire task file, in which case all tasks in the included file run.
 
 
 -------------------------------------------------
@@ -129,9 +130,9 @@ ansible-navigator run playbook.yml --start-at-task "Install nginx"
 
 Le istruzioni con condizioni si comportano in modo diverso a seconda che si tratti di task importati o inclusi.
 
-ç When you add a conditional to a task that uses an 'ansible.builtin.import_*' module, Ansible applies the condition to all tasks within the imported file.
+- When you add a conditional to a task that uses an 'ansible.builtin.import_*' module, Ansible applies the condition to all tasks within the imported file.
 
-ç When you use a conditional on a task that uses an ansible.builtin.include_* module, the condition is applied only to the include task itself and not to any other tasks within the included file.
+- When you use a conditional on a task that uses an ansible.builtin.include_* module, the condition is applied only to the include task itself and not to any other tasks within the included file.
 
 
 --------------------------------------
