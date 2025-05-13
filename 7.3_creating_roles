@@ -81,13 +81,13 @@ un buon punto di partenza è il file 'nome_ruolo/tasks/main.yml' che contiene l'
 I ruoli consentono di suddividere i playbook in più file, ottenendo codice riutilizzabile. 
 Per massimizzare l'efficacia dei nuovi ruoli, si consiglia di implementare le seguenti procedure nello sviluppo dei ruoli:
 
-ç mantenere ogni ruolo nel proprio repository di controllo. Ansible lavora bene con i repository basati su git
+- mantenere ogni ruolo nel proprio repository di controllo. Ansible lavora bene con i repository basati su git
 
-ç Creare e gestire i file 'README.md e meta/main.yml' per documentare lo scopo, autore e utilizzo del ruolo.
+- Creare e gestire i file 'README.md e meta/main.yml' per documentare lo scopo, autore e utilizzo del ruolo.
 
-ç usare un role per ogni funzione/scopo
+- usare un role per ogni funzione/scopo
 
-ç usa role spesso
+- usa role spesso
 
 ....
 

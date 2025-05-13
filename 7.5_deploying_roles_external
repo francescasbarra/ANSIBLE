@@ -9,13 +9,13 @@ se il ruolo riguarda contenuti privati creati e curati dalla tua organizzazione,
 
 -------------
 
-sempre + spesso i roles vengono inseriri nelle Collection Ansible e offerte dai loro autori attraverso diversi metodi:
+sempre + spesso i roles vengono inseriti nelle Collection Ansible e offerte dai loro autori attraverso diversi metodi:
 
 - collection ansible certificate RH dall'hub di automazione su https://console.redhat.com o tramite hub privato
 - come pacchetto privato da hub privato
 - dalla community attraverso il sito Ansible Galaxy https://galaxy.ansible.com
 
-ç Ideally, you want to be able to download the latest version of the role into the roles directory of your project simply, whenever necessary.
+- Ideally, you want to be able to download the latest version of the role into the roles directory of your project simply, whenever necessary.
 
 -------------
 

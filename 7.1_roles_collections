@@ -272,7 +272,7 @@ Ansible looks for duplicate role lines in the roles section. If two roles are li
 2 SEZIONI DI ATTIVITA' SPECIALI
 
 - 'pre_tasks' vengono eseguiti prima ancora dei roles
-ç se vogliamo che dei tasks vengano eseguiti prima dei roles dobbiamo inserirli nei pre_tasks
+- se vogliamo che dei tasks vengano eseguiti prima dei roles dobbiamo inserirli nei pre_tasks
 se un task dei pre_task notifica un handler, questo viene eseguito prima ancora dei roles e dei normali tasks
 
 - 'post_tasks' vengono eseguiti dopo tutti gli altri tasks (anche dopo gli handlers)
@@ -280,27 +280,27 @@ se un task dei pre_task notifica un handler, questo viene eseguito prima ancora 
 
 - name: Play to illustrate order of execution
   hosts: remote.example.com
-  pre_tasks:
+ 'pre_tasks:'
     - name: This task runs first
       ansible.builtin.debug:
         msg: This task is in pre_tasks
       notify: my handler
       changed_when: true
-  roles:
+ 'roles:'
     - role: role1
-  tasks:
+ 'tasks:'
     - name: This task runs after the roles
       ansible.builtin.debug:
         msg: This task is in tasks
       notify: my handler
       changed_when: true
-  post_tasks:
+ 'post_tasks:'
     - name: This task runs last
       ansible.builtin.debug:
         msg: This task is in post_tasks
       notify: my handler
       changed_when: true
-  handlers:
+ 'handlers:'
     - name: my handler
       ansible.builtin.debug:
         msg: Running my handler
