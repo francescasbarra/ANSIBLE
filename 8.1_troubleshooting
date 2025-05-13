@@ -73,7 +73,7 @@ Important
 Because Ansible prompts you for input when you use the --step option, you must disable playbook artifacts and use standard output mode.
 
 
-pae = playbook artifact enable
+'pae = playbook artifact enable'
 Se metti false, Ansible Navigator non salva un file di artifact (cioè un file JSON con i dettagli dell'esecuzione del playbook).
 
 In breve:
@@ -120,8 +120,8 @@ The ansible-lint command evaluates your playbook based on the software on your w
 # Reviewing Playbook Artifacts and Log Files
 
 # Ansible può registrare (log) l'output dei playbook in diversi modi:
-ç ansible-navigator puà produrre 'playbook artifacts' che memorizzano informazioni sull'esecuzione dei playbook in formato json
-ç log delle info in file di testo
+- ansible-navigator può produrre 'playbook artifacts' che memorizzano informazioni sull'esecuzione dei playbook in formato json
+- log delle info in file di testo
 
 
 # Playbook Artifacts from Automation Content Navigator
