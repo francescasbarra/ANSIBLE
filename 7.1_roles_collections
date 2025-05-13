@@ -4,7 +4,7 @@
 
 # Structuring Ansible Playbooks with Roles
 
-ç I roles semplificano il riutilizzo generico del codice Ansible.
+- I roles semplificano il riutilizzo generico del codice Ansible.
 È possibile impacchettare tutte le attività, le variabili, i file, i template e le altre risorse necessarie per il provisioning (creazione e configurazione) dell infrastruttura o il deployment delle applicazioni in una struttura di directory standardizzata.
 # È possibile copiare un ruolo da un progetto all altro copiando la directory, quindi richiamarlo all interno di un play.
 
@@ -14,18 +14,18 @@ Un role ben scritto può accettare le variabili passate dal playbook e le variab
 
 # benefit dei roles 
 
-ç raggruppano i contenuti, consentendo una facile condivisione del codice con altri.
+- raggruppano i contenuti, consentendo una facile condivisione del codice con altri.
 
-ç possono definite gli elementi essenziali di un tipo di sistema, come un server web, un server di database o un repository Git.
+- possono definite gli elementi essenziali di un tipo di sistema, come un server web, un server di database o un repository Git.
 
-ç rendono gestibili i progetti + grandi
+- rendono gestibili i progetti + grandi
 
-ç possono essere sviluppati in parallelo da + utenti
+- possono essere sviluppati in parallelo da + utenti
 
 ----------------
 
 Oltre ai ruoli che scriviamo, usiamo e riusiamo possiamo ottenere ruoli da altre fonti... 
-- da pacchetti di distribuzione come 'Ansible Content Colelction' 
+- da pacchetti di distribuzione come 'Ansible Content Collection' 
 - si possono scaricare anche dall'hub di automazione Red Hat (hub privato di automazione)
 - dal sito Ansible Galaxy della community
 
@@ -104,7 +104,7 @@ The main.yml file in this directory contains the role's task definitions.
 This directory contains Jinja2 templates that are referenced by role tasks.
 
 # tests
-This directory can contain an inventory and test.yml playbook that can be used to test the role.
+This directory can contain an 'inventory' and test.yml playbook that can be used to test the role.
 
 # vars
 The main.yml file in this directory 'defines the role s variable values'. Often these variables are used for internal purposes within the role. 
@@ -175,7 +175,7 @@ If roles/role2/vars/main.yml exists, Ansible adds the variables in that file to 
 --------------------
 
 Important
-Because ansible.builtin.import_role is processed when the playbook is parsed, the role's handlers, default variables, and role variables are all exposed to all the tasks and roles in the play, and can be accessed by tasks and roles that precede it in the play (even though the role has not run yet).
+Because 'ansible.builtin.import_role' is processed when the playbook is parsed, the role's handlers, default variables, and role variables are all exposed to all the tasks and roles in the play, and can be accessed by tasks and roles that precede it in the play (even though the role has not run yet).
 
 ----------------------
 
@@ -196,9 +196,9 @@ You can also set variables for the role when you call the task, in the same way 
 
 One key difference between the two modules is how they handle task-level keywords, conditionals, and loops:
 
-ansible.builtin.import_role applies the task's conditionals and loops to each of the tasks being imported.
+'ansible.builtin.import_role applies the task s conditionals and loops to each of the tasks being imported'
 
-ansible.builtin.include_role applies the task's conditionals and loops to the statement that determines whether the role is included or not
+'ansible.builtin.include_role' applies the task's conditionals and loops to the statement that determines whether the role is included or not
 
 # In addition, when you include a role, its role variables and default variables are not exposed to the rest of the play, unlike ansible.builtin.import_role.
 
