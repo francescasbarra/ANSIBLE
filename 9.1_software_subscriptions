@@ -26,6 +26,7 @@ The 'state' keyword indicates the expected state of the package on the managed h
 
 note
 you must prefix 'group names with the at sign (@)'. Remember that you can retrieve the list of groups with the dnf group list command.
+
 ansible.builtin.dnf:
     name: '@Development Tools' 1
     state: present
@@ -68,7 +69,7 @@ tasks:
 # Gathering Facts about Installed Packages
 
 
-'ansible.builtin.package_facts'  collects the installed package details on managed host
+'ansible.builtin.package_facts' collects the installed package details on managed host
 It sets the 'ansible_facts['packages']' variable with the package details.
 
 
@@ -161,7 +162,7 @@ attivazione del pool, associa automaticamente una sottoscrizione disponibile al 
 > --enable "rhel-9-for-x86_64-appstream-rpms"'  per abilitare i repositories
 
 
-(oppure si possono abilitare dal file rei repo /etc/yum.repos.d/... enable=1/0)
+# (oppure si possono abilitare dal file rei repo /etc/yum.repos.d/... enable=1/0)
 
 
 # Managing Red Hat Subscription Management by Using a Role
@@ -229,7 +230,7 @@ when in 'ansible.builtin.yum_repository'
 gpgcheck=true you need to install GPG key on the hosts
 (per verificare la firma dei pacchetti con GPG)
 
-- se gpg è attivo si deve installare la chiave gpg sull host, se non si fa non si può verificare la firma dei pacchetti e dà errore 
+- 'se gpg è attivo'si deve installare la chiave gpg sull host, se non si fa non si può verificare la firma dei pacchetti e dà errore 
 
 #per installare la chiave gpg si usa
 'ansible.builtin.rpm_key' deploys the GPG public key hosted on a remote web server to the servera.lab.example.com managed host.

@@ -135,7 +135,7 @@ For example, if you run the command ansible-navigator run site.yml at 20:00 UTC 
 
 # site-artifact-2022-07-22T20:00:04.019343+00:00.json
 
-# si può esaminare il contenuto di questi file con il comando
+# si può esaminare il contenuto di questi file con il comando, per rivedere l'esecuzione del play
 'ansible-navigator replay' -m stdout
 
 -------------------
