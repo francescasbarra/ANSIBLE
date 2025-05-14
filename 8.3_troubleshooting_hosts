@@ -4,7 +4,7 @@ Troubleshoot failures on managed hosts when running a playbook
 
 # Troubleshooting Connections
 
-Molti problemi sono associati alle connessioni con gli hosts e ai problemi di configurazione riguardo all'utente remoto e all'escalation dei provilegi
+Molti problemi sono associati alle connessioni con gli hosts e ai problemi di configurazione riguardo all'utente remoto e all'escalation dei privilegi
 
 # Problems Authenticating to Managed Hosts
 
@@ -16,7 +16,7 @@ es.
 TASK [Gathering Facts] *********************************************************
 fatal: [host.lab.example.com]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: root@host: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).", "unreachable": true}
 
-in questo caso il playbook tenta di connettersi all host come utente root ma la chiave ssh per l utente root sul controlnode non è stato aggiunto al file 'authorized_keys' per l'utente root sull host
+# in questo caso il playbook tenta di connettersi all host come utente root ma la chiave ssh per l utente root sul controlnode non è stato aggiunto al file 'authorized_keys' per l'utente root sull host
 (credenziali di autenticazione mancanti o errate)
 
 ----------------
@@ -194,7 +194,7 @@ The ansible-core RPM package provides only the modules in the ansible.builtin An
 
 -----
 
-ç  ansible host-pattern -m module [-a 'module arguments'] [-i inventory]
+- ansible host-pattern -m module [-a 'module arguments'] [-i inventory]
 
 - l argomento 'host-pattern' viene utilizzato per specificare gli host
 - opzione  -i per specificare una posizione dell'inventory diversa da quella riportata nel file di configurazione ansible
