@@ -86,7 +86,7 @@ Per creare un 'LVM VOLUME GROUP' con il ruolo redhat.rhel_system_roles.storage s
 la var 'storage_pools' contiene una lista di pools (volume groups) da gestire
 
 dizionario all'interno della variabile:
-'name' nome del LV
+'name' nome del VOLUME GROUP
 'type' deve essere 'lvm'
 'disks' è l'elenco dei dispositivi a blocchi che il LV usa per l archiviazione
 'volumes' lista dei LV nel Volume Group
@@ -136,12 +136,12 @@ Ogni elemento nell elenco è un dizionario che rappresenta un singolo LV all'int
 
   roles:
     - name: redhat.rhel_system_roles.storage
-      storage_pools:
+     'storage_pools:'
         - name: vg01
           type: lvm
           disks:
             - /dev/vdb
-          volumes:
+         'volumes:'
             - name: lvol01
               size: 128m
               mount_point: "/data"
@@ -180,7 +180,7 @@ Si può usare il role anche per creare LV formattati come 'swap space'
 
   roles:
     - name: redhat.rhel_system_roles.storage
-      storage_pools:
+     'storage_pools:'
         - name: vgswap
           type: lvm
           disks:
