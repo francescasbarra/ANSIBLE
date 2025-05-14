@@ -29,6 +29,7 @@ In the following example, the task shown uses at to schedule the userdel -r temp
 
 'count' numero intero di unità a partire da ora in cui il processo deve essere eseguito
 'units' specifica se il conteggio 'count' è misurato in minuti/ore/giorni/settimane
+'unique' se settato true, se è già presente un job uguale il nuovo non viene aggiunto
 
 --------------------
 

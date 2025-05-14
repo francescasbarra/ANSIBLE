@@ -27,7 +27,7 @@ To create a user that can log in to the machine, you need to provide a hashed pa
 
 il modulo 'ansible.builtin.user' può essere usato per generare chiavi SSH se usati insieme al paramentro 'generate_ssh_key'
 
-- name: Create an SSH key for user1
+-'name: Create an SSH key for user1'
   ansible.builtin.user:
     name: user1
     generate_ssh_key: true 
@@ -38,7 +38,7 @@ il modulo 'ansible.builtin.user' può essere usato per generare chiavi SSH se us
 
 'generate_ssh_key: true' specifica se generare la chiave, non sovrascrive chiave esistente a meno che non sia specificato il paramentro 'force' insime a true
 'ssh_key_bits: 2048' imposta il numero dei bit nella nuova chiave
-'ssh_key_file' specifica il nome del file per la nuova chiave privata SSH (quella pubblica aggiunge '.pub' come suffisso)
+'ssh_key_file' specifica il nome del file per la # nuova chiave privata SSH (quella pubblica aggiunge '.pub' come suffisso)
 
 ----------------------
 
@@ -93,7 +93,7 @@ The following example demonstrates how to use the 'lookup plug-in' to populate t
 
 
 
-'lookup' è un plugin che serve per leggere dati da fuori (cioè da file, variabili esterne, comandi, ecc.) e usarli nei tuoi playbook.
+'lookup' # è un plugin che serve per leggere dati da fuori (cioè da file, variabili esterne, comandi, ecc.) e usarli nei tuoi playbook.
 
 key: "{{ lookup('ansible.builtin.file', 'pubkeys/serverb') }}"
 # lookup('file', 'percorso') = leggi il contenuto del file e usalo come valore.
@@ -101,7 +101,7 @@ key: "{{ lookup('ansible.builtin.file', 'pubkeys/serverb') }}"
 Significa: Leggi il contenuto del file pubkeys/serverb e mettilo qui come valore della chiave key."
 
 In questo caso:
-Il modulo known_hosts sta aggiungendo una chiave pubblica SSH al file /etc/ssh/ssh_known_hosts sul server remoto.
+# Il modulo known_hosts sta aggiungendo una chiave pubblica SSH al file /etc/ssh/ssh_known_hosts sul server remoto.
 
 La chiave viene presa da un file all’interno del progetto Ansible (nella cartella pubkeys).
 
