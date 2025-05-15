@@ -23,7 +23,14 @@ network_connections:
         - 172.25.250.30/24
 
 
-# network_provider 
-variable configures the back-end provider, either nm (NetworkManager) or initscripts. On Red Hat Enterprise Linux 7 and later, use nm as the default networking provider.
+the # network_provider 
+variable configures the back-end provider, either 'nm (NetworkManager)' or initscripts (old rhel version). 
+From RHEL 7 on, use 'nm' as the default networking provider.
 
+
+the # network_connections variable configure the different connections.
+- It takes as a value a list of dictionaries, each of which represents settings for a specific connection. 
+# Use the interface name as the connection name.
+
+'network_commections variables'
 
