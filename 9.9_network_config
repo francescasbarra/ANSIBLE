@@ -32,5 +32,26 @@ the # network_connections variable configure the different connections.
 - It takes as a value a list of dictionaries, each of which represents settings for a specific connection. 
 # Use the interface name as the connection name.
 
-'network_commections variables'
+Opzioni della variabile 'network_connections'
+'name' per Network Manager identifica il profilo di connessione (l opzione 'connection.id'). Per initscripts identifica il nome del file di configurazione ('/etc/sysconfig/network-scripts/ifcfg-NAME')
+
+'state' lo stato di runtime del profilo di connessione, attivo o meno 'up/down'
+
+'persistent_state' identifica se il profilo è persistente 'present/absent'(di default present)
+
+'type' tipo di connessione (ethernet, bridge, bond, team, vlan, macvlan, infiniband, and wireless)
+
+'autoconnect' determina se la connessione si avvia automaticamente, di default è settato su yes
+
+'mac' limita la connessione ai dispositivi con un MAC specifico
+
+'interface_name' limita il profilo di connessione a una specifica interfaccia 
+
+'zone' configura la firewalld per l'interfaccia
+
+'ip' determina la config IP per la connessione. 
+Supporta le opzioni 
+     'address' per specificare una lista di indirizzi sull interfaccia,     'gateway' per specificare indirizzo router
+     'dns' per specificare una lista di server dns
+
 
