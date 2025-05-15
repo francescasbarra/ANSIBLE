@@ -55,3 +55,150 @@ Supporta le opzioni
      'dns' per specificare una lista di server dns
 
 
+# la variavile IP a sua volta ha delle variabili
+
+# This is a minimal example network_connections variable to configure and immediately activate a static IPv4 address for the enp1s0 interface:
+
+network_connections:
+- name: enp1s0
+  type: ethernet
+  ip:
+    address:
+      - 192.0.2.25/24
+    state: up
+
+
+# The next example temporarily deactivates an existing network interface:
+
+network_connections:
+- name: enp1s0
+  type: ethernet
+  state: down
+
+
+# To delete the configuration for enp1s0 entirely, you would write the variable as follows:
+
+network_connections:
+- name: enp1s0
+  type: ethernet
+  state: down
+  persistent_state: absent
+
+--------------------------
+
+
+# The following example play sets network_connections as a play variable and then calls the redhat.rhel_system_roles.network role:
+
+- name: NIC Configuration
+  hosts: webservers
+  vars:
+    network_connections:
+      - name: ens4
+        type: ethernet
+        ip:
+          address:
+            - 172.25.250.30/24
+  roles:
+    - redhat.rhel_system_roles.network
+
+
+
+------------------------------
+
+# CONFIGURING NETWORKING WITH MODULES
+
+Oltre al role si possono usare moduli per configurare hostname e firewall
+
+'ansible.builtin.hostname' imposta l'hostname per un host gestito senz amodificare il file /etc/hosts
+
+- name: Change hostname
+  ansible.builtin.hostname:
+    name: managedhost1
+
+
+'ansible.posix.firewalld' gestisce firewalld sugli hosts, la config delle regole firewalld per servizi e porte
+
+# The following task shows how to create a firewalld rule for the http service on the default zone (public). The following task configures the rule as permanent, and makes sure it is active:
+
+- name: Enabling http rule
+  ansible.posix.firewalld:
+    service: http
+    permanent: true
+    state: enabled
+
+
+# This following task configures the eth0 in the external firewalld zone:
+
+- name: Moving eth0 to external
+  ansible.posix.firewalld:
+    zone: external
+    interface: eth0
+    permanent: true
+    state: enabled
+
+
+...
+
+
+
+--------------------------
+
+# ANSIBLE FACTS FOR NETWORK CONFIGURATION
+
+Ansible colleziona molti facts relativi alla configurazione della rete degli hosts
+
+es. # ansible_facts['interfaces'] lista interfacce di un host
+
+# The following playbook gathers and displays the available interfaces for a host:
+
+---
+- name: Obtain interface facts
+  hosts: host.lab.example.com
+
+  tasks:
+    - name: Display interface facts
+      ansible.builtin.debug:
+        var: ansible_facts['interfaces']
+
+
+
+# You can retrieve additional information about the configuration for a specific network interface from the ansible_facts['NIC_name'] fact. For example, the following play displays the configuration for the eth0 network interface by printing the value of the ansible_facts['eth0'] fact.
+
+- name: Obtain eth0 facts
+  hosts: host.lab.example.com
+
+  tasks:
+    - name: Display eth0 facts
+      ansible.builtin.debug:
+        var: ansible_facts['eth0']
+
+
+------------------------------
+
+
+Important
+Different managed hosts might have different network interface names, depending on their hardware and software configuration. Ansible facts can help you identify differences between systems so that you can address or mitigate them in your automation.
+
+
+Fact name	       
+ansible_facts['dns'] A list of the DNS name server IP addresses and the search domains.
+
+ansible_facts['domain']	The subdomain for the managed host.
+
+ansible_facts['all_ipv4_addresses']	All the IPv4 addresses configured on the managed host.
+
+ansible_facts['all_ipv6_addresses']	All the IPv6 addresses configured on the managed host.
+
+ansible_facts['fqdn']	The fully qualified domain name (FQDN) of the managed host.
+
+ansible_facts['hostname']	The unqualified hostname (the part of the hostname before the first period in the FQDN).
+
+ansible_facts['nodename']	The hostname of the managed host as reported by the system.
+
+--------------------------
+
+
+Note
+Ansible also provides the inventory_hostname "magic variable" which includes the hostname as configured in the Ansible inventory file.
+
+
