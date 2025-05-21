@@ -4,7 +4,7 @@ legge "declared state" dal playbook e "current state" degli inventory hosts
 - se legge stati differenti va a sincronizzare a aggiornare lo stato degli hosts
 # sincronizza lo stato corrente dei sistemi con quelli dichiarati nei playbook
 
-# ansible--version
+# ansible --version
 mostra versione e info su ansible
 
 # config file = /etc/ansible/ansible.cfg
@@ -46,6 +46,9 @@ Ansible Navigator è un'interfaccia utente per Ansible che semplifica l'esecuzio
 prima si usavano ansible config, ansible inventory, ansible playbook
 # ora si usa ansible-navigator +playbook, ecc
 
+Ansible-navigator 'Automation Content Navigator' tool che sostituisce ed estende diverse funzionalità da riga di comando
+# Inoltre, separa il nodo di controllo su cui si esegue Ansible dall'automation Execution Environment che lo esegue, eseguendo i playbook in un CONTAINER. Questo semplifica la creazione di un ambiente di lavoro completo per il codice di automazione da distribuire in produzione.
+
 
 ---
 ansible usa container
@@ -53,7 +56,7 @@ ansible usa container
 
 # execution environment image, all'interno ci sono il software ansible, le collezioni ecc
 
-An automation execution environment is a container image that contains Ansible Core, Ansible Content Collections, and any Python libraries, executables, or other dependencies needed to run your playbook.
+'An automation execution environment is a container image that contains Ansible Core, Ansible Content Collections, and any Python libraries, executables, or other dependencies needed to run your playbook.'
 
 When you run a playbook with ansible-navigator, you can select an automation execution environment for it to use to run that playbook. When your code is working, you can provide the playbook and the automation execution environment to automation controller and know that it has everything needed to correctly run your playbook.
 
@@ -79,9 +82,9 @@ sudo dnf install -y ansible-navigator  installare/verificare ci sia ansible-navi
 ansible-navigator --version
   
 # ansible-navigator lavora con l'execution environment che ha un'immagine che deve essere scaricata dal registry
-podman login registry
+'podman login registry'
 
-ansible-navigator image (info sull'immagine)
+ansible-navigator images (info sull'immagine)
 
 # pull policy: missing (oppure always)
 quando c è 'missing' nel playbook non scarica ogni volta l'immagine dell execution environment quando mandi in run il playbook, lo fa solo quando non c è in locale

@@ -2,6 +2,9 @@ INSTALLING ANSIBLE
 
 
 # Ansible va installato su un solo computer, l'ansible controller
+#
+# Ansible si connette agli hosts usando il protocollo SSH ed esegue comandi per assicurarsi che siano nello stato desiderato
+
 
 Per installare Ansible necessario RHEL da 8.2 in poi e Python 3 da versione 3.5 o Python 2 da 2.7
 Python anche sugli hosts da controllare
@@ -36,6 +39,9 @@ In Ansible, i 'playbook' sono dei file in formato YAML che contengono una serie 
 
 un file yaml con tutte le istruzioni di configurazione e automazione
 "PLAYBOOK" costituito da uno o + "play" nei quali ci sono i "task"
+
+'playbook' file di testo che descrive lo stato desideraro di un'infrastruttura IT
+
 
 #PLAY 
 Un play è una sezione del playbook che descrive un insieme di azioni da eseguire su uno o più host. 
