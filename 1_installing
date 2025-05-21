@@ -109,7 +109,7 @@ Nel file di configurazione "ansible.cfg" (o anche in un inventario o playbook), 
 
 esempio
 
-[defaults]
+[privilege_escalation]
 become = true
 become_method = sudo
 become_user = root
@@ -130,7 +130,7 @@ become_user = root: diventa l’utente root (default).
 ---------------
 
 # LOOKUP plug in
-cerca info,serve per recuperare dati esterni e usarli nei playbook 
+cerca info, serve per recuperare dati esterni e usarli nei playbook 
 
 
 ---------------

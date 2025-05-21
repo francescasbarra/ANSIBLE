@@ -53,6 +53,7 @@ create: true (riguarda la creazione del file se non esiste già)
 
 
 # ansible-doc modulo (per consultare la documentazione di un det modulo, con esempi)
+# ansible-navigator doc -m stdout modulo
 
 # tree - F directory
 mostra la struttura ad albero della dir
@@ -65,7 +66,7 @@ nm tui (TUI Test User Interface)
 
 ------
 
-# SHIFT+v (seleziona varie righe) e 'canc' per cancellare 
+# SHIFT+v (seleziona varie righe) e 'canc' per cancellare oppure 'd' 
 
 src: dir/  (/ trailing slash, copia directory e tutto il contentuto)
 
