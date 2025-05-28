@@ -1,7 +1,7 @@
 IMPLEMENTING AN ANSIBLE PLAYBOOK
 
 
-Ansible controller - inventory plugin - Satellite - hosts
+# Ansible controller - inventory plugin - Satellite - hosts
 
 Satellite ha elenco degli host registrati
 Ansible controller comunica con Satellite attraverso inventory plugin e chiede lista hosts

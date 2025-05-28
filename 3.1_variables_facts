@@ -41,8 +41,9 @@ tasks:
 Una var può influenzare un singolo host o un gruppo di hosts
 
 #si possono inserire anche nel file di configurazione ansible
-# ansible-navigator run --extra-vars 
-per aggiungere variabili da riga di comando
+# ansible-navigator run --extra-vars "package=apache"
+per aggiungere variabili da riga di comando (dette 'extra variables')
+'ansible-navigator run playbook.yml -e "package=apache"'
 
 # COME DEFINIRE VARIABILI (dalla precedenza + bassa alla + alta)
 - var di 'gruppo' definite in 'inventory'

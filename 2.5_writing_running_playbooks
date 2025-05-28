@@ -61,12 +61,12 @@ comando per eseguire playbook
 ansible-navigator run nome.playbook
 ansible-navigator run -m stdout site.yaml
 # -m stdout 
-se si aggiunge questa opzione l'output viene visualizzato a schermo, altrimenti ansible navigator viene eseguiro in modalità interattiva
+se si aggiunge questa opzione l'output viene visualizzato a schermo, altrimenti ansible navigator viene eseguito in modalità interattiva
 
 --
 Quando si esegue il playbook, viene generato un output che mostra la riproduzione e le attività in esecuzione. L'output riporta anche i risultati di ciascuna attività eseguita.
 ---
-Increasing output verbosity
+# Increasing output verbosity
  -v fornisce info in +
 ---
 
@@ -76,7 +76,7 @@ ansible-navigator run -m stdout webserver.yml --syntax-check
 
 ----
 # DRY-RUN (--check)
-si può eseguire un playbook anche in dry-run, in check mode, il playbook non viene effttivamente eseguito ma vengono riportate le modifiche nel caso in cui venga eseguito il playbook, è una sorta di simulazione senza effetti.
+si può eseguire un playbook anche in dry-run, in check mode, il playbook non viene effettivamente eseguito ma vengono riportate le modifiche nel caso in cui venga eseguito il playbook, è una sorta di simulazione senza effetti.
 ---
 
 # ansible-navigator doc :help documentazione dei moduli, info ed esempi
@@ -189,9 +189,9 @@ elenca i moduli disponibili nell execution environment con info
 dà info dettagliate sul modulo
 
 
-# ansible-navigator collection list  (modalità interattiva, formato YAML)
+# ansible-navigator collections list  (modalità interattiva, formato YAML)
 elenca le collezioni disponibili nell exec env con i moduli associati
-(non interattiva= ansible-navigator collection list -m stdout, visualizza output a video)
+(non interattiva= ansible-navigator collections list -m stdout, visualizza output a video)
 
 Important
 The ansible-navigator doc -l command displays the short names of modules in the ansible.builtin Ansible Content Collection instead of their FQCNs.
@@ -230,10 +230,10 @@ anche in questo caso i comandi da eseguire vengono passati come argomenti del mo
     cmd: echo "nameserver 192.0.2.1" > /etc/resolv.conf
 
 
-Questi moduli richiedono python installato, in caso contratio si può usare il modulo
+Questi moduli richiedono python installato, in caso contrario si può usare il modulo
 # ansible.builtin.raw
 che esegue comandi usando direttamente shell remota
-(può essere amche usato per scaricare python su hosts)
+(può essere anche usato per scaricare python su hosts)
 
 
 
@@ -247,7 +247,7 @@ che esegue comandi usando direttamente shell remota
 possono essere usati anche i commenti # per dare maggiore leggibilità
 Le stringhe in YAML normalmente non devono essere racchiuse tra virgolette, anche se non contengono spazi. È possibile racchiudere le stringhe tra virgolette doppie o singole.
 
-#chiavi-valore possono essere espressi sia indentati che su un'unica riga (meno leggibile però)
+#coppie chiavi-valore possono essere espresse sia indentate che su un'unica riga (meno leggibile però)
 name: svcrole
   svcservice: httpd
   svcport: 80
