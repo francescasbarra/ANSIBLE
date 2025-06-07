@@ -62,7 +62,7 @@ se è necessario scaricare altre collezioni, si possono aggiungere alla sottodir
 
 Prima che i playbook possano usare i contenuti di una collection ci si deve assicurare che questa sia disponibile nell'execution environment.
 
-l impostazione 'collection_path' in 'ansible.cfg' specifica un elenco di path nel sistema dove ansible cerca le collezioni installate
+l impostazione 'collections_paths' in 'ansible.cfg' specifica un elenco di path nel sistema dove ansible cerca le collezioni installate
 
 -----
 
