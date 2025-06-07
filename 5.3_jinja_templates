@@ -11,7 +11,7 @@ in questo modo è più facile controllare ed è meno soggetto ad errori
 
 # Introduction to Jinja2
 
-Ansible usa il sistema di 'template Jinja2' per i template dei file,
+Ansible usa il sistema di 'template Jinja2' per i file template,
 usa anche la sintassi Jinja2 per fare riferimento alle var nei playbook
 
 # Using Delimiters
@@ -23,7 +23,7 @@ Quando viene valutato un modello Jinja2, l espressione '{{ EXPR }}' viene sostit
 
 In the following example of a Jinja2 template file, the first line includes a comment that is not included in the final file. The variable references in the second line are replaced with the values of the system facts being referenced.
 
-{# /etc/hosts line #}
+{# /etc/hosts line #}  #commento
 {{ ansible_facts['default_ipv4']['address'] }}    {{ ansible_facts['hostname'] }}
 
 ------
