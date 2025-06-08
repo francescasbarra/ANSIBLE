@@ -181,7 +181,7 @@ il contenuto viene caricato subito, al momento del parsing del playbook (prima d
 
 ----------------------------------
 
-# INCLUDE - include_* (es. include_tasks, include_playbook)
+# INCLUDE - include_* (es. include_tasks)
 - Caricamento dinamico → il contenuto viene caricato solo durante l'esecuzione, quando il task viene raggiunto.
 
 - 'sì condizioni' Può usare condizioni (when, with_items, loop, ecc.).
