@@ -157,6 +157,13 @@ In the following example, the value of the result variable is placed in the depl
 {% endif %}
 
 
+# altrimenti
+# {% elif condizione}
+  ....
+# {% endif %}
+
+
+
 -------------------
 
 # Variable Filters  
