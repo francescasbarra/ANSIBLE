@@ -149,6 +149,7 @@ For a more practical example, you can use this example to generate an /etc/hosts
 -----------------
 
 # Using Conditionals
+'if'
 
 In the following example, the value of the result variable is placed in the deployed file only if the value of the finished variable is True.
 

@@ -100,7 +100,7 @@ Important
       ansible.builtin.include_tasks: webserver_tasks.yml
 
 
-il modulo di inclusione non elabora il contenuto del playbook finchè finchè non viene raggiunta quella parte del play
+il modulo di inclusione non elabora il contenuto del playbook finchè non viene raggiunta quella parte del play
 
 - When using the ansible.builtin.include_tasks module, conditional statements such as when set on the include determine whether the tasks are included in the play at all.
 
@@ -110,6 +110,13 @@ The tasks that include the task files are displayed.
 By comparison, the ansible.builtin.import_tasks module would not list tasks that import task files, but instead would list the individual tasks from the imported task files.
 
 - You cannot use ansible-navigator run --start-at-task to start playbook execution from a task that is in an included task file.
+
+(ITA)
+Con ansible-navigator run --list-tasks, vengono mostrati solo i task presenti nel playbook principale: i file di task inclusi con include_tasks non vengono espansi nell’elenco; compare solo il task che li include.
+Al contrario, se usi ansible.builtin.import_tasks, il comando elenca direttamente tutti i singoli task provenienti dai file importati, mentre il task di importazione non appare.
+
+Inoltre, non puoi avviare l’esecuzione di un playbook da un task contenuto in un file incluso (con include_tasks) utilizzando ansible-navigator run --start-at-task
+
 
 -------------------------
 
