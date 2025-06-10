@@ -1,4 +1,5 @@
 # Simplifying Playbooks with Roles and Ansible Content Collections
+#
 
 'Role' è una struttura di directory che facilita la riusabilità del codice ansible
 
@@ -16,7 +17,7 @@ Un role ben scritto può accettare le variabili passate dal playbook e le variab
 
 - raggruppano i contenuti, consentendo una facile condivisione del codice con altri.
 
-- possono definite gli elementi essenziali di un tipo di sistema, come un server web, un server di database o un repository Git.
+- possono definire gli elementi essenziali di un tipo di sistema, come un server web, un server di database o un repository Git.
 
 - rendono gestibili i progetti + grandi
 
@@ -129,8 +130,7 @@ Si può definire una var specifica in vars/main.yml o default/main.yml ma non in
 Usare le var di default quando possono essere sovrascritte
 
 IMPORTANT i ruoli non dovrebbero contenere dati sensibili, password, ecc ma solo dati generici in quando sono riutilizzabili e condivisibili
-I 'secret' vengono forniti ai ruoli in altri modi + sicuri, non direttamente nei ruoli, ma nei ruoli vengono viene si viene indirizzati al file Ansible Vault che contiene il segreto.
-
+I 'secret' vengono forniti ai ruoli in altri modi + sicuri, non direttamente nei ruoli, ma nei ruoli vengono indirizzati al file Ansible Vault che contiene il segreto.
 ---------------------------
 
 # USO DEI ROLES ANSIBLE NEI PLAY
