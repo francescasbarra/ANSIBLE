@@ -37,7 +37,7 @@ per info e documentazione
 ansible-galaxy role search 'redis' --platforms EL 
 (per cercare roles che possono essere installati nel sito di ansible-galaxy)
 
-ansible-galaxy info nome.role
+'ansible-galaxy info nome.role'
 
 -----------------------
 
