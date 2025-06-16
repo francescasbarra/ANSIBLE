@@ -96,7 +96,7 @@ One way to avoid the need to specify -p roles is to apply the following setting 
 
 The open source Ansible community operates a public server, https://galaxy.ansible.com, that contains roles and Ansible Content Collections shared by other Ansible users.
 
-warning i roles gestiti dalla community ansible non sono supportati da RedHat, quindi potrebbero essere rischiosi da usare.
+warning 'i roles gestiti dalla community ansible non sono supportati da RedHat, quindi potrebbero essere rischiosi da usare.'
 
 # Browsing Ansible Galaxy for Roles
 
