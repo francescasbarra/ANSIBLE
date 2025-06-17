@@ -90,16 +90,22 @@ ansible-galaxy collection install git@git.example.com:organization/repo_name.git
 
 # Installing Ansible Content Collections with a Requirements File
 
+anche le collections si possono scaricare da un requirements.yml file come per i roles
+
+è come un dizionario:
+
+---
+collections: #chiave
+  - name: community.crypto 
+
+  - name: ansible.posix
+    version: 1.2.0 3
+
+  - name: /tmp/community-dns-1.2.0.tar.gz  #installa collection da uno specifico archivio tar locale
+
+  - name: http://www.example.com/redhat-insights-1.0.5.tar.gz #installa collection dall'archivio tar all'URL remoto specificato.
+
+  - name: git+https://github.com/ansible-collections/community.general.git #installa collection da repository
+    version: main
 
 
-
-
-
-
-
-
-
-
-
-
- 
