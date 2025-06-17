@@ -4,7 +4,7 @@
 
 # Debugging Playbooks
 
-L'output del comando asnible-navigator run è già un buon punto di partenza per risolvere i problemi dei playbook
+L'output del comando ansible-navigator run è già un buon punto di partenza per risolvere i problemi dei playbook
 
 # i risultati dei tasks possono essere:
 'ok'
@@ -33,7 +33,7 @@ modulo 'ansible.builtin.debug'
 
 per ottenere info su quanto accade nel play
 per visualizzare il valore di una det variabile in un punto specifico del play
-Questo può aiutare a eseguire il debug di attività che utilizzano variabili per comunicare tra loro (ad esempio, utilizzando l'output di un'attività come input per quella successiva).
+Questo può aiutare a eseguire il debug di attività che utilizzano variabili per comunicare tra loro (ad esempio, utilizzando l output di un'attività come input per quella successiva).
 
 Il modulo ansible.builtin.debug serve semplicemente per stampare messaggi a video durante l'esecuzione di un playbook Ansible. È utile per mostrare il valore di variabili o dare informazioni su cosa sta succedendo.
 
@@ -63,10 +63,10 @@ ansible-navigator run -m stdout playbook.yml --syntax-check
 verifica la presenza di errori di sintassi anzichè eseguire effettivamente il playbook
 
 # Checking a Given Task in a Playbook
-'--step'
+'--step' ti fa decidere se eseguire o skippare il task
 ansible-navigator run -m stdout playbook.yml --step --pae false  
 
-Richiede in modo interattivo la conferma dell'esecuzione di ogni attività. 
+# Richiede in modo interattivo la conferma dell'esecuzione di ogni attività. 
 Premi Y per confermare l esecuzione dell'attività, N per saltarla o C per continuare l esecuzione delle attività rimanenti
 
 Important
