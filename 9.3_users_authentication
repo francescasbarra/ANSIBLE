@@ -62,7 +62,7 @@ state=present/absent
 
 # THE KNOWN HOSTS MODULE
 
-'ansible.builtin.known hosts' gestisce le chiavi ssh degli hosts (aggiunge/rimuove)
+'ansible.builtin.known_hosts' gestisce le chiavi ssh degli hosts (aggiunge/rimuove)
 
 Ciò garantisce che gli host possano stabilire automaticamente l autenticità delle connessioni SSH ad altri host, assicurando che agli utenti non venga richiesto di verificare la fingerprint SSH di un host remoto la prima volta che si connettono ad esso.
 
