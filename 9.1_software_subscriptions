@@ -28,12 +28,12 @@ note
 you must prefix 'group names with the at sign (@)'. Remember that you can retrieve the list of groups with the dnf group list command.
 
 ansible.builtin.dnf:
-    name: '@Development Tools' 1
+    name: '@Development Tools' 
     state: present
 
 
-# ansible-navigator doc ansible.builtin.dnf command for additional parameters and playbook examples.
-
+# ansible-navigator doc ansible.builtin.dnf command for additional parameters and playbook examples. (così in modalità interattiva, aggiungere -m stdout)
+'ansible-navigator doc -m stdout ansible.builtin.dnf'
 
 -------------------------------
 
@@ -234,7 +234,7 @@ gpgcheck=true you need to install GPG key on the hosts
 
 #per installare la chiave gpg si usa
 'ansible.builtin.rpm_key' deploys the GPG public key hosted on a remote web server to the servera.lab.example.com managed host.
-
+'(distribuisce sui managed hosts la chiave pubblica gpg ospitata su un server remoto)'
 ---
 - name: Configure the company YUM/DNF repositories
   hosts: servera.lab.example.com
