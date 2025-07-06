@@ -57,7 +57,7 @@ Parametri della var 'storage_volumes'
 'type' deve essere 'disk'
 'disks' Deve essere un elenco di un solo elemento: il dispositivo a blocchi non partizionato
 'mount_point' dir sulla quale viene montato il file system
-'fstype' tipo di fs (xfs, ext4, swap)
+'fs_type' tipo di fs (xfs, ext4, swap)
 'mount_options' Opzioni di montaggio personalizzate, come ro o rw
 
 
@@ -80,8 +80,9 @@ Parametri della var 'storage_volumes'
 
 -------------------------
 
-# MANAGING LVM WITH THE STORAGE ROLEM
+# MANAGING LVM WITH THE STORAGE ROLE
 
+# VOLUME GROUP
 Per creare un 'LVM VOLUME GROUP' con il ruolo redhat.rhel_system_roles.storage si deve definire 
 la var 'storage_pools' contiene una lista di pools (volume groups) da gestire
 
@@ -116,7 +117,7 @@ The disks option only supports unpartitioned block devices for your LVM physical
 
 # TO CREATE A LOGICAL VOLUME
 
-Per creare un LV popolare la var 'volumes', annidata sotto la var 'storage_pools' con un elenco di LV e relativi parametri
+Per creare un LV, popolare la var 'volumes', annidata sotto la var 'storage_pools' con un elenco di LV e relativi parametri
 Ogni elemento nell elenco è un dizionario che rappresenta un singolo LV all'interno della var storage_pools
 
 'name'
